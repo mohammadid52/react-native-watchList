@@ -1,4 +1,4 @@
 import Home from './Home';
-import Settings from './Settings';
-import Watched from './Watched';
+import Settings from './Watched';
+import Watched from './Settings';
 export {Home, Settings, Watched};

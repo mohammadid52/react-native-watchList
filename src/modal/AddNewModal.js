@@ -9,12 +9,10 @@ import {
   TextInput,
   TouchableOpacity,
   StatusBar,
-  ScrollView,
-  KeyboardAvoidingView,
-  SafeAreaView,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {useTabBar} from '../context/TabBarProvider';
 import {BackButton} from '../components';
@@ -23,16 +21,18 @@ import {addMovie} from '../helpers';
 
 const {height, width} = Dimensions.get('screen');
 const topGutter = 70;
-const modalHeight = height - topGutter;
+const modalHeight = height - 200 - topGutter;
 const inputWidth = width - topGutter;
 
 export default ({navigation}) => {
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
+
   const [dateTime, setDateTime] = useState({
     date: '',
     time: '',
   });
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
@@ -55,8 +55,8 @@ export default ({navigation}) => {
       createdAt: moment().format('lll'),
       isWatched: false,
       title,
-      toWatchAt: dateTime.date,
-      watchTime: dateTime.time,
+      toWatchAt: dateTime.date || moment().format('ll'),
+      watchTime: dateTime.time || moment().format('LT'),
       userId: 'j4fA81iLv6Czjs1Jh9fo',
     };
     addMovie(movie).then(() => {
@@ -64,7 +64,7 @@ export default ({navigation}) => {
       hideModal();
       setTitle('');
       setDateTime({
-        date: '',
+        data: '',
         time: '',
       });
     });
@@ -78,11 +78,11 @@ export default ({navigation}) => {
     setDatePickerVisibility(false);
   };
 
-  const handleDateConfirm = (datetime) => {
+  const handleDateConfirm = (_datetime) => {
     hideDatePicker();
     setDateTime({
-      date: moment(datetime).format('ll'),
-      time: moment(datetime).format('LT'),
+      date: moment(_datetime).format('ll'),
+      time: moment(_datetime).format('LT'),
     });
   };
 
@@ -106,7 +106,7 @@ export default ({navigation}) => {
             hideModal();
           }}
         />
-        <View style={{marginTop: 270}}>
+        <View style={{marginTop: 70}}>
           <Text style={styles.header}>Add Movie In Your Watch List</Text>
           <View style={styles.form}>
             <View style={styles.inputContainer}>
@@ -116,24 +116,39 @@ export default ({navigation}) => {
                 onChangeText={(text) => setTitle(text)}
                 placeholder="Title"
               />
-              <TouchableOpacity
-                onPress={showDatePicker}
-                style={[
-                  styles.btn,
-                  {marginBottom: 32, backgroundColor: colors.lightBlue},
-                ]}>
+              <View>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={showDatePicker}
+                  style={[
+                    styles.btn,
+                    {marginBottom: 0, backgroundColor: colors.lightBlue},
+                  ]}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontFamily: 'Poppins-Medium',
+                      fontSize: 17,
+                      textAlign: 'center',
+                    }}>
+                    {!dateTime.date && !dateTime.time
+                      ? 'Set Date'
+                      : ` On ${dateTime.date} At ${dateTime.time}`}
+                  </Text>
+                </TouchableOpacity>
+
                 <Text
                   style={{
-                    color: '#fff',
-                    fontFamily: 'Poppins-Medium',
-                    fontSize: 17,
-                    textAlign: 'center',
+                    marginBottom: 24,
+                    marginTop: 4,
+                    fontFamily: 'Poppins-LightItalic',
+                    color: '#000',
+                    fontSize: 11,
                   }}>
-                  {!dateTime.date && !dateTime.time
-                    ? 'Set Date'
-                    : `On ${dateTime.date} At ${dateTime.time}`}
+                  Leave Blank For Default Date
                 </Text>
-              </TouchableOpacity>
+              </View>
+
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="datetime"
@@ -141,7 +156,10 @@ export default ({navigation}) => {
                 onCancel={hideDatePicker}
               />
 
-              <TouchableOpacity style={styles.btn} onPress={handlePress}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btn}
+                onPress={handlePress}>
                 <Text
                   style={{
                     color: '#fff',
@@ -202,7 +220,3 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-
-{
-  /*  */
-}

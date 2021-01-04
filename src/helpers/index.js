@@ -30,3 +30,11 @@ export const reminderAction = async (
     console.error(error);
   }
 };
+
+export const deleteMovie = async (movieId: String) => {
+  try {
+    await firebase.firestore().collection('movies').doc(movieId).delete();
+  } catch (error) {
+    console.error(error);
+  }
+};

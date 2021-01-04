@@ -1,7 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, Dimensions, Switch} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Switch,
+  TouchableOpacity,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import moment from 'moment';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {BackButton} from '../components';
 import {colors} from '../constants';
@@ -9,22 +17,27 @@ import {
   handleCancelNotifications,
   showScheduledNotification,
 } from '../Notifications';
-import {reminderAction} from '../helpers';
+import {reminderAction, deleteMovie} from '../helpers';
 
 const {height} = Dimensions.get('screen');
 const modalHeight = height / 1.8;
 
 const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
   const {toWatchAt, watchTime, isReminderOn, movieId, isWatched, title} = data;
-
   const hideModal = () => setModalIsVisible(false);
+
+  const handleDelete = (movieId) => {
+    deleteMovie(movieId).then(() => {
+      hideModal();
+    });
+  };
 
   return (
     <Modal
       animationIn="slideInUp"
       animationInTiming={600}
       animationOut="slideOutDown"
-      animationOutTiming={800}
+      animationOutTiming={300}
       backdropTransitionInTiming={300}
       backdropTransitionOutTiming={300}
       backdropColor="#000"
@@ -86,6 +99,27 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
               Added On: {moment(data.createdAt, 'lll').format('ll')}
             </Text>
           </View>
+          <TouchableOpacity
+            onPress={() => handleDelete(movieId)}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: colors.lightRed,
+              padding: 4,
+              borderRadius: 6,
+              paddingHorizontal: 8,
+            }}>
+            <AntDesign name="delete" size={20} color={colors.red} />
+            <Text
+              style={{
+                marginLeft: 10,
+                fontFamily: 'Poppins-SemiBoldItalic',
+                color: colors.red,
+              }}>
+              Delete Movie
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -112,7 +146,7 @@ const styles = StyleSheet.create({
     height: modalHeight,
   },
   mainContent: {
-    marginTop: 70,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },

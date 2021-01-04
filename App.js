@@ -12,25 +12,12 @@ import useReminders from './src/hooks/useReminders';
 import {showScheduledNotification} from './src/Notifications';
 
 const App = () => {
-  // const {reminderOnMovies} = useReminders();
-
-  // useEffect(() => {
-  //   const unsubsribe = reminderOnMovies.forEach((movie) => {
-  //     showScheduledNotification(
-  //       'My Watch List',
-  //       `It't time to watch ${movie.title}`,
-  //       moment(movie.toWatchAt, 'lll').toDate(),
-  //     );
-  //   });
-  //   return () => unsubsribe;
-  // }, []);
-
   return (
     <NavigationContainer>
       <MoviesProvider>
         <SeletedtTimeProvider>
           <TabBarProvider>
-            <StatusBar backgroundColor={colors.green} />
+            <StatusBar backgroundColor={colors.sharpRed} />
             <BottomNavigator />
           </TabBarProvider>
         </SeletedtTimeProvider>

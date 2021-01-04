@@ -9,14 +9,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import {colors} from '../constants';
 import {watchAction} from '../helpers';
 import {MovieModal} from '../modal';
-
-const {width} = Dimensions.get('screen');
-
-const cardWidth = width - 20;
 
 const Card = ({list}) => {
   const [isModalVisible, setIsModalIsVisible] = useState(false);
@@ -24,10 +21,15 @@ const Card = ({list}) => {
   const handleCheck = (movieId, currentValue) => {
     watchAction(movieId, currentValue);
   };
+  const onRightSwipe = () => {
+    <View>
+      <Text>Delete</Text>
+    </View>;
+  };
 
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      activeOpacity={0.8}
       onLongPress={() => setIsModalIsVisible(true)}
       style={styles.Card}>
       <MovieModal
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    elevation: 1,
   },
   cardContent: {},
   title: {

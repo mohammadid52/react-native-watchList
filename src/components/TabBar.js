@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, Dimensions, View, Animated} from 'react-native';
 
 import {Tab} from '.';
+import {colors} from '../constants';
 import {useTabBar} from '../context/TabBarProvider';
 
 const {width} = Dimensions.get('screen');
@@ -11,15 +12,11 @@ const TabBar = ({state, navigation}) => {
     showTabBar,
     isModalVisible,
     setModalIsVisible,
-    selected,
     setSelected,
   } = useTabBar();
   const {routes} = state;
 
   const animationValue = useRef(new Animated.Value(0)).current;
-
-  const renderColor = (currentTab) =>
-    currentTab === selected ? '#16c79a' : '#bbb';
 
   const handlePress = (routeName, index) => {
     if (state.index !== index) {
@@ -59,7 +56,6 @@ const TabBar = ({state, navigation}) => {
           <Tab
             tab={route}
             onPress={() => handlePress(route.name, index)}
-            color={renderColor(route.name)}
             key={route.key}
           />
         ))}
@@ -72,13 +68,15 @@ export default TabBar;
 const styles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 30,
     width,
     alignItems: 'center',
     justifyContent: 'center',
   },
   container: {
-    backgroundColor: '#393e46',
+    height: 45,
+    elevation: 10,
+    backgroundColor: colors.black,
     flexDirection: 'row',
     width: 300,
     justifyContent: 'space-between',

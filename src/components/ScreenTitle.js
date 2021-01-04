@@ -15,7 +15,7 @@ export default ScreenTitle;
 const styles = StyleSheet.create({
   header: {
     height: 100,
-    backgroundColor: colors.green,
+    backgroundColor: colors.sharpRed,
   },
   headerTitle: {
     fontSize: 30,
