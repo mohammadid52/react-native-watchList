@@ -16,6 +16,8 @@ target 'WatchList' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
+
   target 'WatchListTests' do
     inherit! :complete
     # Pods for testing

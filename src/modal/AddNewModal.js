@@ -13,6 +13,7 @@ import {
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import CheckBox from '@react-native-community/checkbox';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 import {useTabBar} from '../context/TabBarProvider';
@@ -28,13 +29,12 @@ const inputWidth = width - topGutter;
 export default ({navigation}) => {
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isWebseries, setIsWebseries] = useState(false);
   const [dateTime, setDateTime] = useState({
     date: '',
     time: '',
   });
-
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
   const hideModal = () => {
@@ -42,6 +42,7 @@ export default ({navigation}) => {
     navigation.navigate('HomeStack');
     setModalIsVisible(false);
     setTitle('');
+    setIsWebseries(false);
     setDateTime({
       data: '',
       time: '',
@@ -60,6 +61,7 @@ export default ({navigation}) => {
       id: randomId(),
       createdAt: moment().format('lll'),
       isWatched: false,
+      isWebseries,
       title,
       toWatchAt: dateTime.date || moment().format('ll'),
       watchTime: dateTime.time || moment().format('LT'),
@@ -103,15 +105,22 @@ export default ({navigation}) => {
       backdropTransitionOutTiming={300}
       backdropColor="#000">
       <StatusBar backgroundColor={colors.textColor} />
-      <KeyboardAwareScrollView style={[styles.content, {height: modalHeight}]}>
+      <View style={[styles.content, {height: modalHeight}]}>
         <BackButton
           goBack={() => {
             hideModal();
           }}
         />
 
-        <View style={{marginTop: 70}}>
-          <Text style={styles.header}>Add Movie In Your Watch List</Text>
+        <View
+          style={{
+            marginTop: 70,
+            // height: modalHeight,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={styles.header}>Add Movie/Series In Your Watch List</Text>
           <View style={styles.form}>
             <View style={styles.inputContainer}>
               <TextInput
@@ -120,6 +129,21 @@ export default ({navigation}) => {
                 onChangeText={(text) => setTitle(text)}
                 placeholder="Title"
               />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 12,
+                }}>
+                <CheckBox
+                  tintColor={colors.red}
+                  tintColors={{true: colors.green, false: colors.darkBlue}}
+                  value={isWebseries}
+                  onValueChange={() => setIsWebseries(!isWebseries)}
+                />
+                <Text style={{fontFamily: 'Poppins-Regular'}}>Web Series?</Text>
+              </View>
+
               <View>
                 <TouchableOpacity
                   activeOpacity={0.8}
@@ -172,13 +196,17 @@ export default ({navigation}) => {
                     fontSize: 17,
                     textAlign: 'center',
                   }}>
-                  {loading ? 'Adding...' : 'Add Movie'}
+                  {loading
+                    ? 'Adding...'
+                    : isWebseries
+                    ? 'Add Web Series'
+                    : 'Add Movie'}
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-      </KeyboardAwareScrollView>
+      </View>
     </Modal>
   );
 };
@@ -197,14 +225,11 @@ const styles = StyleSheet.create({
   header: {
     marginVertical: 20,
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'Poppins-SemiBold',
   },
   inputContainer: {
     paddingHorizontal: 32,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   input: {
     fontFamily: 'Poppins-Regular',
