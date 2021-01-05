@@ -2,10 +2,16 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {colors} from '../constants';
 
-const ScreenTitle = ({screenTitle, headerStyles, headerTitleStyles}) => {
+const ScreenTitle = ({screenTitle, height, backgroundColor}) => {
   return (
-    <View style={styles.header}>
-      <Text style={styles.headerTitle}>{screenTitle}</Text>
+    <View
+      style={{
+        height: height || 100,
+        backgroundColor: backgroundColor || colors.sharpRed,
+      }}>
+      <Text style={[styles.headerTitle, {lineHeight: height || 100}]}>
+        {screenTitle}
+      </Text>
     </View>
   );
 };
@@ -13,14 +19,9 @@ const ScreenTitle = ({screenTitle, headerStyles, headerTitleStyles}) => {
 export default ScreenTitle;
 
 const styles = StyleSheet.create({
-  header: {
-    height: 100,
-    backgroundColor: colors.sharpRed,
-  },
   headerTitle: {
     fontSize: 30,
     textAlign: 'center',
-    lineHeight: 100,
     color: '#fff',
     fontFamily: 'Poppins-SemiBold',
   },

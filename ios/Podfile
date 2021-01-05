@@ -14,6 +14,8 @@ target 'WatchList' do
 
   pod 'react-native-uuid-generator', :path => '../node_modules/react-native-uuid-generator'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'WatchListTests' do
     inherit! :complete
     # Pods for testing

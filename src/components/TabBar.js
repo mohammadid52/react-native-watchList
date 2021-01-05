@@ -19,13 +19,16 @@ const TabBar = ({state, navigation}) => {
   const animationValue = useRef(new Animated.Value(0)).current;
 
   const handlePress = (routeName, index) => {
-    if (state.index !== index) {
-      if (routeName === 'Add') {
-        setModalIsVisible(!isModalVisible);
-      }
-      setSelected(routeName);
-      navigation.navigate(routeName);
+    if (routeName === 'Add') {
+      setModalIsVisible(!isModalVisible);
     }
+    if (routeName === 'HomeStack') {
+      setSelected(routeName);
+      navigation.navigate('Home');
+    }
+
+    setSelected(routeName);
+    navigation.navigate(routeName);
   };
 
   const toggleAnimatedTabBar = () => {
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     height: 45,
     elevation: 10,
-    backgroundColor: colors.black,
+    backgroundColor: colors.textColor,
     flexDirection: 'row',
     width: 300,
     justifyContent: 'space-between',

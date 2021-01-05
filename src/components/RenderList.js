@@ -1,14 +1,17 @@
+import {capitalize} from 'lodash';
 import React from 'react';
 import {FlatList, StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {colors} from '../constants';
 import {useTabBar} from '../context/TabBarProvider';
 import {Card} from '../design';
 
-const RenderList = ({data = [], listTitle, slice, day = 'Today'}) => {
-  const renderHeader = `Total ${data.length} Movie${
-    data.length > 1 ? 's' : ''
-  } To Watch ${day}`;
-  const {setShowTabBar} = useTabBar();
-
+const RenderList = ({data = [], listTitle, slice, route}) => {
+  const renderHeader =
+    route !== 'Watched'
+      ? `Total ${data.length} Movie${
+          data.length > 1 ? 's' : ''
+        } To Watch ${capitalize(route)}`
+      : `Movies You've Watched`;
   return (
     data.length > 0 && (
       <View style={styles.container}>
@@ -19,7 +22,8 @@ const RenderList = ({data = [], listTitle, slice, day = 'Today'}) => {
           data={
             !slice ? data : data.length > slice ? data.slice(0, slice) : data
           }
-          keyExtractor={(item) => item.movieId}
+          extraData={route}
+          keyExtractor={(item) => item.id}
           renderItem={({item}) => <Card list={item} />}
         />
       </View>
@@ -30,7 +34,7 @@ const RenderList = ({data = [], listTitle, slice, day = 'Today'}) => {
 export default RenderList;
 const styles = StyleSheet.create({
   container: {
-    margin: 7,
+    margin: 10,
   },
   header: {
     marginBottom: 8,

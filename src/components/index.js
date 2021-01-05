@@ -5,6 +5,7 @@ import BackButton from './BackButton';
 import RenderList from './RenderList';
 import ScreenTitle from './ScreenTitle';
 import Empty from './Empty';
+import HeaderHome from './Header.Home';
 
 export {
   TabBar,
@@ -14,4 +15,5 @@ export {
   RenderList,
   ScreenTitle,
   Empty,
+  HeaderHome,
 };

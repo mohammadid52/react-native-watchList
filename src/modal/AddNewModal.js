@@ -13,6 +13,7 @@ import {
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 import {useTabBar} from '../context/TabBarProvider';
 import {BackButton} from '../components';
@@ -37,9 +38,14 @@ export default ({navigation}) => {
 
   const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
   const hideModal = () => {
-    navigation.navigate('Home');
-    setSelected('Home');
+    setSelected('HomeStack');
+    navigation.navigate('HomeStack');
     setModalIsVisible(false);
+    setTitle('');
+    setDateTime({
+      data: '',
+      time: '',
+    });
   };
   const handlePress = () => {
     setLoading(true);
@@ -59,15 +65,12 @@ export default ({navigation}) => {
       watchTime: dateTime.time || moment().format('LT'),
       userId: 'j4fA81iLv6Czjs1Jh9fo',
     };
-    addMovie(movie).then(() => {
-      setLoading(false);
-      hideModal();
-      setTitle('');
-      setDateTime({
-        data: '',
-        time: '',
-      });
-    });
+    addMovie(movie)
+      .then(() => {
+        setLoading(false);
+        hideModal();
+      })
+      .catch((err) => console.error(err));
   };
 
   const showDatePicker = () => {
@@ -99,13 +102,14 @@ export default ({navigation}) => {
       backdropTransitionInTiming={300}
       backdropTransitionOutTiming={300}
       backdropColor="#000">
-      <StatusBar backgroundColor={colors.lightBlue} />
-      <View style={styles.content}>
+      <StatusBar backgroundColor={colors.textColor} />
+      <KeyboardAwareScrollView style={[styles.content, {height: modalHeight}]}>
         <BackButton
           goBack={() => {
             hideModal();
           }}
         />
+
         <View style={{marginTop: 70}}>
           <Text style={styles.header}>Add Movie In Your Watch List</Text>
           <View style={styles.form}>
@@ -122,7 +126,7 @@ export default ({navigation}) => {
                   onPress={showDatePicker}
                   style={[
                     styles.btn,
-                    {marginBottom: 0, backgroundColor: colors.lightBlue},
+                    {marginTop: 0, backgroundColor: colors.textColor},
                   ]}>
                   <Text
                     style={{
@@ -137,16 +141,17 @@ export default ({navigation}) => {
                   </Text>
                 </TouchableOpacity>
 
-                <Text
-                  style={{
-                    marginBottom: 24,
-                    marginTop: 4,
-                    fontFamily: 'Poppins-LightItalic',
-                    color: '#000',
-                    fontSize: 11,
-                  }}>
-                  Leave Blank For Default Date
-                </Text>
+                {!dateTime.date && !dateTime.time && (
+                  <Text
+                    style={{
+                      marginTop: 4,
+                      fontFamily: 'Poppins-LightItalic',
+                      color: '#000',
+                      fontSize: 11,
+                    }}>
+                    Leave Blank For Default Date
+                  </Text>
+                )}
               </View>
 
               <DateTimePickerModal
@@ -158,7 +163,7 @@ export default ({navigation}) => {
 
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={styles.btn}
+                style={[styles.btn, {marginTop: 32}]}
                 onPress={handlePress}>
                 <Text
                   style={{
@@ -173,7 +178,7 @@ export default ({navigation}) => {
             </View>
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     </Modal>
   );
 };
@@ -188,7 +193,6 @@ const styles = StyleSheet.create({
     padding: 22,
     borderTopRightRadius: 17,
     borderTopLeftRadius: 17,
-    height: modalHeight,
   },
   header: {
     marginVertical: 20,
@@ -210,12 +214,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingHorizontal: 10,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.green,
+    borderColor: colors.darkBlue,
     marginBottom: 16,
   },
   btn: {
     width: inputWidth,
-    backgroundColor: colors.green,
+    backgroundColor: colors.sharpRed,
     borderRadius: 6,
     padding: 10,
   },

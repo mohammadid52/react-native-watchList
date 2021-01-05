@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import {colors} from '../constants';
 import {watchAction} from '../helpers';
@@ -29,7 +28,7 @@ const Card = ({list}) => {
 
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={0.6}
       onLongPress={() => setIsModalIsVisible(true)}
       style={styles.Card}>
       <MovieModal
@@ -63,8 +62,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginVertical: 10,
     borderRadius: 6,
-    borderLeftWidth: 6,
-    borderLeftColor: colors.lightBlue,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.sharpRed,
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',

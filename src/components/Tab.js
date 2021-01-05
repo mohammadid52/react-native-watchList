@@ -44,7 +44,7 @@ const Tab = ({onPress, tab}) => {
         return (
           <Ionicons
             name="time-outline"
-            size={renderSize(name)}
+            size={3 + renderSize(name)}
             color={renderColor(name)}
           />
         );

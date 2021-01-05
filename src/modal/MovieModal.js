@@ -34,12 +34,12 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
 
   return (
     <Modal
-      animationIn="slideInUp"
+      animationIn="zoomIn"
       animationInTiming={600}
-      animationOut="slideOutDown"
-      animationOutTiming={300}
+      animationOut="zoomOut"
+      animationOutTiming={500}
       backdropTransitionInTiming={300}
-      backdropTransitionOutTiming={300}
+      backdropTransitionOutTiming={500}
       backdropColor="#000"
       backdropOpacity={0.78}
       isVisible={isModalVisible}
@@ -94,11 +94,11 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
               />
             </View>
           )}
-          <View style={styles.textContainer}>
+          {/* <View style={styles.textContainer}>
             <Text style={styles.addedOn}>
               Added On: {moment(data.createdAt, 'lll').format('ll')}
             </Text>
-          </View>
+          </View> */}
           <TouchableOpacity
             onPress={() => handleDelete(movieId)}
             style={{
@@ -109,12 +109,13 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
               padding: 4,
               borderRadius: 6,
               paddingHorizontal: 8,
+              marginVertical: 12,
             }}>
             <AntDesign name="delete" size={20} color={colors.red} />
             <Text
               style={{
                 marginLeft: 10,
-                fontFamily: 'Poppins-SemiBoldItalic',
+                fontFamily: 'Poppins-SemiBold',
                 color: colors.red,
               }}>
               Delete Movie
@@ -136,8 +137,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   contentView: {
-    justifyContent: 'flex-end',
-    margin: 0,
+    justifyContent: 'center',
+    // margin: 0,
   },
   content: {
     backgroundColor: 'white',
@@ -146,9 +147,9 @@ const styles = StyleSheet.create({
     height: modalHeight,
   },
   mainContent: {
-    marginTop: 50,
+    marginTop: 40,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'baseline',
   },
   movieName: {
     marginVertical: 20,

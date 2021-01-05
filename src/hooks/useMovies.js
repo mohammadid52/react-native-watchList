@@ -5,7 +5,6 @@ import firebase from '../firebase';
 
 const useMovies = (time: String) => {
   const [movies, setMovies] = useState([]);
-  const [watchedMovies, setWatchedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,6 +23,8 @@ const useMovies = (time: String) => {
             '==',
             moment().add(1, 'day').format('ll'),
           )
+        : time === 'watched'
+        ? unsubscribe.where('isWatched', '==', true)
         : !time || time === 'all'
         ? unsubscribe.where('userId', '==', 'j4fA81iLv6Czjs1Jh9fo')
         : unsubscribe;
@@ -48,16 +49,15 @@ const useMovies = (time: String) => {
                 ) >= 0 &&
                 movie.isWatched !== true,
             )
-          : allMovies.filter((movie) => movie.isWatched !== true),
-      );
-      setWatchedMovies(allMovies.filter((movie) => movie.isWatched !== false));
-      setLoading(false);
+          : allMovies,
+      ),
+        setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  return {loading, movies, watchedMovies};
+  return {loading, movies};
 };
 
 export default useMovies;

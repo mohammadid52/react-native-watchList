@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const BackButton = ({goBack}) => {
+const BackButton = ({goBack = () => {}}): JSX.Element => {
   return (
     <TouchableOpacity style={styles.goBack} onPress={goBack}>
       <View>

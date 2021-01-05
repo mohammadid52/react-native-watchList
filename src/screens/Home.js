@@ -1,20 +1,24 @@
 import React from 'react';
-import {Text, View, StatusBar, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  StatusBar,
+  ActivityIndicator,
+  StyleSheet,
+} from 'react-native';
 
 import {
   AnimatedScrollView,
   ScreenTitle,
   RenderList,
   Empty,
+  HeaderHome,
 } from '../components';
 import {colors} from '../constants';
 import useMovies from '../hooks/useMovies';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const {loading, movies} = useMovies('all');
-  const {movies: todayMovies} = useMovies('today');
-  const {movies: tomorrowMovies} = useMovies('tomorrow');
-  const {movies: thisWeekMovies} = useMovies('this-week');
 
   if (loading) {
     return <ActivityIndicator size="small" color={colors.green} />;
@@ -22,7 +26,9 @@ const Home = () => {
 
   return (
     <AnimatedScrollView>
-      <ScreenTitle screenTitle="My Watch List" />
+      <StatusBar hidden />
+      {/* <ScreenTitle screenTitle="My Watch List" /> */}
+      <HeaderHome navigation={navigation} />
       {movies.length > 0 ? (
         <RenderList data={movies} day="All Movies" />
       ) : (
@@ -31,5 +37,7 @@ const Home = () => {
     </AnimatedScrollView>
   );
 };
+
+const styles = StyleSheet.create({});
 
 export default Home;

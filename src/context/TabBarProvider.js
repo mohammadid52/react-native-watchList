@@ -4,7 +4,7 @@ const TabBarContext = createContext();
 
 export default ({children}) => {
   const [isModalVisible, setModalIsVisible] = useState(false);
-  const [selected, setSelected] = useState('Home');
+  const [selected, setSelected] = useState('HomeStack');
   const [showTabBar, setShowTabBar] = useState(true);
   return (
     <TabBarContext.Provider

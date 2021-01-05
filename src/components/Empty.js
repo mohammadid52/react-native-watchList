@@ -14,7 +14,7 @@ const Empty = ({
       style={{
         justifyContent: 'center',
         alignItems: 'center',
-        height: height - 130,
+        height: home ? height - 130 : height,
       }}>
       <Image
         style={{height: 260, width: 200, resizeMode: 'contain'}}
@@ -37,7 +37,7 @@ const Empty = ({
           fontSize: 15,
           fontFamily: 'Poppins-Light',
         }}>
-        {subText}
+        Tip: {subText}
       </Text>
     </View>
   );
