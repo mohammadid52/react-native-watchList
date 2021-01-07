@@ -30,6 +30,7 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
 
   const handleDelete = (movieId) => {
     deleteMovie(movieId).then(() => {
+      Vibration.vibrate(100);
       hideModal();
     });
   };

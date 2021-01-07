@@ -38,9 +38,8 @@ const Content = ({route, navigation}) => {
         </>
       ) : (
         <>
-          <BackButton goBack={() => navigation.navigate('Home')} />
+          {/* <BackButton goBack={() => navigation.navigate('Home')} /> For Testing #2 */}
           <Empty
-            home={route.name === 'Tomorrow'}
             text={
               route.name === 'Watched'
                 ? 'You Have Not Watched Any Movies yet'

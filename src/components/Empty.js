@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import {colors} from '../constants';
 
 const Empty = ({
   text = 'No Data',
   subText,
-  home = true,
+  home = false,
   imgHeight,
   imgWidth,
 }) => {
@@ -12,17 +13,14 @@ const Empty = ({
   return (
     <View
       style={{
+        backgroundColor: colors.bgColor,
         justifyContent: 'center',
         alignItems: 'center',
-        height: home ? height - 130 : height,
+        height: home ? height - 350 : height,
       }}>
       <Image
         style={{height: 260, width: 200, resizeMode: 'contain'}}
-        source={
-          home
-            ? require('../assets/images/empty1.png')
-            : require('../assets/images/empty3.png')
-        }
+        source={require('../assets/images/empty3.png')}
       />
       <Text
         style={{

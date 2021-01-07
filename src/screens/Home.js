@@ -36,7 +36,11 @@ const Home = ({navigation}) => {
           data={orderBy(movies, 'createdAt', 'desc')}
         />
       ) : (
-        <Empty text="No Movies To Watch" subText="Click On + To Add Movie" />
+        <Empty
+          home
+          text="No Movies To Watch"
+          subText="Click On + To Add Movie"
+        />
       )}
     </AnimatedScrollView>
   );
