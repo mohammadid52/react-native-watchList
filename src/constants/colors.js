@@ -12,3 +12,13 @@ export default {
   white1: '#eeeeee',
   bgColor: '#f2f4fb',
 };
+
+export const darkTheme = {
+  PRIMARY_BG: '#222831',
+  PRIMARY_TEXT_COLOR: '#fff',
+};
+
+export const lightTheme = {
+  PRIMARY_BG: '#f2f4fb',
+  PRIMARY_TEXT_COLOR: '#222831',
+};
