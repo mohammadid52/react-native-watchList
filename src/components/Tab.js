@@ -1,9 +1,10 @@
-import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity, Animated} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
+
 import {useTabBar} from '../context/TabBarProvider';
 import {colors} from '../constants';
 
@@ -40,14 +41,6 @@ const Tab = ({onPress, tab}) => {
             color={renderColor(name)}
           />
         );
-      case 'Watched':
-        return (
-          <Ionicons
-            name="time-outline"
-            size={3 + renderSize(name)}
-            color={renderColor(name)}
-          />
-        );
       default:
         return (
           <Feather
@@ -58,9 +51,20 @@ const Tab = ({onPress, tab}) => {
         );
     }
   };
+
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.3}>
       {getIconSizeColor(tab.name)}
+      {tab.name === selected && (
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 1}}
+          colors={['#fc7e2f', '#f40552']}
+          style={styles.decorator}></LinearGradient>
+      )}
     </TouchableOpacity>
   );
 };
@@ -71,7 +75,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5,
+    position: 'relative',
+  },
+  decorator: {
+    position: 'absolute',
+    bottom: -7,
+    backgroundColor: colors.sharpRed,
+    width: 7,
+    borderRadius: 10,
+    height: 3,
   },
 });

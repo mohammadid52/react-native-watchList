@@ -71,20 +71,18 @@ export default TabBar;
 const styles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 25,
     width,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
-    height: 45,
-    elevation: 10,
+    height: 50,
+    elevation: 9,
     backgroundColor: colors.textColor,
-    flexDirection: 'row',
     width: 300,
-    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: 100,
     paddingHorizontal: 20,
-    paddingVertical: 5,
   },
 });

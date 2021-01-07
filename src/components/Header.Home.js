@@ -7,6 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import styled from 'styled-components';
 
 // ICONS
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -73,76 +74,80 @@ const Header = ({navigation}) => {
   const {setSelected} = useTabBar();
 
   return (
-    <LinearGradient
-      style={styles.headerCard}
+    <HeaderCard
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
       colors={['#fc7e2f', '#f40552']}>
       {cardArray.map((mainCard) => (
-        <View style={styles.row}>
+        <Row>
           {mainCard.map((card) => (
-            <TouchableOpacity
+            <Card
               activeOpacity={0.8}
               key={card.iconColor}
-              style={styles.card}
               onPress={() => {
                 navigation.navigate(card.routeName);
                 card.routeName === 'Settings' && setSelected('Settings');
               }}>
-              <View style={styles.innerCard}>
+              <InnerCard>
                 <card.iconPro
                   name={card.iconName}
                   size={card.routeName === 'Settings' ? 35 : 30}
                   color={card.iconColor}
                 />
-                <Text
-                  style={{
-                    fontSize: 11,
-                    fontFamily: 'Poppins-SemiBold',
-                    marginTop: 10,
-                    color: colors.textColor,
-                  }}>
-                  {card.text}
-                </Text>
-              </View>
-            </TouchableOpacity>
+                <StyledText>{card.text}</StyledText>
+              </InnerCard>
+            </Card>
           ))}
-        </View>
+        </Row>
       ))}
-    </LinearGradient>
+    </HeaderCard>
   );
 };
 
 export default Header;
 
-const styles = StyleSheet.create({
-  headerCard: {
-    backgroundColor: colors.darkRed,
-    flexDirection: 'column',
-    alignItems: 'center',
-    elevation: 14,
-    padding: 12,
-    marginBottom: 12,
-    borderRadius: 12,
-    margin: 12,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    width,
-  },
-  card: {
-    height: 70,
-    width: 70,
-    backgroundColor: '#fff',
-    marginVertical: 20,
-    borderRadius: 12,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  innerCard: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+const HeaderCard = styled(LinearGradient)`
+  background-color: ${colors.darkRed};
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12;
+  padding-right: 12;
+  padding-left: 12;
+  padding-bottom: 12;
+  margin-bottom: 12;
+  border-radius: 12;
+  margin-top: 12;
+  margin-right: 12;
+  margin-left: 12;
+  margin-bottom: 12;
+`;
+
+const Row = styled.View`
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: ${width};
+`;
+
+const Card = styled.TouchableOpacity`
+  height: 70;
+  width: 70;
+  background-color: #fff;
+  margin-top: 20;
+  margin-bottom: 20;
+  border-radius: 12;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const InnerCard = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledText = styled.Text`
+  font-size: 10;
+  font-family: 'Poppins-Light';
+  margin-top: 3;
+  color: ${colors.textColor};
+`;

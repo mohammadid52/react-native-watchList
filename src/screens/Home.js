@@ -1,3 +1,4 @@
+import {orderBy} from 'lodash';
 import React from 'react';
 import {
   Text,
@@ -15,6 +16,7 @@ import {
   HeaderHome,
 } from '../components';
 import {colors} from '../constants';
+
 import useMovies from '../hooks/useMovies';
 
 const Home = ({navigation}) => {
@@ -27,10 +29,12 @@ const Home = ({navigation}) => {
   return (
     <AnimatedScrollView>
       <StatusBar hidden />
-      {/* <ScreenTitle screenTitle="My Watch List" /> */}
       <HeaderHome navigation={navigation} />
       {movies.length > 0 ? (
-        <RenderList data={movies} day="All Movies" />
+        <RenderList
+          listTitle="All Movies And Web Series"
+          data={orderBy(movies, 'createdAt', 'desc')}
+        />
       ) : (
         <Empty text="No Movies To Watch" subText="Click On + To Add Movie" />
       )}

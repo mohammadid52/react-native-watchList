@@ -7,9 +7,10 @@ import {
   Switch,
   TouchableOpacity,
 } from 'react-native';
-import Modal from 'react-native-modal';
 import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import styled from 'styled-components';
+import Modal from 'react-native-modal';
 
 import {BackButton} from '../components';
 import {colors} from '../constants';
@@ -18,6 +19,7 @@ import {
   showScheduledNotification,
 } from '../Notifications';
 import {reminderAction, deleteMovie} from '../helpers';
+import {has} from 'lodash';
 
 const {height} = Dimensions.get('screen');
 const modalHeight = height / 1.8;
@@ -31,155 +33,157 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
       hideModal();
     });
   };
+  const isWebSeries = has(data, 'webSeries');
 
   return (
-    <Modal
-      animationIn="zoomIn"
-      animationInTiming={600}
-      animationOut="zoomOut"
-      animationOutTiming={500}
-      backdropTransitionInTiming={300}
-      backdropTransitionOutTiming={500}
-      backdropColor="#000"
-      backdropOpacity={0.78}
+    <ContentView
       isVisible={isModalVisible}
-      onBackdropPress={hideModal}
+      backdropOpacity={0.7}
+      swipeDirection="down"
+      useNativeDriver={true}
+      useNativeDriverForBackdrop={true}
       onBackButtonPress={hideModal}
-      style={styles.contentView}>
-      <View style={styles.content}>
-        <BackButton goBack={hideModal} />
-        <View style={styles.mainContent}>
-          <Text
-            style={[
-              styles.movieName,
-              {borderBottomWidth: 4, borderBottomColor: colors.green},
-            ]}>
-            {title}
-          </Text>
-          <View style={styles.textContainer}>
-            <Text style={styles.watchAt}>Watch At: {data.toWatchAt}</Text>
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.time}>Time: {data.watchTime}</Text>
-          </View>
-
+      onSwipeComplete={hideModal}
+      onBackdropPress={hideModal}>
+      <Content>
+        {/* <BackButton goBack={hideModal} />   ========For Testing========  */}
+        <Container>
+          <MovieNameText>{title}</MovieNameText>
           <View
-            style={[
-              styles.watched,
-              {
-                backgroundColor: data.isWatched
-                  ? colors.lightRed
-                  : colors.lightBlue2,
-              },
-            ]}>
-            <Text
-              style={{
-                color: isWatched ? colors.darkRed : colors.darkBlue,
-                fontFamily: 'Poppins-MediumItalic',
-              }}>
-              {data.isWatched ? 'Watched' : 'Not Watched'}
-            </Text>
+            style={{
+              backgroundColor: colors.textColor,
+              paddingHorizontal: 6,
+              paddingVertical: 2,
+              borderRadius: 4,
+              marginBottom: 10,
+            }}>
+            <OtherText>
+              {isWebSeries &&
+                `season ${data.webSeries.seasonNum} episode ${data.webSeries.episodeNum}`}
+            </OtherText>
           </View>
+          <TextContainer>
+            <WatchAtText>Time : {moment(toWatchAt).format('lll')}</WatchAtText>
+          </TextContainer>
+
+          <Watched isWatched={isWatched}>
+            <WatchedText isWatched={isWatched}>
+              {isWatched ? 'Watched' : 'Not Watched'}
+            </WatchedText>
+          </Watched>
 
           {!isWatched && (
-            <View style={styles.reminder}>
-              <Text style={{fontFamily: 'Poppins-Medium', color: '#000'}}>
-                Set Reminder :{' '}
-              </Text>
+            <Reminder>
+              <ReminderText>Set Reminder : </ReminderText>
               <Switch
                 trackColor={{false: colors.lightRed, true: colors.lightBlue2}}
                 thumbColor={isReminderOn ? colors.darkBlue : colors.red}
                 onValueChange={() => reminderAction(movieId, isReminderOn)}
                 value={isReminderOn}
               />
-            </View>
+            </Reminder>
           )}
-          {/* <View style={styles.textContainer}>
-            <Text style={styles.addedOn}>
-              Added On: {moment(data.createdAt, 'lll').format('ll')}
-            </Text>
-          </View> */}
-          <TouchableOpacity
-            onPress={() => handleDelete(movieId)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: colors.lightRed,
-              padding: 4,
-              borderRadius: 6,
-              paddingHorizontal: 8,
-              marginVertical: 12,
-            }}>
-            <AntDesign name="delete" size={20} color={colors.red} />
-            <Text
-              style={{
-                marginLeft: 10,
-                fontFamily: 'Poppins-SemiBold',
-                color: colors.red,
-              }}>
-              Delete Movie
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+
+          <Delete onPress={() => handleDelete(movieId)}>
+            <DeleteText>Delete</DeleteText>
+          </Delete>
+        </Container>
+      </Content>
+    </ContentView>
   );
 };
 
 export default MovieModal;
 
-const styles = StyleSheet.create({
-  reminder: {
-    marginTop: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  contentView: {
-    justifyContent: 'center',
-    // margin: 0,
-  },
-  content: {
-    backgroundColor: 'white',
-    padding: 22,
-    borderRadius: 17,
-    height: modalHeight,
-  },
-  mainContent: {
-    marginTop: 40,
-    justifyContent: 'center',
-    alignItems: 'baseline',
-  },
-  movieName: {
-    marginVertical: 20,
-    textAlign: 'center',
-    fontSize: 20,
-    fontFamily: 'Poppins-BoldItalic',
-    color: '#000',
-  },
-  addedOn: {
-    fontFamily: 'Poppins-Light',
-    color: colors.gray,
-  },
-  watchAt: {
-    fontFamily: 'Poppins-Medium',
-    color: '#000',
-    fontSize: 18,
-  },
-  time: {
-    fontFamily: 'Poppins-LightItalic',
-    fontSize: 18,
-    color: '#000',
-  },
-  textContainer: {
-    marginVertical: 4,
-  },
-  watched: {
-    backgroundColor: colors.lightBlue2,
-    padding: 4,
-    paddingHorizontal: 8,
-    borderRadius: 6,
-    marginVertical: 12,
-  },
-});
+const ContentView = styled(Modal)`
+  /* height: 100; */
+  justify-content: center;
+  align-items: center;
+`;
+
+const Content = styled.View`
+  background-color: #fff;
+  padding-top: 22;
+  padding-right: 22;
+  padding-left: 22;
+  padding-bottom: 22;
+  border-radius: 17;
+  /* height: ${modalHeight}; For Testing */
+  min-width: 250;
+`;
+
+const Container = styled.View`
+  /* margin-top: 40; For Testing */
+  justify-content: center;
+  align-items: center;
+`;
+
+const MovieNameText = styled.Text`
+  margin-top: 20;
+  margin-bottom: 10;
+  text-align: center;
+  font-size: 20;
+  font-family: 'Poppins-BoldItalic';
+  color: #000;
+  border-bottom-width: 4;
+  border-bottom-color: ${colors.green};
+`;
+const OtherText = styled.Text`
+  font-family: 'Poppins-SemiBold';
+  text-align: center;
+  color: ${colors.white1};
+  font-size: 13;
+`;
+
+const TextContainer = styled.Text`
+  margin-top: 4;
+  margin-bottom: 4;
+`;
+
+const WatchAtText = styled.Text`
+  font-family: 'Poppins-Medium';
+  font-size: 18;
+  color: #000;
+`;
+
+const Watched = styled.View`
+  padding-left: 8;
+  padding-right: 8;
+  padding-top: 4;
+  border-radius: 6;
+  margin-top: 12;
+  margin-bottom: 12;
+  background-color: ${(props) =>
+    props.isWatched ? colors.lightRed : colors.lightBlue2};
+`;
+
+const WatchedText = styled.Text`
+  color: ${(props) => (props.isWatched ? colors.darkRed : colors.darkBlue)};
+  font-family: 'Poppins-SemiBold';
+`;
+
+const Delete = styled.TouchableOpacity`
+  border-radius: 6;
+  margin-top: 6;
+  /* margin-bottom: 12; */
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const DeleteText = styled.Text`
+  font-family: 'Poppins-SemiBold';
+  color: ${colors.red};
+`;
+
+const ReminderText = styled.Text`
+  font-family: 'Poppins-Medium';
+  color: #000;
+`;
+
+const Reminder = styled.View`
+  margin-top: 12;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
