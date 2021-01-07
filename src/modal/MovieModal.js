@@ -49,19 +49,21 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
         {/* <BackButton goBack={hideModal} />   ========For Testing========  */}
         <Container>
           <MovieNameText>{title}</MovieNameText>
-          <View
-            style={{
-              backgroundColor: colors.textColor,
-              paddingHorizontal: 6,
-              paddingVertical: 2,
-              borderRadius: 4,
-              marginBottom: 10,
-            }}>
-            <OtherText>
-              {isWebSeries &&
-                `season ${data.webSeries.seasonNum} episode ${data.webSeries.episodeNum}`}
-            </OtherText>
-          </View>
+          {isWebSeries && (
+            <View
+              style={{
+                backgroundColor: colors.textColor,
+                paddingHorizontal: 6,
+                paddingVertical: 2,
+                borderRadius: 4,
+                marginBottom: 10,
+              }}>
+              <OtherText>
+                season {data.webSeries.seasonNum} episode{' '}
+                {data.webSeries.episodeNum}
+              </OtherText>
+            </View>
+          )}
           <TextContainer>
             <WatchAtText>Time : {moment(toWatchAt).format('lll')}</WatchAtText>
           </TextContainer>

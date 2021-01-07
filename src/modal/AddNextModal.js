@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, Dimensions} from 'react-native';
+import {ActivityIndicator, Dimensions, Vibration} from 'react-native';
 import Modal from 'react-native-modal';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -43,16 +43,21 @@ const AddNextModal = ({
       isVisible={visible}
       backdropOpacity={0.7}
       swipeDirection="down"
+      useNativeDriver={true}
+      useNativeDriverForBackdrop={true}
       onBackButtonPress={hideModal}
+      onBackdropPress={hideModal}
       onSwipeCancel={hideModal}>
       <ContentView>
         <Content>
           <NormalText>{title}</NormalText>
           <Confirm
             onPress={() => {
-              addMovie(webSeries);
-              watchAction();
-              hideModal();
+              addMovie(webSeries).then(() => {
+                Vibration.vibrate(100);
+                hideModal();
+                watchAction();
+              });
             }}>
             <ConfirmText>
               Add Season {data.seasonNum} Episode {data.episodeNum + 1}
@@ -65,7 +70,7 @@ const AddNextModal = ({
             }}
             style={{backgroundColor: '#fff'}}>
             <ConfirmText
-              style={{color: colors.darkRed, fontFamily: 'Poppins-SemiBold'}}>
+              style={{color: colors.red, fontFamily: 'Poppins-SemiBold'}}>
               I Don't Want To Add
             </ConfirmText>
           </Confirm>

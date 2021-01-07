@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ActivityIndicator,
+  Vibration,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Modal from 'react-native-modal';
@@ -110,6 +111,7 @@ export default ({navigation}) => {
       .then(() => {
         setLoading(false);
         hideModal();
+        Vibration.vibrate(100);
       })
       .catch((err) => console.error(err));
   };
