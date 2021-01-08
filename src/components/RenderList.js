@@ -1,6 +1,7 @@
 import {capitalize} from 'lodash';
 import React from 'react';
 import {FlatList, StyleSheet, Text, View, SafeAreaView} from 'react-native';
+
 import {colors} from '../constants';
 import {useTabBar} from '../context/TabBarProvider';
 import {Card} from '../design';

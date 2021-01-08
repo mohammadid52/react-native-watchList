@@ -88,3 +88,34 @@ export function getDate(_date = 'Tonight (9PM)') {
   }
   return 'undefined date. Please check defaultDate';
 }
+
+export const login = async (credentials = {}, errorCB = () => {}) => {
+  try {
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(credentials.email, credentials.password);
+  } catch (error) {
+    errorCB(error.message);
+    console.error(error);
+  }
+};
+
+export const signUp = async (credentials = {}, errorCB = () => {}) => {
+  try {
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(credentials.email, credentials.password);
+  } catch (error) {
+    errorCB(error.message);
+    console.error(error);
+  }
+};
+
+export const logOut = async () => {
+  try {
+    await firebase.auth().signOut();
+  } catch (error) {
+    errorCB(error.message);
+    console.error(error);
+  }
+};

@@ -50,9 +50,9 @@ const Card = ({list}) => {
         />
       )}
       <StyledCard
-        underlayColor="#e8eae6"
+        underlayColor="#fafafa"
         onLongPress={() => setAutoAddNextModal(!autoAddNextModal)}
-        activeOpacity={0.9}
+        activeOpacity={1}
         onPress={() => setMovieModalVisible(true)}>
         <CardContainer>
           <View>

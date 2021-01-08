@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {StatusBar, LogBox} from 'react-native';
 import moment from 'moment';
 
-import {BottomNavigator} from './src/navigations';
+import {AppStack} from './src/navigations';
 import {colors} from './src/constants';
 import TabBarProvider from './src/context/TabBarProvider';
 
@@ -13,7 +13,7 @@ const App = () => {
     <NavigationContainer>
       <TabBarProvider>
         <StatusBar backgroundColor={colors.sharpRed} />
-        <BottomNavigator />
+        <AppStack user={false} />
       </TabBarProvider>
     </NavigationContainer>
   );

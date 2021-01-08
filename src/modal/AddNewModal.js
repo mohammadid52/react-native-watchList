@@ -257,6 +257,11 @@ const WebInputContainer = styled(Container)`
 const WebInput = styled(Input)`
   width: ${inputWidth / 2.1};
 `;
+
+const WebInputRow = styled(WebInput)`
+  width: ${inputWidth / 2.1};
+  margin-right: 8;
+`;
 const Button = styled(TouchableOpacity)`
   width: ${inputWidth};
   border-radius: 6;
