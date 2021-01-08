@@ -16,9 +16,11 @@ import {watchAction} from '../helpers';
 import {MovieModal, AddNextModal, AutoAddNextModal} from '../modal';
 
 const Card = ({list}) => {
+  // modals
   const [movieModalVisible, setMovieModalVisible] = useState(false);
   const [addNextModal, setAddNextModal] = useState(false);
   const [autoAddNextModal, setAutoAddNextModal] = useState(false);
+
   const isWebSeries = has(list, 'webSeries');
 
   const handleWatchAction =
@@ -40,14 +42,17 @@ const Card = ({list}) => {
         hideModal={() => setAddNextModal(false)}
         data={isWebSeries ? list.webSeries : {}}
       />
-      <AutoAddNextModal
-        hideModal={() => setAutoAddNextModal(false)}
-        isModalVisible={autoAddNextModal}
-        data={list}
-      />
+      {isWebSeries && (
+        <AutoAddNextModal
+          hideModal={() => setAutoAddNextModal(false)}
+          isModalVisible={autoAddNextModal}
+          data={list}
+        />
+      )}
       <StyledCard
+        underlayColor="#e8eae6"
         onLongPress={() => setAutoAddNextModal(!autoAddNextModal)}
-        activeOpacity={0.3}
+        activeOpacity={0.9}
         onPress={() => setMovieModalVisible(true)}>
         <CardContainer>
           <View>
@@ -59,8 +64,8 @@ const Card = ({list}) => {
 
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             {!isWebSeries ? (
-              <WebSeriesCard>
-                <WebSeriesText>Movie</WebSeriesText>
+              <WebSeriesCard movie>
+                <WebSeriesText movie>Movie</WebSeriesText>
               </WebSeriesCard>
             ) : (
               <WebSeriesCardContainer>
@@ -126,8 +131,8 @@ const TimeText = styled(StyledText)`
 `;
 
 const WebSeriesText = styled.Text`
-  font-family: 'Poppins-Regular';
-  color: ${colors.darkBlue};
+  font-family: 'Poppins-Medium';
+  color: ${(props) => (props.movie ? colors.green : colors.darkBlue)};
 `;
 
 const WebSeriesCard = styled.View`
@@ -136,7 +141,8 @@ const WebSeriesCard = styled.View`
   padding-top: 1;
   padding-bottom: 1;
   border-radius: 6;
-  background-color: ${colors.lightBlue2};
+  background-color: ${(props) =>
+    props.movie ? colors.lightGreen : colors.lightBlue2};
   margin-right: 10;
 `;
 
