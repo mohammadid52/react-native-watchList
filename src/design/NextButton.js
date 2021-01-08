@@ -1,9 +1,9 @@
 import React, {useRef} from 'react';
 import styled from 'styled-components';
 import {View, Animated} from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 
-const NextButton = ({text, goTo}) => {
+const NextButton = ({text, onPress}) => {
   const animationValue = useRef(new Animated.Value(0)).current;
 
   Animated.sequence([
@@ -21,9 +21,9 @@ const NextButton = ({text, goTo}) => {
 
   return (
     <Button
-      onPress={goTo}
+      onPress={onPress}
       style={{
-        padding: 8,
+        paddingVertical: 5,
         paddingHorizontal: 40,
         transform: [{translateY: animationValue}],
       }}>
@@ -31,7 +31,7 @@ const NextButton = ({text, goTo}) => {
         <StyledText>{text}</StyledText>
       </View>
       <View style={{marginTop: -4}}>
-        <EvilIcons name="chevron-right" size={30} color="#f5f6f9" />
+        <Entypo name="chevron-small-right" size={30} color="#f5f6f9" />
       </View>
     </Button>
   );

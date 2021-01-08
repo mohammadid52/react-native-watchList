@@ -1,6 +1,6 @@
 import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/firestore';
-import '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA6d0IbXEUPbEvRXg5nw_ZPKcDYPYSD2CQ',
@@ -16,4 +16,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-export default firebase;
+export {firebase as default, auth};

@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import firebase, {auth} from '../firebase';
 import moment from 'moment';
 
 export const watchAction = async (movieId: String, currentValue: Boolean) => {
@@ -91,9 +91,10 @@ export function getDate(_date = 'Tonight (9PM)') {
 
 export const login = async (credentials = {}, errorCB = () => {}) => {
   try {
-    await firebase
-      .auth()
-      .signInWithEmailAndPassword(credentials.email, credentials.password);
+    await auth().signInWithEmailAndPassword(
+      credentials.email,
+      credentials.password,
+    );
   } catch (error) {
     errorCB(error.message);
     console.error(error);
@@ -102,9 +103,13 @@ export const login = async (credentials = {}, errorCB = () => {}) => {
 
 export const signUp = async (credentials = {}, errorCB = () => {}) => {
   try {
-    await firebase
-      .auth()
-      .createUserWithEmailAndPassword(credentials.email, credentials.password);
+    const createdProfile = await auth().createUserWithEmailAndPassword(
+      credentials.email,
+      credentials.password,
+    );
+    await createdProfile.user.updateProfile({
+      displayName: credentials.username,
+    });
   } catch (error) {
     errorCB(error.message);
     console.error(error);
@@ -113,7 +118,7 @@ export const signUp = async (credentials = {}, errorCB = () => {}) => {
 
 export const logOut = async () => {
   try {
-    await firebase.auth().signOut();
+    await auth().signOut();
   } catch (error) {
     errorCB(error.message);
     console.error(error);

@@ -19,7 +19,7 @@ const GetStarted = ({navigation}) => {
         time with entertainment
       </SubText>
       <NextButton
-        goTo={() => navigation.navigate('Login')}
+        onPress={() => navigation.navigate('Login')}
         text={'Get Started'}
       />
     </Container>

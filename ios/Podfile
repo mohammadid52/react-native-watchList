@@ -18,6 +18,8 @@ target 'WatchList' do
 
   pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
 
+  pod 'RNFBAuth', :path => '../node_modules/@react-native-firebase/auth'
+
   target 'WatchListTests' do
     inherit! :complete
     # Pods for testing

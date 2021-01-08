@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Feather from 'react-native-vector-icons/Feather';
+import {Dimensions} from 'react-native';
+const {width} = Dimensions.get('screen');
 
 const StyledInput = ({
   icon,
