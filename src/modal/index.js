@@ -1,4 +1,5 @@
 import AddNewModal from './AddNewModal';
 import AddNextModal from './AddNextModal';
 import MovieModal from './MovieModal';
-export {AddNewModal, MovieModal, AddNextModal};
+import AutoAddNextModal from './AutoAddNextModal';
+export {AddNewModal, MovieModal, AddNextModal, AutoAddNextModal};

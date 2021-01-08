@@ -23,7 +23,7 @@ const RenderList = ({data = [], listTitle, slice, route}) => {
             !slice ? data : data.length > slice ? data.slice(0, slice) : data
           }
           extraData={route}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.movieId}
           renderItem={({item}) => <Card list={item} />}
         />
       </View>

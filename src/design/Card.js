@@ -13,11 +13,12 @@ import styled from 'styled-components';
 
 import {colors} from '../constants';
 import {watchAction} from '../helpers';
-import {MovieModal, AddNextModal} from '../modal';
+import {MovieModal, AddNextModal, AutoAddNextModal} from '../modal';
 
 const Card = ({list}) => {
   const [movieModalVisible, setMovieModalVisible] = useState(false);
   const [addNextModal, setAddNextModal] = useState(false);
+  const [autoAddNextModal, setAutoAddNextModal] = useState(false);
   const isWebSeries = has(list, 'webSeries');
 
   const handleWatchAction =
@@ -26,7 +27,7 @@ const Card = ({list}) => {
       : () => watchAction(list.movieId, list.isWatched);
 
   return (
-    <StyledCard activeOpacity={0.6} onPress={() => setMovieModalVisible(true)}>
+    <>
       <MovieModal
         isModalVisible={movieModalVisible}
         setModalIsVisible={setMovieModalVisible}
@@ -39,58 +40,61 @@ const Card = ({list}) => {
         hideModal={() => setAddNextModal(false)}
         data={isWebSeries ? list.webSeries : {}}
       />
-      <View>
-        <StyledText>{list.title}</StyledText>
-        <TimeText>
-          {list.toWatchAt} {list.watchTime}
-        </TimeText>
-      </View>
-      {/* {isWebSeries && (
-        <WebSeriesCardContainer>
-          <WebSeriesCard>
-            <WebSeriesText>Season: {list.webSeries.seasonNum}</WebSeriesText>
-          </WebSeriesCard>
-          <WebSeriesCard style={{backgroundColor: colors.lightRed}}>
-            <WebSeriesText style={{color: colors.red}}>
-              Episode: {list.webSeries.episodeNum}
-            </WebSeriesText>
-          </WebSeriesCard>
-        </WebSeriesCardContainer>
-      )} */}
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        {!isWebSeries ? (
-          <WebSeriesCard>
-            <WebSeriesText>Movie</WebSeriesText>
-          </WebSeriesCard>
-        ) : (
-          <WebSeriesCardContainer>
-            <WebSeriesCard>
-              <WebSeriesText>Season: {list.webSeries.seasonNum}</WebSeriesText>
-            </WebSeriesCard>
-            <WebSeriesCard style={{backgroundColor: colors.lightRed}}>
-              <WebSeriesText style={{color: colors.red}}>
-                Episode: {list.webSeries.episodeNum}
-              </WebSeriesText>
-            </WebSeriesCard>
-          </WebSeriesCardContainer>
-        )}
+      <AutoAddNextModal
+        hideModal={() => setAutoAddNextModal(false)}
+        isModalVisible={autoAddNextModal}
+        data={list}
+      />
+      <StyledCard
+        onLongPress={() => setAutoAddNextModal(!autoAddNextModal)}
+        activeOpacity={0.3}
+        onPress={() => setMovieModalVisible(true)}>
+        <CardContainer>
+          <View>
+            <StyledText>{list.title}</StyledText>
+            <TimeText>
+              {list.toWatchAt} {list.watchTime}
+            </TimeText>
+          </View>
 
-        <TouchableHighlight style={{marginLeft: 12}}>
-          <AntDesign
-            size={20}
-            color={list.isWatched ? colors.red : colors.gray}
-            onPress={() => handleWatchAction()}
-            name={list.isWatched ? 'checksquare' : 'checksquareo'}
-          />
-        </TouchableHighlight>
-      </View>
-    </StyledCard>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            {!isWebSeries ? (
+              <WebSeriesCard>
+                <WebSeriesText>Movie</WebSeriesText>
+              </WebSeriesCard>
+            ) : (
+              <WebSeriesCardContainer>
+                <WebSeriesCard>
+                  <WebSeriesText>
+                    Season: {list.webSeries.seasonNum}
+                  </WebSeriesText>
+                </WebSeriesCard>
+                <WebSeriesCard style={{backgroundColor: colors.lightRed}}>
+                  <WebSeriesText style={{color: colors.red}}>
+                    Episode: {list.webSeries.episodeNum}
+                  </WebSeriesText>
+                </WebSeriesCard>
+              </WebSeriesCardContainer>
+            )}
+
+            <TouchableHighlight style={{marginLeft: 12}}>
+              <AntDesign
+                size={20}
+                color={list.isWatched ? colors.red : colors.gray}
+                onPress={() => handleWatchAction()}
+                name={list.isWatched ? 'checksquare' : 'checksquareo'}
+              />
+            </TouchableHighlight>
+          </View>
+        </CardContainer>
+      </StyledCard>
+    </>
   );
 };
 
 export default Card;
 
-const StyledCard = styled.TouchableOpacity`
+const StyledCard = styled.TouchableHighlight`
   height: 70;
   background-color: #fff;
   margin-top: 10;
@@ -98,6 +102,9 @@ const StyledCard = styled.TouchableOpacity`
   border-radius: 6;
   border-left-width: 4;
   border-left-color: ${colors.sharpRed};
+`;
+
+const CardContainer = styled.View`
   padding-top: 10;
   padding-right: 10;
   padding-left: 10;

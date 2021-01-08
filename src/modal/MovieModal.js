@@ -6,6 +6,7 @@ import {
   Dimensions,
   Switch,
   TouchableOpacity,
+  Vibration,
 } from 'react-native';
 import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
