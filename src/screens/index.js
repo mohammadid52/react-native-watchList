@@ -5,7 +5,8 @@ import Settings from './Settings';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import GetStarted from './Auth/GetStarted';
+import Loading from './Auth/Loading';
 
-const Auth = {Login, Signup, GetStarted};
+const Auth = {Login, Signup, GetStarted, Loading};
 
 export {Home, Settings, Watched, Content, Auth};

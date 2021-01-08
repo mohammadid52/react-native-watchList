@@ -51,6 +51,7 @@ export const AppStack = ({user}) =>
     </Tab.Navigator>
   ) : (
     <AuthStack.Navigator headerMode="none" initialRouteName="Get_Started">
+      <AuthStack.Screen name="Loading" component={Auth.Loading} />
       <AuthStack.Screen
         name="Get_Started"
         component={Auth.GetStarted}

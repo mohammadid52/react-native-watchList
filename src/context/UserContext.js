@@ -4,6 +4,10 @@ const UserContext = createContext();
 
 export default ({children, data}) => {
   const [user, setUser] = useState(data);
+  useEffect(() => {
+    const unsubscribe = setUser(data);
+    return () => unsubscribe;
+  }, [data, user]);
 
   return (
     <UserContext.Provider

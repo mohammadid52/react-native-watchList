@@ -23,7 +23,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    auth().onAuthStateChanged(onAuthStateChanged);
+    const unsub = auth().onAuthStateChanged(onAuthStateChanged);
+    return () => unsub();
   }, []);
 
   return (

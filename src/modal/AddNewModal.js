@@ -25,6 +25,7 @@ import {BackButton} from '../components';
 import {colors} from '../constants';
 import {addMovie, getDate} from '../helpers';
 import useSettings from '../hooks/useSettings';
+import {useAuth} from '../context/UserContext';
 
 const {height, width} = Dimensions.get('screen');
 const topGutter = 70;
@@ -50,6 +51,7 @@ export default ({navigation}) => {
   const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
 
   const {settings} = useSettings();
+  const {user} = useAuth();
 
   const hideModal = () => {
     setSelected('HomeStack');
@@ -97,7 +99,7 @@ export default ({navigation}) => {
       title,
       toWatchAt: dateTime.date || getDate(defaultDate).toWatchAt,
       watchTime: dateTime.time || getDate(defaultDate).watchTime,
-      userId: 'j4fA81iLv6Czjs1Jh9fo',
+      userId: user.uid,
     };
     const webSeries = {
       ...movie,

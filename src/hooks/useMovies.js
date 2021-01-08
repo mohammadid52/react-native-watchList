@@ -2,10 +2,12 @@ import {useState, useContext, createContext, useEffect} from 'react';
 import moment from 'moment';
 
 import firebase from '../firebase';
+import {useAuth} from '../context/UserContext';
 
 const useMovies = (time: String) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {user} = useAuth();
 
   useEffect(() => {
     let unsubscribe = firebase
