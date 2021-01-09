@@ -67,7 +67,7 @@ const Settings = () => {
         <View style={{marginVertical: 15}}>
           <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>Hey,</Text>
           <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>
-            Mohammad
+            {/* Mohammad */}
           </Text>
         </View>
         <View style={styles.item}>
