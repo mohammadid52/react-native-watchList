@@ -1,5 +1,17 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
-  rules: [('react-native/no-inline-styles': 0)],
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: ['plugin:react/recommended', 'airbnb', '@react-native-community'],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  plugins: ['react'],
+  rules: {},
 };
