@@ -1,15 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {useAuth} from '../../context/UserContext';
 
 const Loading = ({navigation}) => {
-  const {user} = useAuth();
-  useEffect(() => {
-    navigation.navigate(user ? 'HomeStack' : 'Get_Started');
-  }, []);
-
   return (
-    <View>
+    <View style={{justifyContent: 'center', flex: 1, alignItems: 'center'}}>
       <Text>Loading</Text>
     </View>
   );

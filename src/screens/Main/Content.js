@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {BackButton, Empty, RenderList, ScreenTitle} from '../components';
-import useMovies from '../hooks/useMovies';
+import {BackButton, Empty, RenderList, ScreenTitle} from '../../components';
+import useMovies from '../../hooks/useMovies';
 
 const Content = ({route, navigation}) => {
   let dataKey = 'all';

@@ -63,11 +63,11 @@ export default Signup;
 
 const AlreadyAccount = styled.TouchableOpacity``;
 const AlreadyAccountText = styled.Text`
-  font-size: 15;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.7);
   font-family: 'Poppins-Light';
-  margin-top: 15;
-  margin-bottom: 15;
+  margin-top: 15px;
+  margin-bottom: 15px;
 `;
 
 const Container = styled.View`

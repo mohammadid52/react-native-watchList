@@ -24,6 +24,8 @@ const Login = ({navigation}) => {
 
   return (
     <Container style={{padding: 50}}>
+      <StatusBar backgroundColor="#181f3d" />
+
       <KeyboardAvoidingView behavior="position" enabled>
         <FormHeader style={{marginBottom: 12}}>Welcome Back</FormHeader>
         <FormHeader subheader>Fill your account details for login</FormHeader>
@@ -68,11 +70,11 @@ export default Login;
 const NoAccount = styled.TouchableOpacity``;
 
 const NoAccountText = styled.Text`
-  font-size: 13;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
   font-family: 'Poppins-Light';
-  margin-top: 15;
-  margin-bottom: 15;
+  margin-top: 15px;
+  margin-bottom: 15px;
   text-align: right;
 `;
 

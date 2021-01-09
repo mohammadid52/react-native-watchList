@@ -210,50 +210,47 @@ const ContentView = styled(Modal)`
 `;
 const Styledkeyboard = styled(KeyboardAwareScrollView)`
   background-color: #fff;
-  padding-left: 22;
-  padding-right: 22;
-  padding-top: 22;
-  padding-bottom: 22;
-  border-top-right-radius: 17;
-  border-top-left-radius: 17;
-  border-radius: 17;
+  padding: 22px;
+  border-top-right-radius: 17px;
+  border-top-left-radius: 17px;
+  border-radius: 17px;
 `;
 const Container = styled.View`
-  margin-top: 70;
+  margin-top: 70px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 const HeaderText = styled.Text`
-  margin-top: 20;
-  margin-bottom: 20;
+  margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
-  font-size: 18;
+  font-size: 18px;
   font-family: 'Poppins-SemiBold';
 `;
 const InputContainer = styled.View`
-  padding-left: 32;
-  padding-right: 32;
+  padding-left: 32px;
+  padding-right: 32px;
 `;
 const Input = styled.TextInput`
   font-family: 'Poppins-Regular';
   color: #000;
   width: ${inputWidth};
-  height: 48;
-  border-radius: 6;
-  padding-left: 10;
-  padding-right: 10;
+  height: 48px;
+  border-radius: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-width: ${StyleSheet.hairlineWidth};
   border-color: ${colors.darkBlue};
-  margin-bottom: 16;
+  margin-bottom: 16px;
 `;
 
 const WebInputContainer = styled(Container)`
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 10;
-  margin-top: 0;
-  padding-bottom: 10;
+  padding-top: 10px;
+  margin-top: 0px;
+  padding-bottom: 10px;
 `;
 
 const WebInput = styled(Input)`
@@ -262,20 +259,17 @@ const WebInput = styled(Input)`
 
 const WebInputRow = styled(WebInput)`
   width: ${inputWidth / 2.1};
-  margin-right: 8;
+  margin-right: 8px;
 `;
 const Button = styled(TouchableOpacity)`
   width: ${inputWidth};
-  border-radius: 6;
-  padding-left: 10;
-  padding-right: 10;
-  padding-top: 10;
-  padding-bottom: 10;
-  margin-top: 0;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 0px;
   background-color: ${colors.textColor};
 `;
 const AddButton = styled(Button)`
-  margin-top: 32;
+  margin-top: 32px;
   background-color: ${colors.sharpRed};
 `;
 const CheckBoxText = styled.Text`
@@ -284,23 +278,23 @@ const CheckBoxText = styled.Text`
 const CheckBoxContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 12;
+  margin-bottom: 12px;
 `;
 const DatePickerText = styled.Text`
   color: #fff;
   font-family: 'Poppins-Medium';
-  font-size: 17;
+  font-size: 17px;
   text-align: center;
 `;
 const LeaveText = styled.Text`
-  margin-top: 4;
+  margin-top: 4px;
   font-family: 'Poppins-LightItalic';
   color: #000;
-  font-size: 11;
+  font-size: 11px;
 `;
 const AddText = styled.Text`
   color: #fff;
   font-family: 'Poppins-Medium';
-  font-size: 17;
+  font-size: 17px;
   text-align: center;
 `;

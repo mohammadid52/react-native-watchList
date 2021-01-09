@@ -9,11 +9,11 @@ import {StatusBar} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-const HomeStack = createStackNavigator();
 const AuthStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
 const HomeNavigator = () => (
-  <HomeStack.Navigator headerMode="none" initialRouteName="Home">
+  <HomeStack.Navigator headerMode="none">
     <HomeStack.Screen name="Home" component={Home} />
     <HomeStack.Screen name="All" component={Content} />
     <HomeStack.Screen name="Today" component={Content} />

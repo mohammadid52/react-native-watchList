@@ -85,19 +85,16 @@ export default AddNextModal;
 const NormalText = styled.Text`
   color: #000;
   text-align: center;
-  font-size: 18;
+  font-size: 18px;
   font-family: 'Poppins-Medium';
 `;
 
 const Content = styled.View`
   background-color: #fff;
   /* height: 170; */
-  min-width: 250;
-  border-radius: 12;
-  padding-top: 12;
-  padding-right: 12;
-  padding-left: 12;
-  padding-bottom: 12;
+  min-width: 250px;
+  border-radius: 12px;
+  padding: 12px;
 `;
 
 const ContentView = styled.View`
@@ -106,16 +103,16 @@ const ContentView = styled.View`
 `;
 
 const Confirm = styled.TouchableOpacity`
-  height: 30;
+  height: 30px;
   background-color: ${colors.lightBlue2};
-  margin-bottom: 12;
-  margin-top: 12;
-  border-radius: 6;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  border-radius: 6px;
 `;
 const ConfirmText = styled.Text`
   font-family: 'Poppins-Regular';
   color: ${colors.darkBlue};
-  font-size: 16;
+  font-size: 16px;
   text-align: center;
-  line-height: 30;
+  line-height: 30px;
 `;

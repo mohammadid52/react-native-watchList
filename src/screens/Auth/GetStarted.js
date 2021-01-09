@@ -33,12 +33,12 @@ const GetStartedButton = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 6;
-  margin-top: 24;
+  border-radius: 6px;
+  margin-top: 24px;
 `;
 
 const StyledText = styled.Text`
-  font-size: 20;
+  font-size: 20px;
   color: #f5f6f9;
   font-family: 'Poppins-Regular';
 `;
@@ -51,19 +51,19 @@ const Container = styled(Animated.View)`
 `;
 
 const HeaderText = styled.Text`
-  font-size: 23;
+  font-size: 23px;
   color: #f5f6f9;
   font-family: 'Poppins-SemiBold';
-  margin-top: 30;
-  margin-bottom: 15;
+  margin-top: 30px;
+  margin-bottom: 15px;
   letter-spacing: 1;
 `;
 const SubText = styled.Text`
-  font-size: 14;
+  font-size: 14px;
   text-align: center;
   color: #f5f6f9;
   font-family: 'Poppins-Medium';
-  margin-top: 10;
+  margin-top: 10px;
   letter-spacing: 0.5;
 `;
 

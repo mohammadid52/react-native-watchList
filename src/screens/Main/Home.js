@@ -14,10 +14,10 @@ import {
   RenderList,
   Empty,
   HeaderHome,
-} from '../components';
-import {colors} from '../constants';
+} from '../../components';
+import {colors} from '../../constants';
 
-import useMovies from '../hooks/useMovies';
+import useMovies from '../../hooks/useMovies';
 
 const Home = ({navigation}) => {
   const {loading, movies} = useMovies('all');

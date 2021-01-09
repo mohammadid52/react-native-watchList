@@ -82,12 +82,9 @@ const ContentView = styled(Modal)`
 
 const Content = styled.View`
   background-color: #fff;
-  padding-top: 22;
-  padding-right: 22;
-  padding-left: 22;
-  padding-bottom: 22;
-  border-radius: 17;
-  min-width: 250;
+  padding: 22px;
+  border-radius: 17px;
+  min-width: 250px;
 `;
 
 const Container = styled.View`
@@ -97,11 +94,8 @@ const Container = styled.View`
 
 const Button = styled.TouchableOpacity`
   background-color: ${(props) => (props.cancel ? '#fff' : colors.lightBlue2)};
-  padding-left: 8;
-  padding-top: 3;
-  padding-bottom: 3;
-  padding-right: 8;
-  border-radius: 6;
+  padding: 3px 8px;
+  border-radius: 6px;
   margin-bottom: ${(props) => (props.cancel ? 0 : 12)};
 `;
 const StyledText = styled.Text`

@@ -36,20 +36,20 @@ const StyledInput = ({
 export default StyledInput;
 
 const Input = styled.View`
-  height: 50;
-  border-width: 1;
+  height: 50px;
+  border-width: 1px;
   background-color: #232c51;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 10;
-  margin-bottom: 15;
-  margin-top: 15;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 `;
 const TextInput = styled.TextInput`
-  font-size: 15;
+  font-size: 15px;
   font-family: 'Poppins-Regular';
   color: #fff;
-  height: 50;
+  height: 50px;
   width: ${width - 150};
 `;

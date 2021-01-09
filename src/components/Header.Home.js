@@ -110,16 +110,13 @@ const HeaderCard = styled(LinearGradient)`
   background-color: ${colors.darkRed};
   flex-direction: column;
   align-items: center;
-  padding-top: 12;
-  padding-right: 12;
-  padding-left: 12;
-  padding-bottom: 12;
-  margin-bottom: 12;
-  border-radius: 12;
-  margin-top: 12;
-  margin-right: 12;
-  margin-left: 12;
-  margin-bottom: 12;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  margin-top: 12px;
+  margin-right: 12px;
+  margin-left: 12px;
+  margin-bottom: 12px;
 `;
 
 const Row = styled.View`
@@ -129,12 +126,12 @@ const Row = styled.View`
 `;
 
 const Card = styled.TouchableOpacity`
-  height: 70;
-  width: 70;
+  height: 70px;
+  width: 70px;
   background-color: #fff;
-  margin-top: 20;
-  margin-bottom: 20;
-  border-radius: 12;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -146,8 +143,8 @@ const InnerCard = styled.View`
 `;
 
 const StyledText = styled.Text`
-  font-size: 10;
+  font-size: 10px;
   font-family: 'Poppins-Light';
-  margin-top: 3;
+  margin-top: 3px;
   color: ${colors.textColor};
 `;

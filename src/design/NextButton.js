@@ -45,12 +45,12 @@ const Button = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 6;
-  margin-top: 30;
+  border-radius: 6px;
+  margin-top: 30px;
 `;
 
 const StyledText = styled.Text`
-  font-size: 20;
+  font-size: 20px;
   color: #f5f6f9;
   font-family: 'Poppins-Regular';
 `;

@@ -10,10 +10,14 @@ import {
 } from 'react-native';
 import {debounce, findIndex} from 'lodash';
 
-import {ScreenTitle} from '../components';
-import {colors} from '../constants';
-import useSettings from '../hooks/useSettings';
-import {updateSettingsDarkMode, updateSettingsDefaultDate} from '../helpers';
+import {ScreenTitle} from '../../components';
+import {colors} from '../../constants';
+import useSettings from '../../hooks/useSettings';
+import {
+  updateSettingsDarkMode,
+  updateSettingsDefaultDate,
+  logOut,
+} from '../../helpers';
 
 const Settings = () => {
   const [opacity, setOpacity] = useState({darkMode: 1, defaultDate: 1});
@@ -108,6 +112,18 @@ const Settings = () => {
               </Text>
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={[styles.item, {justifyContent: 'center'}]}>
+          <TouchableOpacity onPress={() => logOut()}>
+            <Text
+              style={{
+                fontFamily: 'Poppins-SemiBold',
+                fontSize: 18,
+                color: colors.red,
+              }}>
+              Logout
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

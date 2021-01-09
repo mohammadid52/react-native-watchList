@@ -107,13 +107,10 @@ const ContentView = styled(Modal)`
 
 const Content = styled.View`
   background-color: #fff;
-  padding-top: 22;
-  padding-right: 22;
-  padding-left: 22;
-  padding-bottom: 22;
-  border-radius: 17;
+  padding: 22px;
+  border-radius: 17px;
   /* height: ${modalHeight}; For Testing */
-  min-width: 250;
+  min-width: 250px;
 `;
 
 const Container = styled.View`
@@ -123,40 +120,38 @@ const Container = styled.View`
 `;
 
 const MovieNameText = styled.Text`
-  margin-top: 20;
-  margin-bottom: 10;
+  margin-top: 20px;
+  margin-bottom: 10px;
   text-align: center;
-  font-size: 20;
+  font-size: 20px;
   font-family: 'Poppins-BoldItalic';
   color: #000;
-  border-bottom-width: 4;
+  border-bottom-width: 4px;
   border-bottom-color: ${colors.green};
 `;
 const OtherText = styled.Text`
   font-family: 'Poppins-SemiBold';
   text-align: center;
   color: ${colors.white1};
-  font-size: 13;
+  font-size: 13px;
 `;
 
 const TextContainer = styled.Text`
-  margin-top: 4;
-  margin-bottom: 4;
+  margin-top: 4px;
+  margin-bottom: 4px;
 `;
 
 const WatchAtText = styled.Text`
   font-family: 'Poppins-Medium';
-  font-size: 18;
+  font-size: 18px;
   color: #000;
 `;
 
 const Watched = styled.View`
-  padding-left: 8;
-  padding-right: 8;
-  padding-top: 4;
-  border-radius: 6;
-  margin-top: 12;
-  margin-bottom: 12;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   background-color: ${(props) =>
     props.isWatched ? colors.lightRed : colors.lightBlue2};
 `;
@@ -167,8 +162,8 @@ const WatchedText = styled.Text`
 `;
 
 const Delete = styled.TouchableOpacity`
-  border-radius: 6;
-  margin-top: 6;
+  border-radius: 6px;
+  margin-top: 6px;
   /* margin-bottom: 12; */
   flex-direction: row;
   align-items: center;
@@ -186,7 +181,7 @@ const ReminderText = styled.Text`
 `;
 
 const Reminder = styled.View`
-  margin-top: 12;
+  margin-top: 12px;
   justify-content: center;
   align-items: center;
   flex-direction: row;

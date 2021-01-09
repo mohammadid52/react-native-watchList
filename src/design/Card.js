@@ -100,33 +100,30 @@ const Card = ({list}) => {
 export default Card;
 
 const StyledCard = styled.TouchableHighlight`
-  height: 70;
+  height: 70px;
   background-color: #fff;
-  margin-top: 10;
-  margin-bottom: 10;
-  border-radius: 6;
-  border-left-width: 4;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border-left-width: 4px;
   border-left-color: ${colors.sharpRed};
 `;
 
 const CardContainer = styled.View`
-  padding-top: 10;
-  padding-right: 10;
-  padding-left: 10;
-  padding-bottom: 10;
+  padding: 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
 
 const StyledText = styled.Text`
-  font-size: 16;
+  font-size: 16px;
   color: #000;
   font-family: 'Poppins-Regular';
 `;
 
 const TimeText = styled(StyledText)`
-  font-size: 12;
+  font-size: 12px;
   color: ${colors.gray};
 `;
 
@@ -136,14 +133,11 @@ const WebSeriesText = styled.Text`
 `;
 
 const WebSeriesCard = styled.View`
-  padding-left: 6;
-  padding-right: 6;
-  padding-top: 1;
-  padding-bottom: 1;
-  border-radius: 6;
+  padding: 1px 6px;
+  border-radius: 6px;
   background-color: ${(props) =>
     props.movie ? colors.lightGreen : colors.lightBlue2};
-  margin-right: 10;
+  margin-right: 10px;
 `;
 
 const WebSeriesCardContainer = styled.View`
