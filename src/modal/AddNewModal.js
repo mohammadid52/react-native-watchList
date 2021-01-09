@@ -84,8 +84,8 @@ export default ({navigation}) => {
   };
 
   const handlePress = () => {
-    setLoading(true);
     const {defaultDate} = settings[0];
+    setLoading(true);
     const randomId = () => {
       return '000000000000'.replace(/0/g, function () {
         return (~~(Math.random() * 16)).toString(16);

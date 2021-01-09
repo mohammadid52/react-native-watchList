@@ -186,6 +186,7 @@ android {
 dependencies {
     compile 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-linear-gradient')
+    implementation project(':lottie-react-native')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     //noinspection GradleDynamicVersion

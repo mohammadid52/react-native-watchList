@@ -14,7 +14,6 @@ const useMovies = (time: String) => {
       .firestore()
       .collection('movies')
       .where('userId', '==', 'j4fA81iLv6Czjs1Jh9fo');
-    // .orderBy('createdAt') not working
 
     unsubscribe =
       time === 'today'
