@@ -20,6 +20,8 @@ target 'WatchList' do
 
   pod 'RNFBAuth', :path => '../node_modules/@react-native-firebase/auth'
 
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
   target 'WatchListTests' do
     inherit! :complete
     # Pods for testing

@@ -12,7 +12,6 @@ const AppStack = createStackNavigator();
 
 export const AppStackNavigator = () => {
   const {user} = useAuth();
-  console.log(user);
 
   return (
     <AppStack.Navigator headerMode="none">

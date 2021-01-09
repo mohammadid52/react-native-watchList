@@ -18,12 +18,14 @@ import {
   updateSettingsDefaultDate,
   logOut,
 } from '../../helpers';
+import {useAuth} from '../../context/UserContext';
 
 const Settings = () => {
   const [opacity, setOpacity] = useState({darkMode: 1, defaultDate: 1});
   const {settings, loading} = useSettings();
 
   const [dateIdx, setDateIdx] = useState(0);
+  const {user} = useAuth();
 
   const defaultList = [
     'After Hour',
@@ -67,7 +69,7 @@ const Settings = () => {
         <View style={{marginVertical: 15}}>
           <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>Hey,</Text>
           <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>
-            {/* Mohammad */}
+            {user.displayName}
           </Text>
         </View>
         <View style={styles.item}>

@@ -10,5 +10,3 @@ const Loading = ({navigation}) => {
 };
 
 export default Loading;
-
-const styles = StyleSheet.create({});
