@@ -62,11 +62,17 @@ const Settings = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenTitle screenTitle="Settings" />
+      {/* <ScreenTitle screenTitle="Settings" /> */}
       <View style={styles.settingsContainer}>
+        <View style={{marginVertical: 15}}>
+          <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>Hey,</Text>
+          <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>
+            Mohammad
+          </Text>
+        </View>
         <View style={styles.item}>
           <View>
-            <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 18}}>
+            <Text style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
               Dark Mode
             </Text>
           </View>
@@ -79,7 +85,7 @@ const Settings = () => {
             }}>
             <Text
               style={{
-                fontFamily: 'Poppins-SemiBold',
+                fontFamily: 'Poppins-Medium',
                 borderBottomWidth: 2,
                 fontSize: 18,
                 opacity: opacity.darkMode,
@@ -89,7 +95,7 @@ const Settings = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.item}>
-          <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 18}}>
+          <Text style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
             Default Date
           </Text>
 
@@ -103,7 +109,7 @@ const Settings = () => {
               }}>
               <Text
                 style={{
-                  fontFamily: 'Poppins-SemiBold',
+                  fontFamily: 'Poppins-Medium',
                   borderBottomWidth: 2,
                   fontSize: 18,
                   opacity: opacity.defaultDate,
@@ -117,7 +123,7 @@ const Settings = () => {
           <TouchableOpacity onPress={() => logOut()}>
             <Text
               style={{
-                fontFamily: 'Poppins-SemiBold',
+                fontFamily: 'Poppins-Medium',
                 fontSize: 18,
                 color: colors.red,
               }}>
@@ -139,12 +145,13 @@ const styles = StyleSheet.create({
   },
   settingsContainer: {
     flex: 1,
+    padding: 30,
   },
   item: {
     backgroundColor: '#fff',
-    margin: 15,
+    marginBottom: 30,
     height: 60,
-    borderWidth: 2,
+    // borderWidth: 2,
     padding: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
