@@ -13,7 +13,7 @@ const useMovies = (time: String) => {
     let unsubscribe = firebase
       .firestore()
       .collection('movies')
-      .where('userId', '==', 'j4fA81iLv6Czjs1Jh9fo');
+      .where('userId', '==', user.uid);
 
     unsubscribe =
       time === 'today'
@@ -27,7 +27,7 @@ const useMovies = (time: String) => {
         : time === 'watched'
         ? unsubscribe.where('isWatched', '==', true)
         : !time || time === 'all'
-        ? unsubscribe.where('userId', '==', 'j4fA81iLv6Czjs1Jh9fo')
+        ? unsubscribe.where('userId', '==', user.uid)
         : unsubscribe;
 
     unsubscribe = unsubscribe.onSnapshot((snapShot) => {
