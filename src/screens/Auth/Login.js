@@ -50,12 +50,9 @@ const Login = ({navigation}) => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             alignItems: 'center',
           }}>
-          <NoAccount onPress={() => navigation.goBack()}>
-            <NoAccountText>Go Back</NoAccountText>
-          </NoAccount>
           <NoAccount onPress={() => navigation.navigate('Signup')}>
             <NoAccountText>Create Account</NoAccountText>
           </NoAccount>
