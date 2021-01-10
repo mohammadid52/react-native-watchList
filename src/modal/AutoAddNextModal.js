@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -11,20 +11,26 @@ import moment from 'moment';
 import styled from 'styled-components';
 import {colors} from '../constants';
 import {addMovie, getDate} from '../helpers';
-import useSettings from '../hooks/useSettings';
+import {readDefaultDate} from '../storage';
 
 const AutoAddNextModal = ({
   isModalVisible = false,
   hideModal = () => {},
   data = {},
 }) => {
-  const {settings, loading} = useSettings();
+  const [defaultDate, setDefaultDate] = useState();
 
-  if (loading) {
-    return <ActivityIndicator />;
-  }
-
-  const {defaultDate} = settings[0];
+  useEffect(() => {
+    const unsub = async () => {
+      try {
+        const date = await storage.readDefaultDate();
+        setDefaultDate(date);
+      } catch (error) {
+        console.error('error @useEffect in AutoAddNextModal: ', error);
+      }
+    };
+    return () => unsub();
+  }, [defaultDate]);
 
   const {seasonNum, episodeNum} = data.webSeries;
 

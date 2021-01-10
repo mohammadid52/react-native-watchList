@@ -12,17 +12,17 @@ import {debounce, findIndex} from 'lodash';
 
 import {ScreenTitle} from '../../components';
 import {colors} from '../../constants';
-import useSettings from '../../hooks/useSettings';
 import {
   updateSettingsDarkMode,
   updateSettingsDefaultDate,
   logOut,
 } from '../../helpers';
 import {useAuth} from '../../context/UserContext';
+import * as storage from '../../storage';
 
 const Settings = () => {
-  const [opacity, setOpacity] = useState({darkMode: 1, defaultDate: 1});
-  const {settings, loading} = useSettings();
+  const [theme, setTheme] = useState('dark');
+  const [defaultDate, setDefaultDate] = useState();
 
   const [dateIdx, setDateIdx] = useState(0);
   const {user} = useAuth();
@@ -44,23 +44,29 @@ const Settings = () => {
     }
   };
 
-  if (loading) {
-    return <ActivityIndicator />;
-  }
+  useEffect(() => {
+    const unsub = async () => {
+      try {
+        const $theme = await storage.readThemePreference();
+        const date = await storage.readDefaultDate();
+        setTheme($theme);
+        setDefaultDate(date);
+      } catch (error) {
+        console.error('error @useEffect in Settings: ', error);
+      }
+    };
+    return () => unsub();
+  }, [theme, defaultDate]);
 
-  const {id, darkModeEnabled, defaultDate} = settings[0];
-  const updateDarkMode = debounce(() => {
-    updateSettingsDarkMode(id, darkModeEnabled).then(() => {
-      setOpacity({...opacity, darkMode: 1});
-    });
-  }, 2000);
-
-  const updateDefaultDate = debounce(() => {
+  const changeTheme = () => {
+    theme === 'dark'
+      ? storage.writeThemePreference('light')
+      : storage.writeThemePreference('dark');
+  };
+  const changeDate = () => {
     handlePress();
-    updateSettingsDefaultDate(id, defaultList[dateIdx]).then(() => {
-      setOpacity({...opacity, defaultDate: 1});
-    });
-  }, 1000);
+    storage.writeDefaultDate(defaultList[dateIdx]);
+  };
 
   return (
     <View style={styles.container}>
@@ -75,24 +81,19 @@ const Settings = () => {
         <View style={styles.item}>
           <View>
             <Text style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
-              Dark Mode
+              Theme
             </Text>
           </View>
 
-          <TouchableOpacity
-            disabled={opacity.darkMode === 0.3}
-            onPress={() => {
-              setOpacity({...opacity, darkMode: 0.3});
-              updateDarkMode();
-            }}>
+          <TouchableOpacity onPress={changeTheme}>
             <Text
               style={{
                 fontFamily: 'Poppins-Medium',
                 borderBottomWidth: 2,
                 fontSize: 18,
-                opacity: opacity.darkMode,
+                // opacity: opacity.darkMode,
               }}>
-              {darkModeEnabled ? 'Enabled' : 'Disabled'}
+              {theme}
             </Text>
           </TouchableOpacity>
         </View>
@@ -102,19 +103,12 @@ const Settings = () => {
           </Text>
 
           <View style={{zIndex: 1}}>
-            <TouchableOpacity
-              disabled={opacity.defaultDate === 0.3}
-              activeOpacity={opacity.defaultDate}
-              onPress={() => {
-                setOpacity({...opacity, defaultDate: 0.3});
-                updateDefaultDate();
-              }}>
+            <TouchableOpacity onPress={changeDate}>
               <Text
                 style={{
                   fontFamily: 'Poppins-Medium',
                   borderBottomWidth: 2,
                   fontSize: 18,
-                  opacity: opacity.defaultDate,
                 }}>
                 {defaultDate}
               </Text>

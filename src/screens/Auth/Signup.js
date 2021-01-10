@@ -20,7 +20,7 @@ const Signup = ({navigation}) => {
 
   return (
     <Container style={{padding: 50}}>
-      <KeyboardAvoidingView behavior="padding" enabled>
+      <KeyboardAvoidingView>
         <FormHeader style={{marginBottom: 12}}>Create Account</FormHeader>
         <FormHeader subheader>
           Fill your account details to create new account

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   StyleSheet,
@@ -24,8 +24,8 @@ import {useTabBar} from '../context/TabBarProvider';
 import {BackButton} from '../components';
 import {colors} from '../constants';
 import {addMovie, getDate} from '../helpers';
-import useSettings from '../hooks/useSettings';
 import {useAuth} from '../context/UserContext';
+import * as storage from '../storage';
 
 const {height, width} = Dimensions.get('screen');
 const topGutter = 70;
@@ -42,6 +42,7 @@ export default ({navigation}) => {
   const [isWebseries, setIsWebseries] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  const [defaultDate, setDefaultDate] = useState();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dateTime, setDateTime] = useState({
     date: '',
@@ -50,8 +51,14 @@ export default ({navigation}) => {
 
   const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
 
-  const {settings} = useSettings();
   const {user} = useAuth();
+
+  useEffect(() => {
+    const unsub = storage
+      .readDefaultDate('Tonight (9PM)')
+      .then((date) => setDefaultDate(date));
+    return () => unsub;
+  }, [dateTime]);
 
   const hideModal = () => {
     setSelected('HomeStack');
@@ -84,7 +91,6 @@ export default ({navigation}) => {
   };
 
   const handlePress = () => {
-    const {defaultDate} = settings[0];
     setLoading(true);
     const randomId = () => {
       return '000000000000'.replace(/0/g, function () {
@@ -109,6 +115,7 @@ export default ({navigation}) => {
       },
     };
     const data = isWebseries ? webSeries : movie;
+
     addMovie(data)
       .then(() => {
         setLoading(false);

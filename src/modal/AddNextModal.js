@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Dimensions, Vibration} from 'react-native';
 import Modal from 'react-native-modal';
 import styled from 'styled-components';
@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import {colors} from '../constants';
 import {addMovie, getDate} from '../helpers';
-import useSettings from '../hooks/useSettings';
+import {readDefaultDate} from '../storage';
 
 const {height: screenHeight} = Dimensions.get('screen');
 
@@ -17,13 +17,19 @@ const AddNextModal = ({
   data = {},
   watchAction = () => {},
 }) => {
-  const {settings, loading} = useSettings();
+  const [defaultDate, setDefaultDate] = useState();
 
-  if (loading) {
-    return <ActivityIndicator />;
-  }
-
-  const {defaultDate} = settings[0];
+  useEffect(() => {
+    const unsub = async () => {
+      try {
+        const date = await storage.readDefaultDate();
+        setDefaultDate(date);
+      } catch (error) {
+        console.error('error @useEffect in AutoAddNextModal: ', error);
+      }
+    };
+    return () => unsub();
+  }, [defaultDate]);
 
   const webSeries = {
     createdAt: moment().format('lll'),
@@ -91,7 +97,6 @@ const NormalText = styled.Text`
 
 const Content = styled.View`
   background-color: #fff;
-  /* height: 170; */
   min-width: 250px;
   border-radius: 12px;
   padding: 12px;

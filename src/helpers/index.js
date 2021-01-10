@@ -62,13 +62,14 @@ export const updateSettingsDefaultDate = async (id, defaultDate) => {
 
 export function getDate(_date = 'Tonight (9PM)') {
   if (_date === 'After Hour') {
-    const toWatchAt = moment().add(1, 'hour').format('lll');
+    const toWatchAt = moment().add(1, 'hour').format('ll');
     const watchTime = moment().add(1, 'hour').format('LT');
     return {toWatchAt, watchTime};
   }
   if (_date === 'Tonight (9PM)') {
     const toWatchAt = moment('9:00 PM', 'LT').format('ll');
     const watchTime = moment('9:00 PM', 'LT').format('LT');
+
     return {toWatchAt, watchTime};
   }
   if (_date === 'Tomorrow') {

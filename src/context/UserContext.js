@@ -1,6 +1,5 @@
 import React, {useState, createContext, useContext, useEffect} from 'react';
 import {auth} from '../firebase';
-import useSettings from '../hooks/useSettings';
 
 const UserContext = createContext();
 
@@ -18,7 +17,7 @@ export default ({children}) => {
 
   useEffect(() => {
     const unsub = auth().onAuthStateChanged(onAuthStateChanged);
-    return () => unsub();
+    return () => unsub;
   }, [user]);
 
   return (

@@ -26,7 +26,7 @@ const Login = ({navigation}) => {
     <Container style={{padding: 50}}>
       <StatusBar backgroundColor="#181f3d" />
 
-      <KeyboardAvoidingView behavior="position" enabled>
+      <KeyboardAvoidingView enabled>
         <FormHeader style={{marginBottom: 12}}>Welcome Back</FormHeader>
         <FormHeader subheader>Fill your account details for login</FormHeader>
         <StyledInput
