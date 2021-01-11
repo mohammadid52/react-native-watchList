@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
-import { Empty, RenderList, ScreenTitle } from '../../components';
+import {ActivityIndicator, Dimensions} from 'react-native';
+import styled from 'styled-components';
+
+import {Empty, RenderList, ScreenTitle} from '../../components';
 import useMovies from '../../hooks/useMovies';
 
-const Content = ({ route }) => {
+const {height} = Dimensions.get('screen');
+
+const Content = ({route}) => {
   const getDataKey = (name) => {
     switch (name) {
       case 'All':
@@ -23,19 +27,16 @@ const Content = ({ route }) => {
     }
   };
 
-  const { loading, movies } = useMovies(getDataKey(route.name));
+  const {loading, movies} = useMovies(getDataKey(route.name));
 
   if (loading) {
     return <ActivityIndicator />;
   }
 
   return (
-    <View>
+    <Container>
       {movies.length > 0 ? (
-        <>
-          <ScreenTitle height={70} screenTitle={route.name} />
-          <RenderList route={route.name} data={movies} />
-        </>
+        <RenderList route={route.name} data={movies} />
       ) : (
         <Empty
           text={
@@ -50,7 +51,7 @@ const Content = ({ route }) => {
           }
         />
       )}
-    </View>
+    </Container>
   );
 };
 
@@ -59,5 +60,12 @@ Content.propTypes = {
     name: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+const Container = styled.View`
+  background-color: ${(props) => props.theme.PRIMARY_BG};
+  height: ${height}px;
+  padding: 10px;
+  padding-top: 60px;
+`;
 
 export default Content;

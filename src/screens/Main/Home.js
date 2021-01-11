@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StatusBar, ActivityIndicator } from 'react-native';
-import { orderBy } from 'lodash';
+import {StatusBar, ActivityIndicator} from 'react-native';
+import {orderBy} from 'lodash';
 
 import {
   AnimatedScrollView,
@@ -9,12 +9,12 @@ import {
   Empty,
   HeaderHome,
 } from '../../components';
-import { colors } from '../../constants';
+import {colors} from '../../constants';
 
 import useMovies from '../../hooks/useMovies';
 
-const Home = ({ navigation }) => {
-  const { loading, movies } = useMovies('all');
+const Home = ({navigation}) => {
+  const {loading, movies} = useMovies('all');
 
   if (loading) {
     return <ActivityIndicator size="small" color={colors.green} />;
@@ -33,7 +33,7 @@ const Home = ({ navigation }) => {
         <Empty
           home
           text="No Movies To Watch"
-          subText="Click On + To Add Movie"
+          subText="Click On + To Add Movie/Web Series"
         />
       )}
     </AnimatedScrollView>

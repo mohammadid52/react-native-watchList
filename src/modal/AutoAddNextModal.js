@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { Vibration } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Vibration} from 'react-native';
 import Modal from 'react-native-modal';
 import moment from 'moment';
 import styled from 'styled-components';
 
-import { addMovie, getDate } from '../helpers';
-import { readDefaultDate } from '../storage';
+import {addMovie, getDate} from '../helpers';
 
 const AutoAddNextModal = ({
   isModalVisible = false,
@@ -14,28 +13,14 @@ const AutoAddNextModal = ({
   data = {},
   uid,
 }) => {
-  const [defaultDate, setDefaultDate] = useState();
-
-  useEffect(() => {
-    const unsub = async () => {
-      try {
-        const date = await readDefaultDate();
-        setDefaultDate(date);
-      } catch (error) {
-        console.error('error @useEffect in AutoAddNextModal: ', error);
-      }
-    };
-    return () => unsub();
-  }, [defaultDate]);
-
-  const { seasonNum, episodeNum } = data.webSeries;
+  const {seasonNum, episodeNum} = data.webSeries;
 
   const webSeries = {
-    createdAt: moment().format('lll'),
+    createdAt: new Date(),
     title: data.title,
     userId: uid,
-    toWatchAt: getDate(defaultDate).toWatchAt,
-    watchTime: getDate(defaultDate).watchTime,
+    toWatchAt: moment(data.toWatchAt, 'lll').add(1, 'hour').format('ll'),
+    watchTime: moment(data.watchTime, 'LT').add(1, 'hour').format('LT'),
     isWatched: false,
     webSeries: {
       seasonNum,
@@ -52,8 +37,7 @@ const AutoAddNextModal = ({
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
       onSwipeComplete={hideModal}
-      onBackdropPress={hideModal}
-    >
+      onBackdropPress={hideModal}>
       <Content>
         <Container>
           <Button
@@ -62,20 +46,9 @@ const AutoAddNextModal = ({
                 hideModal();
                 Vibration.vibrate(100);
               });
-            }}
-          >
+            }}>
             <StyledText>
-              Add
-              {' '}
-              {data.title}
-              {' '}
-              Season
-              {' '}
-              {seasonNum}
-              {' '}
-              Episode
-              {' '}
-              {episodeNum}
+              Add {data.title} Season {seasonNum} Episode {episodeNum + 1}
             </StyledText>
           </Button>
           <Button cancel onPress={hideModal}>
@@ -114,12 +87,14 @@ const Container = styled.View`
 `;
 
 const Button = styled.TouchableOpacity`
-  background-color: ${(props) => (props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE)};
+  background-color: ${(props) =>
+    props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE};
   padding: 3px 8px;
   border-radius: 6px;
   margin-bottom: ${(props) => (props.cancel ? 0 : 12)};
 `;
 const StyledText = styled.Text`
   font-family: 'Poppins-Medium';
-  color: ${(props) => (props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE)};
+  color: ${(props) =>
+    props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
 `;

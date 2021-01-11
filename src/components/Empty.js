@@ -1,20 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, Image } from 'react-native';
+import {Dimensions, Image} from 'react-native';
 import styled from 'styled-components';
 
-const { height } = Dimensions.get('screen');
-const Empty = ({ text = 'No Data', subText = '', home = false }) => (
+const {height} = Dimensions.get('screen');
+const Empty = ({text = 'No Data', subText = '', home = false}) => (
   <Container home={home}>
     <Image
-      style={{ height: 260, width: 200, resizeMode: 'contain' }}
+      style={{height: 260, width: 200, resizeMode: 'contain'}}
       source={require('../assets/images/empty3.png')}
     />
     <MainText>{text}</MainText>
-    <Tip>
-      Tip:
-      {subText}
-    </Tip>
+    <Tip>Tip: {subText}</Tip>
   </Container>
 );
 

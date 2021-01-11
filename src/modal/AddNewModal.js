@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Dimensions,
   StatusBar,
   Vibration,
   View,
+  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -13,21 +14,21 @@ import Modal from 'react-native-modal';
 import moment from 'moment';
 
 import CheckBox from '@react-native-community/checkbox';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import styled from 'styled-components';
 
-import { useTabBar } from '../context/TabBarProvider';
-import { colors } from '../constants';
-import { addMovie, getDate } from '../helpers';
-import { useAuth } from '../context/UserContext';
+import {useTabBar} from '../context/TabBarProvider';
+import {colors} from '../constants';
+import {addMovie, getDate} from '../helpers';
+import {useAuth} from '../context/UserContext';
 import * as storage from '../storage';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 const topGutter = 70;
 
 const inputWidth = width - topGutter - 20;
 
-const AddNewModal = ({ navigation }) => {
+const AddNewModal = ({navigation}) => {
   // text state holder
   const [title, setTitle] = useState('');
   const [seasonNum, setSeasonNum] = useState();
@@ -44,9 +45,9 @@ const AddNewModal = ({ navigation }) => {
     time: '',
   });
 
-  const { setModalIsVisible, isModalVisible, setSelected } = useTabBar();
+  const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
 
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   useEffect(() => {
     const unsub = storage
@@ -89,7 +90,7 @@ const AddNewModal = ({ navigation }) => {
     setLoading(true);
 
     const movie = {
-      createdAt: moment().format('lll'),
+      createdAt: new Date(),
       isWatched: false,
       title,
       toWatchAt: dateTime.date || getDate(defaultDate).toWatchAt,
@@ -122,8 +123,7 @@ const AddNewModal = ({ navigation }) => {
       useNativeDriver
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
-      onBackdropPress={hideModal}
-    >
+      onBackdropPress={hideModal}>
       <StatusBar backgroundColor={colors.textColor} />
 
       <Styledkeyboard>
@@ -139,7 +139,7 @@ const AddNewModal = ({ navigation }) => {
               <CheckBoxContainer>
                 <CheckBox
                   tintColor={colors.red}
-                  tintColors={{ true: colors.green, false: colors.darkBlue }}
+                  tintColors={{true: colors.green, false: colors.darkBlue}}
                   value={isWebseries}
                   onValueChange={() => setIsWebseries(!isWebseries)}
                 />
@@ -188,8 +188,8 @@ const AddNewModal = ({ navigation }) => {
                   {loading
                     ? 'Adding...'
                     : isWebseries
-                      ? 'Add Web Series'
-                      : 'Add Movie'}
+                    ? 'Add Web Series'
+                    : 'Add Movie'}
                 </AddText>
               </AddButton>
             </InputContainer>
