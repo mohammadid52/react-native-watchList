@@ -1,11 +1,10 @@
-import React, {
-  useState, createContext, useContext, useEffect,
-} from 'react';
-import { auth } from '../firebase';
+import PropTypes from 'prop-types';
+import React, {useState, createContext, useContext, useEffect} from 'react';
+import {auth} from '../firebase';
 
 const UserContext = createContext();
 
-export default ({ children }) => {
+const UserProvider = ({children}) => {
   const [user, setUser] = useState(null);
 
   function onAuthStateChanged(_user) {
@@ -13,8 +12,6 @@ export default ({ children }) => {
       return setUser(_user);
     }
     return setUser(false);
-
-    return setUser(null);
   }
 
   useEffect(() => {
@@ -27,11 +24,15 @@ export default ({ children }) => {
       value={{
         user,
         setUser,
-      }}
-    >
+      }}>
       {children}
     </UserContext.Provider>
   );
 };
+
+UserProvider.propTypes = {
+  children: PropTypes.any.isRequired,
+};
+export default UserProvider;
 
 export const useAuth = () => useContext(UserContext);

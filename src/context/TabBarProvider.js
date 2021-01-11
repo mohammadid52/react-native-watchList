@@ -1,8 +1,9 @@
-import React, { useState, createContext, useContext } from 'react';
+import PropTypes from 'prop-types';
+import React, {useState, createContext, useContext} from 'react';
 
 const TabBarContext = createContext();
 
-export default ({ children }) => {
+const TabBarProvider = ({children}) => {
   const [isModalVisible, setModalIsVisible] = useState(false);
   const [selected, setSelected] = useState('HomeStack');
   const [showTabBar, setShowTabBar] = useState(true);
@@ -15,11 +16,15 @@ export default ({ children }) => {
         setShowTabBar,
         isModalVisible,
         setModalIsVisible,
-      }}
-    >
+      }}>
       {children}
     </TabBarContext.Provider>
   );
 };
+
+TabBarProvider.propTypes = {
+  children: PropTypes.any.isRequired,
+};
+export default TabBarProvider;
 
 export const useTabBar = () => useContext(TabBarContext);

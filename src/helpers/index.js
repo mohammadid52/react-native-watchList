@@ -1,7 +1,7 @@
 import firebase, {auth} from '../firebase';
 import moment from 'moment';
 
-export const watchAction = async (movieId: String, currentValue: Boolean) => {
+export const watchAction = async (movieId, currentValue) => {
   try {
     await firebase.firestore().collection('movies').doc(movieId).update({
       isWatched: !currentValue,
@@ -11,7 +11,7 @@ export const watchAction = async (movieId: String, currentValue: Boolean) => {
   }
 };
 
-export const addMovie = async (movie: Object) => {
+export const addMovie = async (movie) => {
   try {
     await firebase.firestore().collection('movies').add(movie);
   } catch (error) {
@@ -32,7 +32,7 @@ export const reminderAction = async (
   }
 };
 
-export const deleteMovie = async (movieId: String) => {
+export const deleteMovie = async (movieId) => {
   try {
     await firebase.firestore().collection('movies').doc(movieId).delete();
   } catch (error) {

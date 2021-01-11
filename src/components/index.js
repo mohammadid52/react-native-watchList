@@ -9,8 +9,8 @@ import HeaderHome from './Header.Home';
 
 export {
   TabBar,
-  Tab,
   AnimatedScrollView,
+  Tab,
   RenderList,
   ScreenTitle,
   Empty,
