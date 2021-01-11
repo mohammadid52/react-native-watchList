@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  StatusBar,
-  TouchableOpacity,
-  TouchableHighlight,
-  ActivityIndicator,
-  PanResponder,
-} from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
-import { debounce, findIndex } from 'lodash';
 
-import { ScreenTitle } from '../../components';
 import { colors } from '../../constants';
-import {
-  updateSettingsDarkMode,
-  updateSettingsDefaultDate,
-  logOut,
-} from '../../helpers';
+import { logOut } from '../../helpers';
 import { useAuth } from '../../context/UserContext';
 import * as storage from '../../storage';
 

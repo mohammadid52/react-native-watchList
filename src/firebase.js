@@ -8,4 +8,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-export {firebase as default, auth};
+export { firebase as default, auth, firestore };

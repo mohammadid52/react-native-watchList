@@ -1,14 +1,11 @@
-import React, { useRef, useEffect } from 'react';
-import {
-  StatusBar, View, Image, Animated,
-} from 'react-native';
+import React from 'react';
+import { StatusBar, Image, Animated } from 'react-native';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import { Button } from '../../design';
 
-const GetStarted = ({ navigation }) => {
+const GetStarted = () => {
   const FIRST_TIME = 'user:first-time';
 
   const saveData = async () => {
@@ -37,21 +34,6 @@ const GetStarted = ({ navigation }) => {
 };
 
 export default GetStarted;
-
-const GetStartedButton = styled.TouchableOpacity`
-  background-color: #de385b;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
-  margin-top: 24px;
-`;
-
-const StyledText = styled.Text`
-  font-size: 20px;
-  color: #f5f6f9;
-  font-family: 'Poppins-Regular';
-`;
 
 const Container = styled(Animated.View)`
   flex: 1;

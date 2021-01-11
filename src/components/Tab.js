@@ -1,22 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-//icons
+// icons
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
 
 import styled from 'styled-components';
 
-import {useTabBar} from '../context/TabBarProvider';
-import {colors} from '../constants';
+import { useTabBar } from '../context/TabBarProvider';
+import { colors } from '../constants';
 
-const Tab = ({onPress, tab}) => {
-  const {selected} = useTabBar();
+const Tab = ({ onPress, tab }) => {
+  const { selected } = useTabBar();
 
   const getIconSizeColor = (name) => {
-    const renderColor = (currentTab) =>
-      currentTab === selected ? colors.sharpRed : colors.white1;
+    const renderColor = (currentTab) => (currentTab === selected ? colors.sharpRed : colors.white1);
     const renderSize = (currentTab) => (currentTab === selected ? 21 : 17);
 
     switch (name) {
@@ -60,8 +59,8 @@ const Tab = ({onPress, tab}) => {
       {getIconSizeColor(tab.name)}
       {tab.name === selected && (
         <Decorator
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 1}}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
           colors={['#fc7e2f', '#f40552']}
         />
       )}

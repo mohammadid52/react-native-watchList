@@ -1,12 +1,9 @@
-import React, { createRef, useEffect } from 'react';
-import {
-  StatusBar, StyleSheet, Text, View,
-} from 'react-native';
+import React from 'react';
+import { StatusBar, View } from 'react-native';
 
 import LottieView from 'lottie-react-native';
-import { colors } from '../constants';
 
-const Loading = ({ navigation }) => (
+const Loading = () => (
   <View
     style={{
       backgroundColor: '#181f3d',

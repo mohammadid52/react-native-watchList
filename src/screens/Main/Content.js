@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { Empty, RenderList, ScreenTitle } from '../../components';
 import useMovies from '../../hooks/useMovies';
 
-const Content = ({ route, navigation }) => {
-  let dataKey = 'all';
+const Content = ({ route }) => {
   const getDataKey = (name) => {
     switch (name) {
       case 'All':
-        return (dataKey = 'all');
+        return 'all';
       case 'Today':
-        return (dataKey = 'today');
+        return 'today';
       case 'Tomorrow':
-        return (dataKey = 'tomorrow');
+        return 'tomorrow';
       case 'This-Week':
-        return (dataKey = 'this-week');
+        return 'this-week';
       case 'Watched':
-        return (dataKey = 'watched');
+        return 'watched';
 
       default:
-        return (dataKey = 'all');
+        return 'all';
     }
   };
 
@@ -52,6 +52,12 @@ const Content = ({ route, navigation }) => {
       )}
     </View>
   );
+};
+
+Content.propTypes = {
+  route: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Content;

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import firebase from '../firebase';
+import { firestore } from '../firebase';
 
 const useReminders = () => {
   const [reminderOnMovies, setReminderOnMovies] = useState([]);
   useEffect(() => {
-    const unsubscribe = firebase
-      .firestore()
+    const unsubscribe = firestore()
       .collection('movies')
       .where('userId', '==', 'j4fA81iLv6Czjs1Jh9fo')
       .where('isReminderOn', '==', true);

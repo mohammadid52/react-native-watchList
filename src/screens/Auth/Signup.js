@@ -1,7 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import {
-  KeyboardAvoidingView, StyleSheet, Text, View,
-} from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components';
 
 import StyledInput from '../../design/StyledInput';
@@ -32,14 +31,14 @@ const Signup = ({ navigation }) => {
           placeholder="Username"
           icon="user"
           value={username}
-          onChangeText={(username) => setUsername(username)}
+          onChangeText={(_username) => setUsername(_username)}
           onFocus={() => setFocused('Username')}
           focused={focused}
         />
         <StyledInput
           placeholder="Email"
           icon="mail"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(_email) => setEmail(_email)}
           value={email}
           onFocus={() => setFocused('Email')}
           focused={focused}
@@ -48,18 +47,24 @@ const Signup = ({ navigation }) => {
           placeholder="Password"
           icon="lock"
           password
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(_password) => setPassword(_password)}
           value={password}
           onFocus={() => setFocused('Password')}
           focused={focused}
         />
-        <Button text="Sign Up" onPress={handleSignup} />
+        <Button disabled={disabled} text="Sign Up" onPress={handleSignup} />
         <AlreadyAccount onPress={() => navigation.goBack()}>
           <AlreadyAccountText>Login</AlreadyAccountText>
         </AlreadyAccount>
       </KeyboardAvoidingView>
     </Container>
   );
+};
+
+Signup.propTypes = {
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Signup;

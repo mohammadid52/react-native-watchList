@@ -1,13 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { StatusBar, KeyboardAvoidingView, View } from 'react-native';
 import styled from 'styled-components';
 
-// icons
-import Feather from 'react-native-vector-icons/Feather';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { Button, StyledInput } from '../../design';
 
-import { colors } from '../../constants';
 import { login } from '../../helpers';
 
 const Login = ({ navigation }) => {
@@ -32,7 +29,7 @@ const Login = ({ navigation }) => {
           placeholder="Email"
           icon="mail"
           value={email}
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(_email) => setEmail(_email)}
           onFocus={() => setFocused('Email')}
           focused={focused}
         />
@@ -40,12 +37,12 @@ const Login = ({ navigation }) => {
           placeholder="Password"
           icon="lock"
           password
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(_password) => setPassword(_password)}
           value={password}
           onFocus={() => setFocused('Password')}
           focused={focused}
         />
-        <Button text="Login" onPress={handleLogin} />
+        <Button disabled={disabled} text="Login" onPress={handleLogin} />
         <View
           style={{
             flexDirection: 'row',
@@ -60,6 +57,12 @@ const Login = ({ navigation }) => {
       </KeyboardAvoidingView>
     </Container>
   );
+};
+
+Login.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Login;

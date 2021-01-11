@@ -1,32 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Dimensions, Image} from 'react-native';
+import { Dimensions, Image } from 'react-native';
 import styled from 'styled-components';
-import {colors} from '../constants';
 
-const {height} = Dimensions.get('screen');
-const Empty = ({
-  text = 'No Data',
-  subText,
-  home = false,
-  imgHeight,
-  imgWidth,
-}) => (
+const { height } = Dimensions.get('screen');
+const Empty = ({ text = 'No Data', subText = '', home = false }) => (
   <Container home={home}>
     <Image
-      style={{height: 260, width: 200, resizeMode: 'contain'}}
+      style={{ height: 260, width: 200, resizeMode: 'contain' }}
       source={require('../assets/images/empty3.png')}
     />
     <MainText>{text}</MainText>
-    <Tip>Tip: {subText}</Tip>
+    <Tip>
+      Tip:
+      {subText}
+    </Tip>
   </Container>
 );
 
 Empty.propTypes = {
   home: PropTypes.bool.isRequired,
-  imgHeight: PropTypes.any.isRequired,
-  imgWidth: PropTypes.any.isRequired,
-  subText: PropTypes.any.isRequired,
+  subText: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 };
 

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import Feather from 'react-native-vector-icons/Feather';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 const StyledInput = ({
   icon,
@@ -14,15 +14,15 @@ const StyledInput = ({
   onChangeText,
   onFocus,
   focused,
-  onBlur,
 }) => (
   <Input
     key={icon}
     style={{
       padding: 22,
       borderColor: placeholder === focused ? '#2F81AD' : '#232c51',
-    }}>
-    <Feather style={{marginRight: 5}} name={icon} size={18} color="#f5f6f9" />
+    }}
+  >
+    <Feather style={{ marginRight: 5 }} name={icon} size={18} color="#f5f6f9" />
     <TextInput
       placeholder={placeholder}
       placeholderTextColor="rgba(255,255,255,.3)"
@@ -38,7 +38,6 @@ const StyledInput = ({
 StyledInput.propTypes = {
   focused: PropTypes.any.isRequired,
   icon: PropTypes.any.isRequired,
-  onBlur: PropTypes.any.isRequired,
   onChangeText: PropTypes.any.isRequired,
   onFocus: PropTypes.any.isRequired,
   password: PropTypes.any.isRequired,

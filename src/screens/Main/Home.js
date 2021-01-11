@@ -1,12 +1,10 @@
-import { orderBy } from 'lodash';
+import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Text, View, StatusBar, ActivityIndicator,
-} from 'react-native';
+import { StatusBar, ActivityIndicator } from 'react-native';
+import { orderBy } from 'lodash';
 
 import {
   AnimatedScrollView,
-  ScreenTitle,
   RenderList,
   Empty,
   HeaderHome,
@@ -40,6 +38,10 @@ const Home = ({ navigation }) => {
       )}
     </AnimatedScrollView>
   );
+};
+
+Home.propTypes = {
+  navigation: PropTypes.any.isRequired,
 };
 
 export default Home;

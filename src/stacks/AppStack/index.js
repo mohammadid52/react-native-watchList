@@ -2,9 +2,9 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // stacks
-import { StatusBar } from 'react-native';
 import { AuthStackScreen } from '../AuthStack';
 import { MainStackScreen } from '../MainStack';
+
 import { useAuth } from '../../context/UserContext';
 import { Loading } from '../../screens';
 

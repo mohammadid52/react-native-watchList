@@ -1,12 +1,14 @@
-import {capitalize} from 'lodash';
+import { capitalize } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 import styled from 'styled-components';
 
-import {Card} from '../design';
+import { Card } from '../design';
 
-const RenderList = ({data = [], listTitle, slice, route}) => {
+const RenderList = ({
+  data = [], listTitle, slice, route,
+}) => {
   let renderHeader = '';
   if (route !== 'Watched') {
     renderHeader = `Total ${data.length} Movie${
@@ -26,7 +28,7 @@ const RenderList = ({data = [], listTitle, slice, route}) => {
           }
           extraData={route}
           keyExtractor={(item) => item.movieId}
-          renderItem={({item}) => <Card list={item} />}
+          renderItem={({ item }) => <Card list={item} />}
         />
       </Container>
     )

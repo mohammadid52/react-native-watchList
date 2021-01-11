@@ -24,10 +24,6 @@ export const AuthStackScreen = () => {
   const [isFirstTime, setIsFirstTime] = useState(true);
   const FIRST_TIME = 'user:first-time';
 
-  useEffect(() => {
-    readData();
-  }, []);
-
   async function readData() {
     try {
       const val = await AsyncStorage.getItem(FIRST_TIME);
@@ -41,6 +37,10 @@ export const AuthStackScreen = () => {
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    readData();
+  }, []);
 
   return (
     <AuthStack.Navigator headerMode="none">

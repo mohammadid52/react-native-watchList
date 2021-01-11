@@ -1,17 +1,28 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import {colors} from '../constants';
+import { colors } from '../constants';
 
-const ScreenTitle = (props) => (
+const ScreenTitle = ({
+  height, lineHeight, backgroundColor, screenTitle,
+}) => (
   <Container
-    height={props.height}
-    lineHeight={props.lineHeight}
-    backgroundColor={props.backgroundColor}>
-    <HeaderTitle height={props.height} lineHeight={props.lineHeight}>
-      {props.screenTitle}
+    height={height}
+    lineHeight={lineHeight}
+    backgroundColor={backgroundColor}
+  >
+    <HeaderTitle height={height} lineHeight={lineHeight}>
+      {screenTitle}
     </HeaderTitle>
   </Container>
 );
+
+ScreenTitle.propTypes = {
+  backgroundColor: PropTypes.any.isRequired,
+  height: PropTypes.any.isRequired,
+  lineHeight: PropTypes.any.isRequired,
+  screenTitle: PropTypes.any.isRequired,
+};
 
 export default ScreenTitle;
 

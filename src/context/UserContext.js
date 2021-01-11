@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {useState, createContext, useContext, useEffect} from 'react';
-import {auth} from '../firebase';
+import React, {
+  useState, createContext, useContext, useEffect,
+} from 'react';
+import { auth } from '../firebase';
 
 const UserContext = createContext();
 
-const UserProvider = ({children}) => {
+const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   function onAuthStateChanged(_user) {
@@ -24,7 +26,8 @@ const UserProvider = ({children}) => {
       value={{
         user,
         setUser,
-      }}>
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
