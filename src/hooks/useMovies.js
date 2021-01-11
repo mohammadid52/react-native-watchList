@@ -4,7 +4,7 @@ import moment from 'moment';
 import firebase from '../firebase';
 import {useAuth} from '../context/UserContext';
 
-const useMovies = (time: String) => {
+const useMovies = (time) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const {user} = useAuth();

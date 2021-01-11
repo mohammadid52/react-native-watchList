@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const MODE_PREFERENCE = 'theme_preference';
 const DEFAULT_DATE = 'default_date';
 
-export const readThemePreference = async (defaultValue) => {
+export const readThemePreference = async (defaultValue = '') => {
   try {
     const mode = await AsyncStorage.getItem(MODE_PREFERENCE);
     if (mode !== null) {
@@ -16,7 +16,7 @@ export const readThemePreference = async (defaultValue) => {
   }
 };
 
-export const writeThemePreference = async (value: String) => {
+export const writeThemePreference = async (value = '') => {
   try {
     const mode = await AsyncStorage.setItem(MODE_PREFERENCE, value);
     return mode;
@@ -24,7 +24,7 @@ export const writeThemePreference = async (value: String) => {
     console.error('error @writeThemePreference: ', error);
   }
 };
-export const readDefaultDate = async (defaultValue) => {
+export const readDefaultDate = async (defaultValue = '') => {
   try {
     const date = await AsyncStorage.getItem(DEFAULT_DATE);
 
@@ -38,7 +38,7 @@ export const readDefaultDate = async (defaultValue) => {
   }
 };
 
-export const writeDefaultDate = async (value: String) => {
+export const writeDefaultDate = async (value = '') => {
   try {
     const date = await AsyncStorage.setItem(DEFAULT_DATE, value);
     return date;

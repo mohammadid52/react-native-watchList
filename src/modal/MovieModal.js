@@ -1,33 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  Switch,
-  TouchableOpacity,
-  Vibration,
-} from 'react-native';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {View, Switch, Vibration} from 'react-native';
 import moment from 'moment';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import styled from 'styled-components';
 import Modal from 'react-native-modal';
 
-import { has } from 'lodash';
-import { colors } from '../constants';
-import {
-  handleCancelNotifications,
-  showScheduledNotification,
-} from '../Notifications';
-import { reminderAction, deleteMovie } from '../helpers';
+import {has} from 'lodash';
+import {colors} from '../constants';
+import {reminderAction, deleteMovie} from '../helpers';
 
-const { height } = Dimensions.get('screen');
-const modalHeight = height / 1.8;
-
-const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
-  const {
-    toWatchAt, watchTime, isReminderOn, movieId, isWatched, title,
-  } = data;
+const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
+  const {toWatchAt, watchTime, isReminderOn, movieId, isWatched, title} = data;
   const hideModal = () => setModalIsVisible(false);
 
   const handleDelete = (movieId) => {
@@ -47,8 +30,7 @@ const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
       onSwipeComplete={hideModal}
-      onBackdropPress={hideModal}
-    >
+      onBackdropPress={hideModal}>
       <Content>
         <Container>
           <MovieNameText>{title}</MovieNameText>
@@ -60,24 +42,15 @@ const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
                 paddingVertical: 2,
                 borderRadius: 4,
                 marginBottom: 10,
-              }}
-            >
+              }}>
               <OtherText>
-                season
-                {' '}
-                {data.webSeries.seasonNum}
-                {' '}
-                episode
-                {' '}
+                season {data.webSeries.seasonNum} episode{' '}
                 {data.webSeries.episodeNum}
               </OtherText>
             </View>
           )}
           <TextContainer>
-            <WatchAtText>
-              Time :
-              {moment(toWatchAt).format('lll')}
-            </WatchAtText>
+            <WatchAtText>Time :{moment(toWatchAt).format('lll')}</WatchAtText>
           </TextContainer>
 
           <Watched isWatched={isWatched}>
@@ -90,7 +63,7 @@ const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
             <Reminder>
               <ReminderText>Set Reminder : </ReminderText>
               <Switch
-                trackColor={{ false: colors.lightRed, true: colors.lightBlue2 }}
+                trackColor={{false: colors.lightRed, true: colors.lightBlue2}}
                 thumbColor={isReminderOn ? colors.darkBlue : colors.red}
                 onValueChange={() => reminderAction(movieId, isReminderOn)}
                 value={isReminderOn}
@@ -105,6 +78,23 @@ const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
       </Content>
     </ContentView>
   );
+};
+
+MovieModal.propTypes = {
+  data: PropTypes.shape({
+    isReminderOn: PropTypes.any.isRequired,
+    isWatched: PropTypes.any.isRequired,
+    movieId: PropTypes.any.isRequired,
+    title: PropTypes.any.isRequired,
+    toWatchAt: PropTypes.any.isRequired,
+    watchTime: PropTypes.any.isRequired,
+    webSeries: PropTypes.shape({
+      episodeNum: PropTypes.any,
+      seasonNum: PropTypes.any,
+    }),
+  }),
+  isModalVisible: PropTypes.any.isRequired,
+  setModalIsVisible: PropTypes.func.isRequired,
 };
 
 export default MovieModal;
@@ -159,11 +149,13 @@ const Watched = styled.View`
   border-radius: 6px;
   margin-top: 12px;
   margin-bottom: 12px;
-  background-color: ${(props) => (props.isWatched ? props.theme.SECONDARY_RED : props.theme.SECONDARY_BLUE)};
+  background-color: ${(props) =>
+    props.isWatched ? props.theme.SECONDARY_RED : props.theme.SECONDARY_BLUE};
 `;
 
 const WatchedText = styled.Text`
-  color: ${(props) => (props.isWatched ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE)};
+  color: ${(props) =>
+    props.isWatched ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
   font-family: 'Poppins-SemiBold';
 `;
 

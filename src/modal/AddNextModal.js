@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Dimensions, Vibration } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Vibration} from 'react-native';
 import Modal from 'react-native-modal';
 import styled from 'styled-components';
 import moment from 'moment';
 
-import { colors } from '../constants';
-import { addMovie, getDate } from '../helpers';
-import { readDefaultDate } from '../storage';
-
-const { height: screenHeight } = Dimensions.get('screen');
+import {addMovie, getDate} from '../helpers';
+import {readDefaultDate} from '../storage';
 
 const AddNextModal = ({
   visible = false,
@@ -23,7 +20,7 @@ const AddNextModal = ({
   useEffect(() => {
     const unsub = async () => {
       try {
-        const date = await storage.readDefaultDate();
+        const date = await readDefaultDate();
         setDefaultDate(date);
       } catch (error) {
         console.error('error @useEffect in AutoAddNextModal: ', error);
@@ -54,8 +51,7 @@ const AddNextModal = ({
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
       onBackdropPress={hideModal}
-      onSwipeCancel={hideModal}
-    >
+      onSwipeCancel={hideModal}>
       <ContentView>
         <Content>
           <NormalText>{title}</NormalText>
@@ -66,16 +62,9 @@ const AddNextModal = ({
                 hideModal();
                 watchAction();
               });
-            }}
-          >
+            }}>
             <ConfirmText>
-              Add Season
-              {' '}
-              {data.seasonNum}
-              {' '}
-              Episode
-              {' '}
-              {data.episodeNum + 1}
+              Add Season {data.seasonNum} Episode {data.episodeNum + 1}
             </ConfirmText>
           </Confirm>
           <Confirm
@@ -83,9 +72,8 @@ const AddNextModal = ({
             onPress={() => {
               watchAction();
               hideModal();
-            }}
-          >
-            <ConfirmText cancel>I Don't Want To Add</ConfirmText>
+            }}>
+            <ConfirmText cancel>I Don&apos;t Want To Add</ConfirmText>
           </Confirm>
         </Content>
       </ContentView>
@@ -116,14 +104,16 @@ const ContentView = styled.View`
 
 const Confirm = styled.TouchableOpacity`
   height: 30px;
-  background-color: ${(props) => (props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE)};
+  background-color: ${(props) =>
+    props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE};
   margin-bottom: 12px;
   margin-top: 12px;
   border-radius: 6px;
 `;
 const ConfirmText = styled.Text`
   font-family: 'Poppins-Regular';
-  color: ${(props) => (props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE)};
+  color: ${(props) =>
+    props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
   font-size: 16px;
   text-align: center;
   line-height: 30px;
