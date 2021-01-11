@@ -1,25 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Dimensions, Animated } from 'react-native';
+import PropTypes from 'prop-types';
+import React, {useEffect, useRef} from 'react';
+import {Dimensions, Animated} from 'react-native';
 import styled from 'styled-components';
 
-import { Tab } from '.';
-import { colors } from '../constants';
-import { useTabBar } from '../context/TabBarProvider';
+import {Tab} from '.';
+import {colors} from '../constants';
+import {useTabBar} from '../context/TabBarProvider';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 
-const TabBar = ({ state, navigation }) => {
+const TabBar = ({state, navigation}) => {
   const {
     showTabBar,
     isModalVisible,
     setModalIsVisible,
     setSelected,
   } = useTabBar();
-  const { routes } = state;
+  const {routes} = state;
 
   const animationValue = useRef(new Animated.Value(0)).current;
 
-  const handlePress = (routeName, index) => {
+  const handlePress = (routeName) => {
     if (routeName === 'Add') {
       setModalIsVisible(!isModalVisible);
     }
@@ -55,12 +56,11 @@ const TabBar = ({ state, navigation }) => {
   return (
     <Container>
       <InnerContainer
-        style={{ elevation: 9, transform: [{ translateY: animationValue }] }}
-      >
-        {routes.map((route, index) => (
+        style={{elevation: 9, transform: [{translateY: animationValue}]}}>
+        {routes.map((route) => (
           <Tab
             tab={route}
-            onPress={() => handlePress(route.name, index)}
+            onPress={() => handlePress(route.name)}
             key={route.key}
           />
         ))}
@@ -68,7 +68,18 @@ const TabBar = ({ state, navigation }) => {
     </Container>
   );
 };
-/* Theme Change Here */ export default TabBar;
+
+TabBar.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+  state: PropTypes.shape({
+    routes: PropTypes.shape({
+      map: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+export default TabBar;
 
 const Container = styled.View`
   position: absolute;
