@@ -1,32 +1,32 @@
-import React, {useState} from 'react';
-import {StatusBar, KeyboardAvoidingView, View} from 'react-native';
+import React, { useState } from 'react';
+import { StatusBar, KeyboardAvoidingView, View } from 'react-native';
 import styled from 'styled-components';
 
 // icons
 import Feather from 'react-native-vector-icons/Feather';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {Button, StyledInput} from '../../design';
+import { Button, StyledInput } from '../../design';
 
-import {colors} from '../../constants';
-import {login} from '../../helpers';
+import { colors } from '../../constants';
+import { login } from '../../helpers';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [focused, setFocused] = useState(null);
   const disabled = !email || !password;
 
   const handleLogin = () => {
-    const credentials = {email, password};
+    const credentials = { email, password };
     login(credentials);
   };
 
   return (
-    <Container style={{padding: 50}}>
+    <Container style={{ padding: 50 }}>
       <StatusBar backgroundColor="#181f3d" />
 
       <KeyboardAvoidingView enabled>
-        <FormHeader style={{marginBottom: 12}}>Welcome Back</FormHeader>
+        <FormHeader style={{ marginBottom: 12 }}>Welcome Back</FormHeader>
         <FormHeader subheader>Fill your account details for login</FormHeader>
         <StyledInput
           placeholder="Email"
@@ -51,7 +51,8 @@ const Login = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'flex-end',
             alignItems: 'center',
-          }}>
+          }}
+        >
           <NoAccount onPress={() => navigation.navigate('Signup')}>
             <NoAccountText>Create Account</NoAccountText>
           </NoAccount>
@@ -83,8 +84,7 @@ const Container = styled.View`
 const FormHeader = styled.Text`
   text-align: left;
   font-size: ${(props) => (props.subheader ? 15 : 33)};
-  font-family: ${(props) =>
-    props.subheader ? 'Poppins-Thin' : 'Poppins-Regular'};
+  font-family: ${(props) => (props.subheader ? 'Poppins-Thin' : 'Poppins-Regular')};
   color: #f5f6f9;
 `;
 

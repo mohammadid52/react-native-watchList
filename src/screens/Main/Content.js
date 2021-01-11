@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {ActivityIndicator, Text, View} from 'react-native';
-import {Empty, RenderList, ScreenTitle} from '../../components';
+import React, { useState } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { Empty, RenderList, ScreenTitle } from '../../components';
 import useMovies from '../../hooks/useMovies';
 
-const Content = ({route, navigation}) => {
+const Content = ({ route, navigation }) => {
   let dataKey = 'all';
   const getDataKey = (name) => {
     switch (name) {
@@ -23,7 +23,7 @@ const Content = ({route, navigation}) => {
     }
   };
 
-  const {loading, movies} = useMovies(getDataKey(route.name));
+  const { loading, movies } = useMovies(getDataKey(route.name));
 
   if (loading) {
     return <ActivityIndicator />;

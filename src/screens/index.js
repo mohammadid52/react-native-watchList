@@ -6,7 +6,7 @@ import Signup from './Auth/Signup';
 import GetStarted from './Auth/GetStarted';
 import Loading from './Loading';
 
-const Auth = {Login, Signup, GetStarted};
-const Main = {Home, Content, Settings};
+const Auth = { Login, Signup, GetStarted };
+const Main = { Home, Content, Settings };
 
-export {Main, Auth, Loading};
+export { Main, Auth, Loading };

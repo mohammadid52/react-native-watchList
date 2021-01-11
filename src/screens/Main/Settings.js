@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,16 +10,16 @@ import {
   PanResponder,
 } from 'react-native';
 import styled from 'styled-components';
-import {debounce, findIndex} from 'lodash';
+import { debounce, findIndex } from 'lodash';
 
-import {ScreenTitle} from '../../components';
-import {colors} from '../../constants';
+import { ScreenTitle } from '../../components';
+import { colors } from '../../constants';
 import {
   updateSettingsDarkMode,
   updateSettingsDefaultDate,
   logOut,
 } from '../../helpers';
-import {useAuth} from '../../context/UserContext';
+import { useAuth } from '../../context/UserContext';
 import * as storage from '../../storage';
 
 const Settings = () => {
@@ -27,7 +27,7 @@ const Settings = () => {
   const [defaultDate, setDefaultDate] = useState();
 
   const [dateIdx, setDateIdx] = useState(0);
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const defaultList = [
     'After Hour',
@@ -74,7 +74,7 @@ const Settings = () => {
     <Container>
       {/* <ScreenTitle screenTitle="Settings" /> */}
       <SettingsContainer>
-        <View style={{marginVertical: 15, marginBottom: 30}}>
+        <View style={{ marginVertical: 15, marginBottom: 30 }}>
           <HeaderText>Hey,</HeaderText>
           <HeaderText>{user.displayName}</HeaderText>
         </View>
@@ -90,20 +90,21 @@ const Settings = () => {
         <Item>
           <LeftText>Default Date</LeftText>
 
-          <View style={{zIndex: 1}}>
+          <View style={{ zIndex: 1 }}>
             <TouchableOpacity onPress={changeDate}>
               <RightText>{defaultDate}</RightText>
             </TouchableOpacity>
           </View>
         </Item>
-        <Item style={{justifyContent: 'center'}}>
+        <Item style={{ justifyContent: 'center' }}>
           <TouchableOpacity onPress={() => logOut()}>
             <Text
               style={{
                 fontFamily: 'Poppins-Medium',
                 fontSize: 18,
                 color: colors.red,
-              }}>
+              }}
+            >
               Logout
             </Text>
           </TouchableOpacity>
@@ -126,8 +127,7 @@ const SettingsContainer = styled.View`
 `;
 
 const Item = styled.View`
-  background-color: ${(props) =>
-    props.theme.PRIMARY_BG_CARD}; /* Change Theme Here */
+  background-color: ${(props) => props.theme.PRIMARY_BG_CARD}; /* Change Theme Here */
   margin-bottom: 30px;
   height: 60px;
   padding: 15px;

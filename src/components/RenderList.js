@@ -1,19 +1,22 @@
-import {capitalize} from 'lodash';
+import { capitalize } from 'lodash';
 import React from 'react';
-import {FlatList, StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {
+  FlatList, StyleSheet, Text, View, SafeAreaView,
+} from 'react-native';
 import styled from 'styled-components';
 
-import {colors} from '../constants';
-import {useTabBar} from '../context/TabBarProvider';
-import {Card} from '../design';
+import { colors } from '../constants';
+import { useTabBar } from '../context/TabBarProvider';
+import { Card } from '../design';
 
-const RenderList = ({data = [], listTitle, slice, route}) => {
-  const renderHeader =
-    route !== 'Watched'
-      ? `Total ${data.length} Movie${
-          data.length > 1 ? 's' : ''
-        } To Watch ${capitalize(route)}`
-      : `Movies You've Watched`;
+const RenderList = ({
+  data = [], listTitle, slice, route,
+}) => {
+  const renderHeader = route !== 'Watched'
+    ? `Total ${data.length} Movie${
+      data.length > 1 ? 's' : ''
+    } To Watch ${capitalize(route)}`
+    : 'Movies You\'ve Watched';
   return (
     data.length > 0 && (
       <Container>
@@ -24,7 +27,7 @@ const RenderList = ({data = [], listTitle, slice, route}) => {
           }
           extraData={route}
           keyExtractor={(item) => item.movieId}
-          renderItem={({item}) => <Card list={item} />}
+          renderItem={({ item }) => <Card list={item} />}
         />
       </Container>
     )

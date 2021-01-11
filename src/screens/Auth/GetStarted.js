@@ -1,12 +1,14 @@
-import React, {useRef, useEffect} from 'react';
-import {StatusBar, View, Image, Animated} from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import {
+  StatusBar, View, Image, Animated,
+} from 'react-native';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import {Button} from '../../design';
+import { Button } from '../../design';
 
-const GetStarted = ({navigation}) => {
+const GetStarted = ({ navigation }) => {
   const FIRST_TIME = 'user:first-time';
 
   const saveData = async () => {
@@ -18,10 +20,10 @@ const GetStarted = ({navigation}) => {
   };
 
   return (
-    <Container style={{padding: 40}}>
+    <Container style={{ padding: 40 }}>
       <StatusBar hidden backgroundColor="#16213e" barStyle="light-content" />
       <Image
-        style={{width: 320, height: 305}}
+        style={{ width: 320, height: 305 }}
         source={require('../../assets/images/empty2.png')}
       />
       <HeaderText>Welcome to MyWatchList</HeaderText>
@@ -29,7 +31,7 @@ const GetStarted = ({navigation}) => {
         Your own list of movies and webseries at your fingertips. Now manage
         time with entertainment
       </SubText>
-      <Button onPress={() => saveData()} text={'Get Started'} />
+      <Button onPress={() => saveData()} text="Get Started" />
     </Container>
   );
 };

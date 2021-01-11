@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Feather from 'react-native-vector-icons/Feather';
-import {Dimensions} from 'react-native';
-const {width} = Dimensions.get('screen');
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('screen');
 
 const StyledInput = ({
   icon,
@@ -19,8 +20,9 @@ const StyledInput = ({
     style={{
       padding: 22,
       borderColor: placeholder === focused ? '#2F81AD' : '#232c51',
-    }}>
-    <Feather style={{marginRight: 5}} name={icon} size={18} color="#f5f6f9" />
+    }}
+  >
+    <Feather style={{ marginRight: 5 }} name={icon} size={18} color="#f5f6f9" />
     <TextInput
       placeholder={placeholder}
       placeholderTextColor="rgba(255,255,255,.3)"

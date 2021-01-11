@@ -4,11 +4,11 @@ import {Platform} from 'react-native';
 export default () => {
   PushNotification.configure({
     onRegister: (token) => {
-      console.log('TOKEN:', token);
+      // console.log('TOKEN:', token);
     },
 
     onNotification: (notification) => {
-      console.log('NOTIFICATION:', notification);
+      // console.log('NOTIFICATION:', notification);
     },
 
     permissions: {
@@ -44,4 +44,6 @@ export const handleCancelNotifications = () =>
   PushNotification.cancelAllLocalNotifications();
 
 export const getChannelId = () =>
-  PushNotification.getChannels((id) => console.log(id));
+  PushNotification.getChannels((id) => {
+    // console.log(id)
+  });

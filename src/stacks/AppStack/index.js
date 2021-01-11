@@ -1,17 +1,17 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 // stacks
-import {AuthStackScreen} from '../AuthStack';
-import {MainStackScreen} from '../MainStack';
-import {useAuth} from '../../context/UserContext';
-import {Loading} from '../../screens';
-import {StatusBar} from 'react-native';
+import { StatusBar } from 'react-native';
+import { AuthStackScreen } from '../AuthStack';
+import { MainStackScreen } from '../MainStack';
+import { useAuth } from '../../context/UserContext';
+import { Loading } from '../../screens';
 
 const AppStack = createStackNavigator();
 
 export const AppStackNavigator = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const loadingAssets = user === null;
 

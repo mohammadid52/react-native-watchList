@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
-import {KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
+import React, { useState } from 'react';
+import {
+  KeyboardAvoidingView, StyleSheet, Text, View,
+} from 'react-native';
 import styled from 'styled-components';
 
 import StyledInput from '../../design/StyledInput';
-import {Button} from '../../design';
+import { Button } from '../../design';
 
-import {signUp} from '../../helpers';
+import { signUp } from '../../helpers';
 
-const Signup = ({navigation}) => {
+const Signup = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -15,14 +17,14 @@ const Signup = ({navigation}) => {
   const disabled = !email || !password;
 
   const handleSignup = () => {
-    const credentials = {email, password, username};
+    const credentials = { email, password, username };
     signUp(credentials);
   };
 
   return (
-    <Container style={{padding: 50}}>
+    <Container style={{ padding: 50 }}>
       <KeyboardAvoidingView>
-        <FormHeader style={{marginBottom: 12}}>Create Account</FormHeader>
+        <FormHeader style={{ marginBottom: 12 }}>Create Account</FormHeader>
         <FormHeader subheader>
           Fill your account details to create new account
         </FormHeader>
@@ -51,7 +53,7 @@ const Signup = ({navigation}) => {
           onFocus={() => setFocused('Password')}
           focused={focused}
         />
-        <Button text={'Sign Up'} onPress={handleSignup} />
+        <Button text="Sign Up" onPress={handleSignup} />
         <AlreadyAccount onPress={() => navigation.goBack()}>
           <AlreadyAccountText>Login</AlreadyAccountText>
         </AlreadyAccount>
@@ -80,7 +82,6 @@ const Container = styled.View`
 const FormHeader = styled.Text`
   text-align: left;
   font-size: ${(props) => (props.subheader ? 15 : 33)};
-  font-family: ${(props) =>
-    props.subheader ? 'Poppins-Thin' : 'Poppins-Regular'};
+  font-family: ${(props) => (props.subheader ? 'Poppins-Thin' : 'Poppins-Regular')};
   color: #f5f6f9;
 `;

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import firebase from '../firebase';
 
 const useReminders = () => {
@@ -18,7 +18,7 @@ const useReminders = () => {
     });
   }, []);
 
-  return {reminderOnMovies};
+  return { reminderOnMovies };
 };
 
 export default useReminders;

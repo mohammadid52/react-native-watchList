@@ -1,6 +1,8 @@
-import {orderBy} from 'lodash';
+import { orderBy } from 'lodash';
 import React from 'react';
-import {Text, View, StatusBar, ActivityIndicator} from 'react-native';
+import {
+  Text, View, StatusBar, ActivityIndicator,
+} from 'react-native';
 
 import {
   AnimatedScrollView,
@@ -9,12 +11,12 @@ import {
   Empty,
   HeaderHome,
 } from '../../components';
-import {colors} from '../../constants';
+import { colors } from '../../constants';
 
 import useMovies from '../../hooks/useMovies';
 
-const Home = ({navigation}) => {
-  const {loading, movies} = useMovies('all');
+const Home = ({ navigation }) => {
+  const { loading, movies } = useMovies('all');
 
   if (loading) {
     return <ActivityIndicator size="small" color={colors.green} />;

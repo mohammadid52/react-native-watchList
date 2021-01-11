@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   StyleSheet,
@@ -17,21 +17,21 @@ import Modal from 'react-native-modal';
 import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import CheckBox from '@react-native-community/checkbox';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import styled from 'styled-components';
 
-import {useTabBar} from '../context/TabBarProvider';
-import {colors} from '../constants';
-import {addMovie, getDate} from '../helpers';
-import {useAuth} from '../context/UserContext';
+import { useTabBar } from '../context/TabBarProvider';
+import { colors } from '../constants';
+import { addMovie, getDate } from '../helpers';
+import { useAuth } from '../context/UserContext';
 import * as storage from '../storage';
 
-const {height, width} = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 const topGutter = 70;
 const modalHeight = height - 200 - topGutter;
 const inputWidth = width - topGutter - 20;
 
-export default ({navigation}) => {
+export default ({ navigation }) => {
   // text state holder
   const [title, setTitle] = useState('');
   const [seasonNum, setSeasonNum] = useState();
@@ -48,9 +48,9 @@ export default ({navigation}) => {
     time: '',
   });
 
-  const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
+  const { setModalIsVisible, isModalVisible, setSelected } = useTabBar();
 
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     const unsub = storage
@@ -91,11 +91,7 @@ export default ({navigation}) => {
 
   const handlePress = () => {
     setLoading(true);
-    const randomId = () => {
-      return '000000000000'.replace(/0/g, function () {
-        return (~~(Math.random() * 16)).toString(16);
-      });
-    };
+    const randomId = () => '000000000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
 
     const movie = {
       id: randomId(),
@@ -129,10 +125,11 @@ export default ({navigation}) => {
       isVisible={isModalVisible}
       swipeDirection="down"
       onSwipeComplete={hideModal}
-      useNativeDriver={true}
-      useNativeDriverForBackdrop={true}
+      useNativeDriver
+      useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
-      onBackdropPress={hideModal}>
+      onBackdropPress={hideModal}
+    >
       <StatusBar backgroundColor={colors.textColor} />
 
       <Styledkeyboard>
@@ -148,7 +145,7 @@ export default ({navigation}) => {
               <CheckBoxContainer>
                 <CheckBox
                   tintColor={colors.red}
-                  tintColors={{true: colors.green, false: colors.darkBlue}}
+                  tintColors={{ true: colors.green, false: colors.darkBlue }}
                   value={isWebseries}
                   onValueChange={() => setIsWebseries(!isWebseries)}
                 />
@@ -197,8 +194,8 @@ export default ({navigation}) => {
                   {loading
                     ? 'Adding...'
                     : isWebseries
-                    ? 'Add Web Series'
-                    : 'Add Movie'}
+                      ? 'Add Web Series'
+                      : 'Add Movie'}
                 </AddText>
               </AddButton>
             </InputContainer>

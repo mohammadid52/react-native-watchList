@@ -1,8 +1,8 @@
-import React, {useState, createContext, useContext} from 'react';
+import React, { useState, createContext, useContext } from 'react';
 
 const TabBarContext = createContext();
 
-export default ({children}) => {
+export default ({ children }) => {
   const [isModalVisible, setModalIsVisible] = useState(false);
   const [selected, setSelected] = useState('HomeStack');
   const [showTabBar, setShowTabBar] = useState(true);
@@ -15,7 +15,8 @@ export default ({children}) => {
         setShowTabBar,
         isModalVisible,
         setModalIsVisible,
-      }}>
+      }}
+    >
       {children}
     </TabBarContext.Provider>
   );

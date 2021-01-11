@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -9,9 +9,9 @@ import {
 import Modal from 'react-native-modal';
 import moment from 'moment';
 import styled from 'styled-components';
-import {colors} from '../constants';
-import {addMovie, getDate} from '../helpers';
-import {readDefaultDate} from '../storage';
+import { colors } from '../constants';
+import { addMovie, getDate } from '../helpers';
+import { readDefaultDate } from '../storage';
 
 const AutoAddNextModal = ({
   isModalVisible = false,
@@ -33,7 +33,7 @@ const AutoAddNextModal = ({
     return () => unsub();
   }, [defaultDate]);
 
-  const {seasonNum, episodeNum} = data.webSeries;
+  const { seasonNum, episodeNum } = data.webSeries;
 
   const webSeries = {
     createdAt: moment().format('lll'),
@@ -53,11 +53,12 @@ const AutoAddNextModal = ({
       isVisible={isModalVisible}
       backdropOpacity={0.7}
       swipeDirection="down"
-      useNativeDriver={true}
-      useNativeDriverForBackdrop={true}
+      useNativeDriver
+      useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
       onSwipeComplete={hideModal}
-      onBackdropPress={hideModal}>
+      onBackdropPress={hideModal}
+    >
       <Content>
         <Container>
           <Button
@@ -66,9 +67,20 @@ const AutoAddNextModal = ({
                 hideModal();
                 Vibration.vibrate(100);
               });
-            }}>
+            }}
+          >
             <StyledText>
-              Add {data.title} Season {seasonNum} Episode {episodeNum}
+              Add
+              {' '}
+              {data.title}
+              {' '}
+              Season
+              {' '}
+              {seasonNum}
+              {' '}
+              Episode
+              {' '}
+              {episodeNum}
             </StyledText>
           </Button>
           <Button cancel onPress={hideModal}>
@@ -100,14 +112,12 @@ const Container = styled.View`
 `;
 
 const Button = styled.TouchableOpacity`
-  background-color: ${(props) =>
-    props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE};
+  background-color: ${(props) => (props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE)};
   padding: 3px 8px;
   border-radius: 6px;
   margin-bottom: ${(props) => (props.cancel ? 0 : 12)};
 `;
 const StyledText = styled.Text`
   font-family: 'Poppins-Medium';
-  color: ${(props) =>
-    props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
+  color: ${(props) => (props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE)};
 `;
