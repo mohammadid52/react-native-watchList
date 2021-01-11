@@ -1,11 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import styled from 'styled-components';
-import { colors } from '../constants';
+import {colors} from '../constants';
 
 const ScreenTitle = (props) => (
-  <Container {...props}>
-    <HeaderTitle {...props}>{props.screenTitle}</HeaderTitle>
+  <Container
+    height={props.height}
+    lineHeight={props.lineHeight}
+    backgroundColor={props.backgroundColor}>
+    <HeaderTitle height={props.height} lineHeight={props.lineHeight}>
+      {props.screenTitle}
+    </HeaderTitle>
   </Container>
 );
 
