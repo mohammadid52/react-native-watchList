@@ -64,7 +64,7 @@ const HeaderText = styled.Text`
   font-family: 'Poppins-SemiBold';
   margin-top: 30px;
   margin-bottom: 15px;
-  letter-spacing: 1;
+  letter-spacing: 1px;
 `;
 const SubText = styled.Text`
   font-size: 14px;
@@ -72,7 +72,7 @@ const SubText = styled.Text`
   color: #f5f6f9;
   font-family: 'Poppins-Medium';
   margin-top: 10px;
-  letter-spacing: 0.5;
+  letter-spacing: 0.5px;
 `;
 
 // #e94560

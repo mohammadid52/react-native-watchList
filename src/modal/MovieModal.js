@@ -167,7 +167,7 @@ const Delete = styled.TouchableOpacity`
 
 const DeleteText = styled.Text`
   font-family: 'Poppins-SemiBold';
-  letter-spacing: 0.8;
+  letter-spacing: 0.8px;
   color: ${(props) => props.theme.PRIMARY_RED};
 `;
 

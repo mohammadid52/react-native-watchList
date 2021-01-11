@@ -77,7 +77,7 @@ const Container = styled.View`
 `;
 
 const InnerContainer = styled(Animated.View)`
-  height: 50;
+  height: 50px;
   background-color: ${colors.textColor} /* Theme Change Here */;
   width: 300px;
   flex-direction: row;
