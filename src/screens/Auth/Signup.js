@@ -3,7 +3,8 @@ import {KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
 import styled from 'styled-components';
 
 import StyledInput from '../../design/StyledInput';
-import NextButton from '../../design/NextButton';
+import {Button} from '../../design';
+
 import {signUp} from '../../helpers';
 
 const Signup = ({navigation}) => {
@@ -50,7 +51,7 @@ const Signup = ({navigation}) => {
           onFocus={() => setFocused('Password')}
           focused={focused}
         />
-        <NextButton text={'Sign Up'} onPress={handleSignup} />
+        <Button text={'Sign Up'} onPress={handleSignup} />
         <AlreadyAccount onPress={() => navigation.goBack()}>
           <AlreadyAccountText>Login</AlreadyAccountText>
         </AlreadyAccount>

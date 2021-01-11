@@ -16,6 +16,7 @@ const AddNextModal = ({
   hideModal = () => {},
   data = {},
   watchAction = () => {},
+  uid,
 }) => {
   const [defaultDate, setDefaultDate] = useState();
 
@@ -34,7 +35,7 @@ const AddNextModal = ({
   const webSeries = {
     createdAt: moment().format('lll'),
     title,
-    userId: 'j4fA81iLv6Czjs1Jh9fo',
+    userId: uid,
     toWatchAt: getDate(defaultDate).toWatchAt,
     watchTime: getDate(defaultDate).watchTime,
     isWatched: false,
@@ -70,15 +71,12 @@ const AddNextModal = ({
             </ConfirmText>
           </Confirm>
           <Confirm
+            cancel
             onPress={() => {
               watchAction();
               hideModal();
-            }}
-            style={{backgroundColor: '#fff'}}>
-            <ConfirmText
-              style={{color: colors.red, fontFamily: 'Poppins-SemiBold'}}>
-              I Don't Want To Add
-            </ConfirmText>
+            }}>
+            <ConfirmText cancel>I Don't Want To Add</ConfirmText>
           </Confirm>
         </Content>
       </ContentView>
@@ -89,14 +87,14 @@ const AddNextModal = ({
 export default AddNextModal;
 
 const NormalText = styled.Text`
-  color: #000;
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
   text-align: center;
   font-size: 18px;
   font-family: 'Poppins-Medium';
 `;
 
 const Content = styled.View`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.PRIMARY_BG_CARD};
   min-width: 250px;
   border-radius: 12px;
   padding: 12px;
@@ -109,14 +107,16 @@ const ContentView = styled.View`
 
 const Confirm = styled.TouchableOpacity`
   height: 30px;
-  background-color: ${colors.lightBlue2};
+  background-color: ${(props) =>
+    props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE};
   margin-bottom: 12px;
   margin-top: 12px;
   border-radius: 6px;
 `;
 const ConfirmText = styled.Text`
   font-family: 'Poppins-Regular';
-  color: ${colors.darkBlue};
+  color: ${(props) =>
+    props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
   font-size: 16px;
   text-align: center;
   line-height: 30px;

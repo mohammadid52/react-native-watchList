@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {BackButton, Empty, RenderList, ScreenTitle} from '../../components';
+import {ActivityIndicator, Text, View} from 'react-native';
+import {Empty, RenderList, ScreenTitle} from '../../components';
 import useMovies from '../../hooks/useMovies';
 
 const Content = ({route, navigation}) => {
@@ -37,26 +37,21 @@ const Content = ({route, navigation}) => {
           <RenderList route={route.name} data={movies} />
         </>
       ) : (
-        <>
-          {/* <BackButton goBack={() => navigation.navigate('Home')} /> For Testing #2 */}
-          <Empty
-            text={
-              route.name === 'Watched'
-                ? 'You Have Not Watched Any Movies yet'
-                : `No Movies To Watch ${route.name}`
-            }
-            subText={
-              route.name === 'Watched'
-                ? 'Click On Checkbox In Movie Modal'
-                : 'Click On + To Add Movies'
-            }
-          />
-        </>
+        <Empty
+          text={
+            route.name === 'Watched'
+              ? 'You Have Not Watched Any Movies yet'
+              : `No Movies To Watch ${route.name}`
+          }
+          subText={
+            route.name === 'Watched'
+              ? 'Click On Checkbox In Movie Modal'
+              : 'Click On + To Add Movies'
+          }
+        />
       )}
     </View>
   );
 };
 
 export default Content;
-
-const styles = StyleSheet.create({});

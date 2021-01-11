@@ -13,7 +13,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import styled from 'styled-components';
 import Modal from 'react-native-modal';
 
-import {BackButton} from '../components';
 import {colors} from '../constants';
 import {
   handleCancelNotifications,
@@ -48,7 +47,6 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
       onSwipeComplete={hideModal}
       onBackdropPress={hideModal}>
       <Content>
-        {/* <BackButton goBack={hideModal} />   ========For Testing========  */}
         <Container>
           <MovieNameText>{title}</MovieNameText>
           {isWebSeries && (
@@ -100,21 +98,18 @@ const MovieModal = ({isModalVisible, setModalIsVisible, data}) => {
 export default MovieModal;
 
 const ContentView = styled(Modal)`
-  /* height: 100; */
   justify-content: center;
   align-items: center;
 `;
 
 const Content = styled.View`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.PRIMARY_BG_CARD};
   padding: 22px;
   border-radius: 17px;
-  /* height: ${modalHeight}; For Testing */
   min-width: 250px;
 `;
 
 const Container = styled.View`
-  /* margin-top: 40; For Testing */
   justify-content: center;
   align-items: center;
 `;
@@ -125,9 +120,9 @@ const MovieNameText = styled.Text`
   text-align: center;
   font-size: 20px;
   font-family: 'Poppins-BoldItalic';
-  color: #000;
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
   border-bottom-width: 4px;
-  border-bottom-color: ${colors.green};
+  border-bottom-color: ${(props) => props.theme.SECONDARY_GREEN};
 `;
 const OtherText = styled.Text`
   font-family: 'Poppins-SemiBold';
@@ -144,27 +139,27 @@ const TextContainer = styled.Text`
 const WatchAtText = styled.Text`
   font-family: 'Poppins-Medium';
   font-size: 18px;
-  color: #000;
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
 `;
 
 const Watched = styled.View`
-  padding: 4px 8px;
+  padding: 0px 8px;
   border-radius: 6px;
   margin-top: 12px;
   margin-bottom: 12px;
   background-color: ${(props) =>
-    props.isWatched ? colors.lightRed : colors.lightBlue2};
+    props.isWatched ? props.theme.SECONDARY_RED : props.theme.SECONDARY_BLUE};
 `;
 
 const WatchedText = styled.Text`
-  color: ${(props) => (props.isWatched ? colors.darkRed : colors.darkBlue)};
+  color: ${(props) =>
+    props.isWatched ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
   font-family: 'Poppins-SemiBold';
 `;
 
 const Delete = styled.TouchableOpacity`
   border-radius: 6px;
   margin-top: 6px;
-  /* margin-bottom: 12; */
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -172,12 +167,13 @@ const Delete = styled.TouchableOpacity`
 
 const DeleteText = styled.Text`
   font-family: 'Poppins-SemiBold';
-  color: ${colors.red};
+  letter-spacing: 0.8;
+  color: ${(props) => props.theme.PRIMARY_RED};
 `;
 
 const ReminderText = styled.Text`
   font-family: 'Poppins-Medium';
-  color: #000;
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
 `;
 
 const Reminder = styled.View`

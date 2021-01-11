@@ -74,10 +74,7 @@ const Header = ({navigation}) => {
   const {setSelected} = useTabBar();
 
   return (
-    <HeaderCard
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 1}}
-      colors={['#fc7e2f', '#f40552']}>
+    <HeaderCard start={{x: 0, y: 0}} end={{x: 1, y: 1}}>
       {cardArray.map((mainCard) => (
         <Row>
           {mainCard.map((card) => (
@@ -106,29 +103,31 @@ const Header = ({navigation}) => {
 
 export default Header;
 
-const HeaderCard = styled(LinearGradient)`
-  background-color: ${colors.darkRed};
+const HeaderCard = styled(LinearGradient).attrs((props) => ({
+  colors:
+    props.theme.mode === 'dark'
+      ? props.theme.HEADER_CARD
+      : ['#fc7e2f', '#f40552'],
+}))`
   flex-direction: column;
   align-items: center;
   padding: 12px;
   margin-bottom: 12px;
   border-radius: 12px;
-  margin-top: 12px;
-  margin-right: 12px;
-  margin-left: 12px;
-  margin-bottom: 12px;
+  margin: 12px;
 `;
 
 const Row = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
-  width: ${width};
+  width: ${width}px;
 `;
 
 const Card = styled.TouchableOpacity`
   height: 70px;
   width: 70px;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.SECONDARY_BLUE}
+    /* Theme Change Here */;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 12px;
@@ -144,7 +143,7 @@ const InnerCard = styled.View`
 
 const StyledText = styled.Text`
   font-size: 10px;
-  font-family: 'Poppins-Light';
+  font-family: 'Poppins-Bold';
   margin-top: 3px;
-  color: ${colors.textColor};
+  color: ${(props) => props.theme.PRIMARY_BLUE} /* Theme Change Here */; ;
 `;

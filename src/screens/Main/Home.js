@@ -1,12 +1,6 @@
 import {orderBy} from 'lodash';
 import React from 'react';
-import {
-  Text,
-  View,
-  StatusBar,
-  ActivityIndicator,
-  StyleSheet,
-} from 'react-native';
+import {Text, View, StatusBar, ActivityIndicator} from 'react-native';
 
 import {
   AnimatedScrollView,
@@ -45,7 +39,5 @@ const Home = ({navigation}) => {
     </AnimatedScrollView>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Home;

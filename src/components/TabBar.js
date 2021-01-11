@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, Dimensions, View, Animated} from 'react-native';
+import {Dimensions, Animated} from 'react-native';
+import styled from 'styled-components';
 
 import {Tab} from '.';
 import {colors} from '../constants';
@@ -52,9 +53,9 @@ const TabBar = ({state, navigation}) => {
   }, [showTabBar]);
 
   return (
-    <View style={styles.wrapper}>
-      <Animated.View
-        style={[styles.container, {transform: [{translateY: animationValue}]}]}>
+    <Container>
+      <InnerContainer
+        style={{elevation: 9, transform: [{translateY: animationValue}]}}>
         {routes.map((route, index) => (
           <Tab
             tab={route}
@@ -62,27 +63,26 @@ const TabBar = ({state, navigation}) => {
             key={route.key}
           />
         ))}
-      </Animated.View>
-    </View>
+      </InnerContainer>
+    </Container>
   );
 };
+/* Theme Change Here */ export default TabBar;
 
-export default TabBar;
-const styles = StyleSheet.create({
-  wrapper: {
-    position: 'absolute',
-    bottom: 25,
-    width,
-    alignItems: 'center',
-  },
-  container: {
-    height: 50,
-    elevation: 9,
-    backgroundColor: colors.textColor,
-    width: 300,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 100,
-    paddingHorizontal: 20,
-  },
-});
+const Container = styled.View`
+  position: absolute;
+  bottom: 25px;
+  width: ${width}px;
+  align-items: center;
+`;
+
+const InnerContainer = styled(Animated.View)`
+  height: 50;
+  background-color: ${colors.textColor} /* Theme Change Here */;
+  width: 300px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+`;

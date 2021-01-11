@@ -4,6 +4,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
+import styled from 'styled-components';
 
 import {useTabBar} from '../context/TabBarProvider';
 import {colors} from '../constants';
@@ -53,36 +54,31 @@ const Tab = ({onPress, tab}) => {
   };
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={onPress}
-      activeOpacity={0.3}>
+    <Container onPress={onPress} activeOpacity={0.3}>
       {getIconSizeColor(tab.name)}
       {tab.name === selected && (
-        <LinearGradient
+        <Decorator
           start={{x: 0, y: 0}}
           end={{x: 1, y: 1}}
-          colors={['#fc7e2f', '#f40552']}
-          style={styles.decorator}></LinearGradient>
+          colors={['#fc7e2f', '#f40552']}></Decorator>
       )}
-    </TouchableOpacity>
+    </Container>
   );
 };
 
 export default Tab;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    position: 'relative',
-  },
-  decorator: {
-    position: 'absolute',
-    bottom: -7,
-    backgroundColor: colors.sharpRed,
-    width: 7,
-    borderRadius: 10,
-    height: 3,
-  },
-});
+const Container = styled.TouchableOpacity`
+  flex: 1;
+  align-items: center;
+  position: relative;
+`;
+
+const Decorator = styled(LinearGradient)`
+  position: absolute;
+  bottom: -7px;
+  background-color: ${colors.sharpRed} /* Theme Change Here */;
+  width: 7px;
+  border-radius: 10px;
+  height: 3px;
+`;

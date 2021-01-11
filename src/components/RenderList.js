@@ -1,6 +1,7 @@
 import {capitalize} from 'lodash';
 import React from 'react';
 import {FlatList, StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import styled from 'styled-components';
 
 import {colors} from '../constants';
 import {useTabBar} from '../context/TabBarProvider';
@@ -15,10 +16,8 @@ const RenderList = ({data = [], listTitle, slice, route}) => {
       : `Movies You've Watched`;
   return (
     data.length > 0 && (
-      <View style={styles.container}>
-        {data.length > 0 && (
-          <Text style={styles.header}>{listTitle || renderHeader}</Text>
-        )}
+      <Container>
+        {data.length > 0 && <Header>{listTitle || renderHeader}</Header>}
         <FlatList
           data={
             !slice ? data : data.length > slice ? data.slice(0, slice) : data
@@ -27,19 +26,20 @@ const RenderList = ({data = [], listTitle, slice, route}) => {
           keyExtractor={(item) => item.movieId}
           renderItem={({item}) => <Card list={item} />}
         />
-      </View>
+      </Container>
     )
   );
 };
 
 export default RenderList;
-const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-  },
-  header: {
-    marginBottom: 8,
-    fontFamily: 'Poppins-Light',
-    textAlign: 'center',
-  },
-});
+
+const Container = styled.View`
+  margin: 10px;
+`;
+
+const Header = styled.Text`
+  margin-bottom: 8px;
+  font-family: 'Poppins-Light';
+  text-align: center;
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR ?? '#000'};
+`;

@@ -17,6 +17,7 @@ const AutoAddNextModal = ({
   isModalVisible = false,
   hideModal = () => {},
   data = {},
+  uid,
 }) => {
   const [defaultDate, setDefaultDate] = useState();
 
@@ -37,7 +38,7 @@ const AutoAddNextModal = ({
   const webSeries = {
     createdAt: moment().format('lll'),
     title: data.title,
-    userId: 'j4fA81iLv6Czjs1Jh9fo',
+    userId: uid,
     toWatchAt: getDate(defaultDate).toWatchAt,
     watchTime: getDate(defaultDate).watchTime,
     isWatched: false,
@@ -87,7 +88,7 @@ const ContentView = styled(Modal)`
 `;
 
 const Content = styled.View`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.PRIMARY_BG_CARD};
   padding: 22px;
   border-radius: 17px;
   min-width: 250px;
@@ -99,12 +100,14 @@ const Container = styled.View`
 `;
 
 const Button = styled.TouchableOpacity`
-  background-color: ${(props) => (props.cancel ? '#fff' : colors.lightBlue2)};
+  background-color: ${(props) =>
+    props.cancel ? 'transparent' : props.theme.SECONDARY_BLUE};
   padding: 3px 8px;
   border-radius: 6px;
   margin-bottom: ${(props) => (props.cancel ? 0 : 12)};
 `;
 const StyledText = styled.Text`
   font-family: 'Poppins-Medium';
-  color: ${(props) => (props.cancel ? colors.darkRed : colors.darkBlue)};
+  color: ${(props) =>
+    props.cancel ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
 `;

@@ -5,8 +5,7 @@ import styled from 'styled-components';
 // icons
 import Feather from 'react-native-vector-icons/Feather';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import NextButton from '../../design/NextButton';
-import StyledInput from '../../design/StyledInput';
+import {Button, StyledInput} from '../../design';
 
 import {colors} from '../../constants';
 import {login} from '../../helpers';
@@ -46,7 +45,7 @@ const Login = ({navigation}) => {
           onFocus={() => setFocused('Password')}
           focused={focused}
         />
-        <NextButton text="Login" onPress={handleLogin} />
+        <Button text="Login" onPress={handleLogin} />
         <View
           style={{
             flexDirection: 'row',

@@ -21,7 +21,6 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import styled from 'styled-components';
 
 import {useTabBar} from '../context/TabBarProvider';
-import {BackButton} from '../components';
 import {colors} from '../constants';
 import {addMovie, getDate} from '../helpers';
 import {useAuth} from '../context/UserContext';
@@ -128,7 +127,6 @@ export default ({navigation}) => {
   return (
     <ContentView
       isVisible={isModalVisible}
-      backdropOpacity={0.6}
       swipeDirection="down"
       onSwipeComplete={hideModal}
       useNativeDriver={true}
@@ -211,12 +209,12 @@ export default ({navigation}) => {
   );
 };
 
-const ContentView = styled(Modal)`
-  /* justify-content: flex-end; */
-  /* margin: 0; */
-`;
+const ContentView = styled(Modal).attrs((props) => ({
+  backdropColor: props.theme.PRIMARY_BG,
+  backdropOpacity: props.theme.mode === 'dark' ? 0.8 : 0.5,
+}))``;
 const Styledkeyboard = styled(KeyboardAwareScrollView)`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.PRIMARY_BG_CARD};
   padding: 22px;
   border-top-right-radius: 17px;
   border-top-left-radius: 17px;
@@ -234,21 +232,24 @@ const HeaderText = styled.Text`
   text-align: center;
   font-size: 18px;
   font-family: 'Poppins-SemiBold';
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
 `;
 const InputContainer = styled.View`
   padding-left: 32px;
   padding-right: 32px;
 `;
-const Input = styled.TextInput`
+const Input = styled.TextInput.attrs((props) => ({
+  placeholderTextColor: props.theme.PRIMARY_TEXT_COLOR,
+}))`
   font-family: 'Poppins-Regular';
-  color: #000;
-  width: ${inputWidth};
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
+  width: ${inputWidth}px;
   height: 48px;
   border-radius: 6px;
   padding-left: 10px;
   padding-right: 10px;
-  border-width: ${StyleSheet.hairlineWidth};
-  border-color: ${colors.darkBlue};
+  border-width: ${StyleSheet.hairlineWidth}px;
+  border-color: ${colors.darkBlue} /* Change Theme Here */;
   margin-bottom: 16px;
 `;
 
@@ -261,26 +262,27 @@ const WebInputContainer = styled(Container)`
 `;
 
 const WebInput = styled(Input)`
-  width: ${inputWidth / 2.1};
+  width: ${inputWidth / 2.1}px;
 `;
 
 const WebInputRow = styled(WebInput)`
-  width: ${inputWidth / 2.1};
+  width: ${inputWidth / 2.1}px;
   margin-right: 8px;
 `;
 const Button = styled(TouchableOpacity)`
-  width: ${inputWidth};
+  width: ${inputWidth}px;
   border-radius: 6px;
   padding: 10px;
   margin-top: 0px;
-  background-color: ${colors.textColor};
+  background-color: ${(props) => props.theme.PRIMARY_BLUE};
 `;
 const AddButton = styled(Button)`
   margin-top: 32px;
-  background-color: ${colors.sharpRed};
+  background-color: ${(props) => props.theme.PRIMARY_RED};
 `;
 const CheckBoxText = styled.Text`
   font-family: 'Poppins-Regular';
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
 `;
 const CheckBoxContainer = styled.View`
   flex-direction: row;
@@ -296,11 +298,11 @@ const DatePickerText = styled.Text`
 const LeaveText = styled.Text`
   margin-top: 4px;
   font-family: 'Poppins-LightItalic';
-  color: #000;
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR}; /* Change Theme Here */
   font-size: 11px;
 `;
 const AddText = styled.Text`
-  color: #fff;
+  color: #fff /* Change Theme Here */;
   font-family: 'Poppins-Medium';
   font-size: 17px;
   text-align: center;

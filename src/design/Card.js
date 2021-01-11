@@ -12,6 +12,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import styled from 'styled-components';
 
 import {colors} from '../constants';
+import {useAuth} from '../context/UserContext';
 import {watchAction} from '../helpers';
 import {MovieModal, AddNextModal, AutoAddNextModal} from '../modal';
 
@@ -27,6 +28,7 @@ const Card = ({list}) => {
     isWebSeries && !list.isWatched
       ? () => setAddNextModal(true)
       : () => watchAction(list.movieId, list.isWatched);
+  const {user} = useAuth();
 
   return (
     <>
@@ -41,16 +43,17 @@ const Card = ({list}) => {
         watchAction={() => watchAction(list.movieId, list.isWatched)}
         hideModal={() => setAddNextModal(false)}
         data={isWebSeries ? list.webSeries : {}}
+        uid={user.uid}
       />
       {isWebSeries && (
         <AutoAddNextModal
           hideModal={() => setAutoAddNextModal(false)}
           isModalVisible={autoAddNextModal}
           data={list}
+          uid={user.uid}
         />
       )}
       <StyledCard
-        underlayColor="#fafafa"
         onLongPress={() => setAutoAddNextModal(!autoAddNextModal)}
         activeOpacity={1}
         onPress={() => setMovieModalVisible(true)}>
@@ -74,8 +77,8 @@ const Card = ({list}) => {
                     Season: {list.webSeries.seasonNum}
                   </WebSeriesText>
                 </WebSeriesCard>
-                <WebSeriesCard style={{backgroundColor: colors.lightRed}}>
-                  <WebSeriesText style={{color: colors.red}}>
+                <WebSeriesCard episode>
+                  <WebSeriesText episode>
                     Episode: {list.webSeries.episodeNum}
                   </WebSeriesText>
                 </WebSeriesCard>
@@ -83,9 +86,10 @@ const Card = ({list}) => {
             )}
 
             <TouchableHighlight style={{marginLeft: 12}}>
-              <AntDesign
+              <Checkbox
                 size={20}
-                color={list.isWatched ? colors.red : colors.gray}
+                isWatched={list.isWatched}
+                // color={list.isWatched ? colors.red : colors.gray}
                 onPress={() => handleWatchAction()}
                 name={list.isWatched ? 'checksquare' : 'checksquareo'}
               />
@@ -99,9 +103,17 @@ const Card = ({list}) => {
 
 export default Card;
 
-const StyledCard = styled.TouchableHighlight`
+const Checkbox = styled(AntDesign).attrs((props) => ({
+  color: props.isWatched
+    ? props.theme.PRIMARY_BLUE
+    : props.theme.SECONDARY_BLUE,
+}))``;
+
+const StyledCard = styled.TouchableHighlight.attrs((props) => ({
+  underlayColor: props.theme.PRIMARY_BG,
+}))`
   height: 70px;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.PRIMARY_BG_CARD};
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 6px;
@@ -118,7 +130,7 @@ const CardContainer = styled.View`
 
 const StyledText = styled.Text`
   font-size: 16px;
-  color: #000;
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
   font-family: 'Poppins-Regular';
 `;
 
@@ -129,14 +141,23 @@ const TimeText = styled(StyledText)`
 
 const WebSeriesText = styled.Text`
   font-family: 'Poppins-Medium';
-  color: ${(props) => (props.movie ? colors.green : colors.darkBlue)};
+  color: ${(props) =>
+    props.movie
+      ? props.theme.PRIMARY_GREEN
+      : props.episode
+      ? props.theme.PRIMARY_RED
+      : props.theme.PRIMARY_BLUE};
 `;
 
 const WebSeriesCard = styled.View`
   padding: 1px 6px;
   border-radius: 6px;
   background-color: ${(props) =>
-    props.movie ? colors.lightGreen : colors.lightBlue2};
+    props.movie
+      ? props.theme.SECONDARY_GREEN
+      : props.episode
+      ? props.theme.SECONDARY_RED
+      : props.theme.SECONDARY_BLUE};
   margin-right: 10px;
 `;
 

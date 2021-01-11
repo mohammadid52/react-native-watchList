@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import NextButton from '../../design/NextButton';
+import {Button} from '../../design';
 
 const GetStarted = ({navigation}) => {
   const FIRST_TIME = 'user:first-time';
@@ -29,7 +29,7 @@ const GetStarted = ({navigation}) => {
         Your own list of movies and webseries at your fingertips. Now manage
         time with entertainment
       </SubText>
-      <NextButton onPress={() => saveData()} text={'Get Started'} />
+      <Button onPress={() => saveData()} text={'Get Started'} />
     </Container>
   );
 };

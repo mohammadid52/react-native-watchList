@@ -13,9 +13,11 @@ const AppStack = createStackNavigator();
 export const AppStackNavigator = () => {
   const {user} = useAuth();
 
+  const loadingAssets = user === null;
+
   return (
     <AppStack.Navigator headerMode="none">
-      {user === null ? (
+      {loadingAssets ? (
         <AppStack.Screen name="Loading" component={Loading} />
       ) : !user ? (
         <AppStack.Screen name="Auth" component={AuthStackScreen} />

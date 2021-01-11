@@ -1,28 +1,26 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {colors} from '../constants';
+import styled from 'styled-components';
 
-const ScreenTitle = ({screenTitle, height, backgroundColor}) => {
+const ScreenTitle = (props) => {
   return (
-    <View
-      style={{
-        height: height || 100,
-        backgroundColor: backgroundColor || colors.sharpRed,
-      }}>
-      <Text style={[styles.headerTitle, {lineHeight: height || 100}]}>
-        {screenTitle}
-      </Text>
-    </View>
+    <Container {...props}>
+      <HeaderTitle {...props}>{props.screenTitle}</HeaderTitle>
+    </Container>
   );
 };
 
 export default ScreenTitle;
 
-const styles = StyleSheet.create({
-  headerTitle: {
-    fontSize: 30,
-    textAlign: 'center',
-    color: '#fff',
-    fontFamily: 'Poppins-SemiBold',
-  },
-});
+const Container = styled.View`
+  height: ${(props) => props.height ?? 100};
+  background-color: ${(props) => props.backgroundColor ?? colors.sharpRed};
+`;
+const HeaderTitle = styled.Text`
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Poppins-SemiBold';
+  line-height: ${(props) => props.lineHeight ?? props.height ?? 100};
+`;

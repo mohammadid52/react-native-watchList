@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ActivityIndicator,
+  PanResponder,
 } from 'react-native';
+import styled from 'styled-components';
 import {debounce, findIndex} from 'lodash';
 
 import {ScreenTitle} from '../../components';
@@ -69,53 +71,32 @@ const Settings = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <Container>
       {/* <ScreenTitle screenTitle="Settings" /> */}
-      <View style={styles.settingsContainer}>
-        <View style={{marginVertical: 15}}>
-          <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>Hey,</Text>
-          <Text style={{fontSize: 30, fontFamily: 'Poppins-Medium'}}>
-            {user.displayName}
-          </Text>
+      <SettingsContainer>
+        <View style={{marginVertical: 15, marginBottom: 30}}>
+          <HeaderText>Hey,</HeaderText>
+          <HeaderText>{user.displayName}</HeaderText>
         </View>
-        <View style={styles.item}>
+        <Item>
           <View>
-            <Text style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
-              Theme
-            </Text>
+            <LeftText>Theme</LeftText>
           </View>
 
           <TouchableOpacity onPress={changeTheme}>
-            <Text
-              style={{
-                fontFamily: 'Poppins-Medium',
-                borderBottomWidth: 2,
-                fontSize: 18,
-                // opacity: opacity.darkMode,
-              }}>
-              {theme}
-            </Text>
+            <RightText>{theme}</RightText>
           </TouchableOpacity>
-        </View>
-        <View style={styles.item}>
-          <Text style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
-            Default Date
-          </Text>
+        </Item>
+        <Item>
+          <LeftText>Default Date</LeftText>
 
           <View style={{zIndex: 1}}>
             <TouchableOpacity onPress={changeDate}>
-              <Text
-                style={{
-                  fontFamily: 'Poppins-Medium',
-                  borderBottomWidth: 2,
-                  fontSize: 18,
-                }}>
-                {defaultDate}
-              </Text>
+              <RightText>{defaultDate}</RightText>
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={[styles.item, {justifyContent: 'center'}]}>
+        </Item>
+        <Item style={{justifyContent: 'center'}}>
           <TouchableOpacity onPress={() => logOut()}>
             <Text
               style={{
@@ -126,32 +107,46 @@ const Settings = () => {
               Logout
             </Text>
           </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+        </Item>
+      </SettingsContainer>
+    </Container>
   );
 };
 
 export default Settings;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.bgColor,
-  },
-  settingsContainer: {
-    flex: 1,
-    padding: 30,
-  },
-  item: {
-    backgroundColor: '#fff',
-    marginBottom: 30,
-    height: 60,
-    // borderWidth: 2,
-    padding: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderRadius: 12,
-  },
-});
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.theme.PRIMARY_BG} /* Change Theme Here */;
+`;
+
+const SettingsContainer = styled.View`
+  flex: 1;
+  padding: 30px;
+`;
+
+const Item = styled.View`
+  background-color: ${(props) =>
+    props.theme.PRIMARY_BG_CARD}; /* Change Theme Here */
+  margin-bottom: 30px;
+  height: 60px;
+  padding: 15px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+`;
+
+const HeaderText = styled.Text`
+  font-size: 30;
+  font-family: 'Poppins-Medium';
+  color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
+`;
+
+const LeftText = styled(HeaderText)`
+  font-size: 18px;
+`;
+const RightText = styled(LeftText)`
+  border-bottom-width: 2px;
+  border-bottom-color: ${(props) => props.theme.PRIMARY_TEXT_COLOR};
+`;

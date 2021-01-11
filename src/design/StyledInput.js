@@ -51,5 +51,5 @@ const TextInput = styled.TextInput`
   font-family: 'Poppins-Regular';
   color: #fff;
   height: 50px;
-  width: ${width - 150};
+  width: ${width - 150}px;
 `;

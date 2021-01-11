@@ -1,2 +1,4 @@
 import Card from './Card';
-export {Card};
+import Button from './Button';
+import StyledInput from './StyledInput';
+export {Card, StyledInput, Button};

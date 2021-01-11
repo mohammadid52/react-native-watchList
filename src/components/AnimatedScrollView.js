@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ScrollView, RefreshControl} from 'react-native';
 import colors from '../constants/colors';
 import {useTabBar} from '../context/TabBarProvider';
-
+import styled from 'styled-components';
 let offsetY = 0;
 const AnimatedScrollView = ({children, ...rest}) => {
   const {setShowTabBar} = useTabBar();
@@ -20,7 +20,7 @@ const AnimatedScrollView = ({children, ...rest}) => {
   };
 
   return (
-    <ScrollView
+    <Scroller
       refreshControl={
         <RefreshControl
           colors={['#ff0000', '#47A9CC', '#16c79a', '#000']}
@@ -28,7 +28,6 @@ const AnimatedScrollView = ({children, ...rest}) => {
           onRefresh={onRefresh}
         />
       }
-      style={{backgroundColor: colors.bgColor}}
       {...rest}
       onScroll={({nativeEvent}) => {
         const newOffSet = nativeEvent.contentOffset.y;
@@ -37,8 +36,12 @@ const AnimatedScrollView = ({children, ...rest}) => {
         offsetY = newOffSet;
       }}>
       {children}
-    </ScrollView>
+    </Scroller>
   );
 };
+
+const Scroller = styled.ScrollView`
+  background-color: ${(props) => props.theme.PRIMARY_BG ?? '#fff'};
+`;
 
 export default AnimatedScrollView;
