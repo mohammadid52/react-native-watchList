@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import {
   Dimensions,
@@ -14,21 +14,21 @@ import Modal from 'react-native-modal';
 import moment from 'moment';
 
 import CheckBox from '@react-native-community/checkbox';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import styled from 'styled-components';
 
-import { useTabBar } from '../context/TabBarProvider';
-import { colors } from '../constants';
-import { addMovie, getDate } from '../helpers';
-import { useAuth } from '../context/UserContext';
+import {useTabBar} from '../context/TabBarProvider';
+import {colors} from '../constants';
+import {addMovie, getDate} from '../helpers';
+import {useAuth} from '../context/UserContext';
 import useSettings from '../hooks/useSettings';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 const topGutter = 70;
 
 const inputWidth = width - topGutter - 20;
 
-const AddNewModal = ({ navigation }) => {
+const AddNewModal = ({navigation}) => {
   // text state holder
   const [title, setTitle] = useState('');
   const [seasonNum, setSeasonNum] = useState();
@@ -45,15 +45,15 @@ const AddNewModal = ({ navigation }) => {
     time: '',
   });
 
-  const { setModalIsVisible, isModalVisible, setSelected } = useTabBar();
+  const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
 
-  const { user } = useAuth();
-  const { settings } = useSettings(user.uid);
+  const {user} = useAuth();
+  const {settings} = useSettings(user.uid);
   const userSettings = !settings.length
-    ? { defaultDate: 'Tonight (9PM)' }
+    ? {defaultDate: 'Tonight (9PM)'}
     : settings[0];
 
-  const { defaultDate } = userSettings;
+  const {defaultDate} = userSettings;
 
   const hideModal = () => {
     setSelected('HomeStack');
@@ -79,9 +79,10 @@ const AddNewModal = ({ navigation }) => {
 
   const handleDateConfirm = (_datetime) => {
     hideDatePicker();
+
     setDateTime({
-      date: moment(_datetime).format('ll'),
-      time: moment(_datetime).format('LT'),
+      date: moment(_datetime, 'MM/dd/yyyy').format('ll'),
+      time: moment(_datetime, 'MM/dd/yyyy').format('LT'),
     });
   };
 
@@ -122,8 +123,7 @@ const AddNewModal = ({ navigation }) => {
       useNativeDriver
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
-      onBackdropPress={hideModal}
-    >
+      onBackdropPress={hideModal}>
       <StatusBar backgroundColor={colors.textColor} />
 
       <Styledkeyboard>
@@ -139,7 +139,7 @@ const AddNewModal = ({ navigation }) => {
               <CheckBoxContainer>
                 <CheckBox
                   tintColor={colors.red}
-                  tintColors={{ true: colors.green, false: colors.darkBlue }}
+                  tintColors={{true: colors.green, false: colors.darkBlue}}
                   value={isWebseries}
                   onValueChange={() => setIsWebseries(!isWebseries)}
                 />
@@ -188,8 +188,8 @@ const AddNewModal = ({ navigation }) => {
                   {loading
                     ? 'Adding...'
                     : isWebseries
-                      ? 'Add Web Series'
-                      : 'Add Movie'}
+                    ? 'Add Web Series'
+                    : 'Add Movie'}
                 </AddText>
               </AddButton>
             </InputContainer>

@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ActivityIndicator, Dimensions } from 'react-native';
+import {ActivityIndicator, Dimensions} from 'react-native';
 import styled from 'styled-components';
 
-import { Empty, RenderList } from '../../components';
+import {Empty, RenderList} from '../../components';
+import {useTabBar} from '../../context/TabBarProvider';
 import useMovies from '../../hooks/useMovies';
 
-const { height } = Dimensions.get('screen');
+const {height} = Dimensions.get('screen');
 
-const Content = ({ route }) => {
+const Content = ({route}) => {
   const getDataKey = (name) => {
     switch (name) {
       case 'All':
@@ -26,23 +27,23 @@ const Content = ({ route }) => {
         return 'all';
     }
   };
-
-  const { loading, movies } = useMovies(getDataKey(route.name));
-
-  if (loading) {
-    return <ActivityIndicator />;
-  }
-
+  const {setShowTabBar} = useTabBar();
+  const {loading, movies} = useMovies(getDataKey(route.name));
+  if (loading) setShowTabBar(false);
   return (
     <Container>
-      {movies.length > 0 ? (
+      {loading ? (
+        <Loader>
+          <Loading color="white" size={40} />
+        </Loader>
+      ) : movies.length > 0 ? (
         <RenderList route={route.name} data={movies} />
       ) : (
         <Empty
           text={
             route.name === 'Watched'
               ? 'You Have Not Watched Any Movies yet'
-              : `No Movies To Watch ${route.name}`
+              : `No Movies To Watch`
           }
           subText={
             route.name === 'Watched'
@@ -67,5 +68,15 @@ const Container = styled.View`
   padding: 10px;
   padding-top: 60px;
 `;
+
+const Loader = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Loading = styled.ActivityIndicator.attrs((props) => ({
+  color: props.theme.mode === 'dark' ? '#f2f4fb' : '#162447',
+}))``;
 
 export default Content;

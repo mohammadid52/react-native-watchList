@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StatusBar, ActivityIndicator } from 'react-native';
-import { orderBy } from 'lodash';
+import {StatusBar, ActivityIndicator, Dimensions} from 'react-native';
+import {orderBy} from 'lodash';
+import styled from 'styled-components';
 
 import {
   AnimatedScrollView,
@@ -9,22 +10,29 @@ import {
   Empty,
   HeaderHome,
 } from '../../components';
-import { colors } from '../../constants';
+import {colors} from '../../constants';
 
 import useMovies from '../../hooks/useMovies';
+import {useTabBar} from '../../context/TabBarProvider';
 
-const Home = ({ navigation }) => {
-  const { loading, movies } = useMovies('all');
+const {height} = Dimensions.get('screen');
+const Home = ({navigation}) => {
+  const {loading, movies} = useMovies('all');
 
-  if (loading) {
-    return <ActivityIndicator size="small" color={colors.green} />;
-  }
+  const {setShowTabBar} = useTabBar();
+
+  if (loading) setShowTabBar(false);
 
   return (
     <AnimatedScrollView>
       <StatusBar hidden />
-      <HeaderHome navigation={navigation} />
-      {movies.length > 0 ? (
+      {!loading && <HeaderHome navigation={navigation} />}
+
+      {loading ? (
+        <LoadingContainer>
+          <Loader size={40} />
+        </LoadingContainer>
+      ) : movies.length > 0 ? (
         <RenderList
           listTitle="All Movies And Web Series"
           data={orderBy(movies, 'createdAt', 'desc')}
@@ -43,5 +51,14 @@ const Home = ({ navigation }) => {
 Home.propTypes = {
   navigation: PropTypes.any.isRequired,
 };
+
+const LoadingContainer = styled.View`
+  height: ${height}px;
+  justify-content: center;
+  align-items: center;
+`;
+const Loader = styled.ActivityIndicator.attrs((props) => ({
+  color: props.theme.mode === 'dark' ? '#f2f4fb' : '#162447',
+}))``;
 
 export default Home;

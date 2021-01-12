@@ -16,9 +16,9 @@ const Empty = ({text = 'No Data', subText = '', home = false}) => (
 );
 
 Empty.propTypes = {
-  home: PropTypes.bool.isRequired,
-  subText: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  home: PropTypes.bool,
+  subText: PropTypes.string,
+  text: PropTypes.string,
 };
 
 export default Empty;
@@ -27,7 +27,7 @@ const Container = styled.View`
   background-color: ${(props) => props.theme.PRIMARY_BG};
   justify-content: center;
   align-items: center;
-  height: ${(props) => (props.home ? height - 350 : height)}px;
+  height: ${(props) => (props.home ? height - 350 : height - 150)}px;
 `;
 
 const MainText = styled.Text`
