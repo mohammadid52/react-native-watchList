@@ -1,6 +1,5 @@
-import {useState, useEffect} from 'react';
-import {useAuth} from '../context/UserContext';
-import {firestore} from '../firebase';
+import { useState, useEffect } from 'react';
+import { firestore } from '../firebase';
 
 const useSettings = (uid) => {
   const [settings, setSettings] = useState([]);
@@ -21,7 +20,7 @@ const useSettings = (uid) => {
     return () => unsubscribe;
   }, []);
 
-  return {settings};
+  return { settings };
 };
 
 export default useSettings;

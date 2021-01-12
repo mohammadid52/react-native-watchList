@@ -8,15 +8,14 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import styled from 'styled-components';
 
-import {useTabBar} from '../context/TabBarProvider';
-import {colors} from '../constants';
+import { useTabBar } from '../context/TabBarProvider';
+import { colors } from '../constants';
 
-const Tab = ({onPress, tab}) => {
-  const {selected} = useTabBar();
+const Tab = ({ onPress, tab }) => {
+  const { selected } = useTabBar();
 
   const getIconSizeColor = (name) => {
-    const renderColor = (currentTab) =>
-      currentTab === selected ? colors.sharpRed : colors.white1;
+    const renderColor = (currentTab) => (currentTab === selected ? colors.sharpRed : colors.white1);
     const renderSize = (currentTab) => (currentTab === selected ? 21 : 17);
 
     switch (name) {
@@ -59,7 +58,7 @@ const Tab = ({onPress, tab}) => {
     <Container onPress={onPress} activeOpacity={0.3}>
       {getIconSizeColor(tab.name)}
       {tab.name === selected && (
-        <Decorator start={{x: 0, y: 0}} end={{x: 1, y: 1}} />
+        <Decorator start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} />
       )}
     </Container>
   );

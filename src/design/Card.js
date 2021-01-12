@@ -1,28 +1,27 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
-import {TouchableHighlight, View} from 'react-native';
+import React, { useState } from 'react';
+import { TouchableHighlight, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import styled from 'styled-components';
-import {findIndex, has} from 'lodash';
+import { has } from 'lodash';
 
-import {colors} from '../constants';
-import {useAuth} from '../context/UserContext';
-import {watchAction} from '../helpers';
-import {MovieModal, AddNextModal, AutoAddNextModal} from '../modal';
+import { colors } from '../constants';
+import { useAuth } from '../context/UserContext';
+import { watchAction } from '../helpers';
+import { MovieModal, AddNextModal, AutoAddNextModal } from '../modal';
 
-const Card = ({list}) => {
+const Card = ({ list }) => {
   // modals
   const [movieModalVisible, setMovieModalVisible] = useState(false);
   const [addNextModal, setAddNextModal] = useState(false);
   const [autoAddNextModal, setAutoAddNextModal] = useState(false);
 
   const isWebSeries = has(list, 'webSeries');
-  const {user} = useAuth();
+  const { user } = useAuth();
 
-  const handleWatchAction =
-    isWebSeries && !list.isWatched
-      ? () => setAddNextModal(true)
-      : () => watchAction(list.movieId, list.isWatched, user.uid);
+  const handleWatchAction = isWebSeries && !list.isWatched
+    ? () => setAddNextModal(true)
+    : () => watchAction(list.movieId, list.isWatched, user.uid);
 
   return (
     <>
@@ -50,16 +49,19 @@ const Card = ({list}) => {
       <StyledCard
         onLongPress={() => setAutoAddNextModal(!autoAddNextModal)}
         activeOpacity={1}
-        onPress={() => setMovieModalVisible(true)}>
+        onPress={() => setMovieModalVisible(true)}
+      >
         <CardContainer>
           <View>
             <StyledText>{list.title}</StyledText>
             <TimeText>
-              {list.toWatchAt} {list.watchTime}
+              {list.toWatchAt}
+              {' '}
+              {list.watchTime}
             </TimeText>
           </View>
 
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             {!isWebSeries ? (
               <WebSeriesCard movie>
                 <WebSeriesText movie>Movie</WebSeriesText>
@@ -68,18 +70,22 @@ const Card = ({list}) => {
               <WebSeriesCardContainer>
                 <WebSeriesCard>
                   <WebSeriesText>
-                    Season: {list.webSeries.seasonNum}
+                    Season:
+                    {' '}
+                    {list.webSeries.seasonNum}
                   </WebSeriesText>
                 </WebSeriesCard>
                 <WebSeriesCard episode>
                   <WebSeriesText episode>
-                    Episode: {list.webSeries.episodeNum}
+                    Episode:
+                    {' '}
+                    {list.webSeries.episodeNum}
                   </WebSeriesText>
                 </WebSeriesCard>
               </WebSeriesCardContainer>
             )}
 
-            <TouchableHighlight style={{marginLeft: 12}}>
+            <TouchableHighlight style={{ marginLeft: 12 }}>
               <Checkbox
                 size={20}
                 isWatched={list.isWatched}
@@ -149,23 +155,21 @@ const TimeText = styled(StyledText)`
 
 const WebSeriesText = styled.Text`
   font-family: 'Poppins-Medium';
-  color: ${(props) =>
-    props.movie
-      ? props.theme.PRIMARY_GREEN
-      : props.episode
+  color: ${(props) => (props.movie
+    ? props.theme.PRIMARY_GREEN
+    : props.episode
       ? props.theme.PRIMARY_RED
-      : props.theme.PRIMARY_BLUE};
+      : props.theme.PRIMARY_BLUE)};
 `;
 
 const WebSeriesCard = styled.View`
   padding: 1px 6px;
   border-radius: 6px;
-  background-color: ${(props) =>
-    props.movie
-      ? props.theme.SECONDARY_GREEN
-      : props.episode
+  background-color: ${(props) => (props.movie
+    ? props.theme.SECONDARY_GREEN
+    : props.episode
       ? props.theme.SECONDARY_RED
-      : props.theme.SECONDARY_BLUE};
+      : props.theme.SECONDARY_BLUE)};
   margin-right: 10px;
 `;
 

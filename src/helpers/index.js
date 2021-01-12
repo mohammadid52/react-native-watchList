@@ -1,8 +1,7 @@
 import moment from 'moment';
-import {auth, firestore} from '../firebase';
+import { auth, firestore } from '../firebase';
 
-const getCollection = (uid, collectionName) =>
-  firestore().collection(collectionName).doc(uid);
+const getCollection = (uid, collectionName) => firestore().collection(collectionName).doc(uid);
 
 export const watchAction = async (docId, currentValue, uid) => {
   try {
@@ -44,28 +43,28 @@ export function getDate(_date = 'Tonight (9PM)') {
   if (_date === 'After Hour') {
     const toWatchAt = moment().add(1, 'hour').format('ll');
     const watchTime = moment().add(1, 'hour').format('LT');
-    return {toWatchAt, watchTime};
+    return { toWatchAt, watchTime };
   }
   if (_date === 'Tonight (9PM)') {
     const toWatchAt = moment('9:00 PM', 'LT').format('ll');
     const watchTime = moment('9:00 PM', 'LT').format('LT');
 
-    return {toWatchAt, watchTime};
+    return { toWatchAt, watchTime };
   }
   if (_date === 'Tomorrow') {
     const toWatchAt = moment().add(1, 'day').format('ll');
     const watchTime = moment().add(1, 'day').format('LT');
-    return {toWatchAt, watchTime};
+    return { toWatchAt, watchTime };
   }
-  if (_date === 'This Saturday(9 PM)') {
+  if (_date === 'This Saturday (9PM)') {
     const toWatchAt = moment().day('sat').format('ll');
     const watchTime = moment().day('sat').format('LT');
-    return {toWatchAt, watchTime};
+    return { toWatchAt, watchTime };
   }
-  if (_date === 'This Sunday(9 PM)') {
+  if (_date === 'This Sunday (9PM)') {
     const toWatchAt = moment().day('sat').add(1, 'day').format('ll');
     const watchTime = moment().day('sat').add(1, 'day').format('LT');
-    return {toWatchAt, watchTime};
+    return { toWatchAt, watchTime };
   }
   return 'undefined date. Please check defaultDate';
 }

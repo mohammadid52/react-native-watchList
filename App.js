@@ -14,9 +14,6 @@ import {auth} from './src/firebase';
 import TabBarProvider from './src/context/TabBarProvider';
 import UserContext from './src/context/UserContext';
 
-//hooks
-import useTheme from './src/hooks/useTheme';
-
 // other
 import {isEmpty} from 'lodash';
 import useSettings from './src/hooks/useSettings';

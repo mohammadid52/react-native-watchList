@@ -1,21 +1,17 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 
-import {colors} from '../../constants';
-import {logOut, updateDefaultDate, updateTheme} from '../../helpers';
-import useTheme from '../../hooks/useTheme';
-import {useAuth} from '../../context/UserContext';
-import * as storage from '../../storage';
+import { colors } from '../../constants';
+import { logOut, updateDefaultDate, updateTheme } from '../../helpers';
+
+import { useAuth } from '../../context/UserContext';
 import useSettings from '../../hooks/useSettings';
 
 const Settings = () => {
-  const [defaultDate, setDefaultDate] = useState();
-
   const [dateIdx, setDateIdx] = useState(0);
-  const {user} = useAuth();
-  // const {theme, mode} = useTheme();
-  const {settings} = useSettings(user.uid);
+  const { user } = useAuth();
+  const { settings } = useSettings(user.uid);
 
   const defaultSetting = {
     defaultDate: 'Tonight (9PM)',
@@ -24,12 +20,15 @@ const Settings = () => {
 
   const userSettings = !settings.length ? defaultSetting : settings[0];
 
-  const defaultList = [
+  const { defaultDate, theme, docId } = userSettings;
+  const { uid } = user;
+
+  const dateList = [
     'After Hour',
     'Tonight (9PM)',
     'Tomorrow',
-    'This Saturday(9 PM)',
-    'This Sunday(9 PM)',
+    'This Saturday (9PM)',
+    'This Sunday (9PM)',
   ];
 
   const handlePress = () => {
@@ -43,13 +42,13 @@ const Settings = () => {
 
   const changeDate = () => {
     handlePress();
-    updateDefaultDate(user.uid, userSettings.docId, defaultList[dateIdx]);
+    updateDefaultDate(uid, docId, dateList[dateIdx]);
   };
 
   return (
     <Container>
       <SettingsContainer>
-        <View style={{marginVertical: 15, marginBottom: 30}}>
+        <View style={{ marginVertical: 15, marginBottom: 30 }}>
           <HeaderText>Hey,</HeaderText>
           <HeaderText>{user.displayName}</HeaderText>
         </View>
@@ -58,30 +57,28 @@ const Settings = () => {
             <LeftText>Theme</LeftText>
           </View>
 
-          <TouchableOpacity
-            onPress={() =>
-              updateTheme(user.uid, userSettings.docId, userSettings.theme)
-            }>
-            <RightText>{userSettings.theme}</RightText>
+          <TouchableOpacity onPress={() => updateTheme(uid, docId, theme)}>
+            <RightText>{theme}</RightText>
           </TouchableOpacity>
         </Item>
         <Item>
           <LeftText>Default Date</LeftText>
 
-          <View style={{zIndex: 1}}>
+          <View style={{ zIndex: 1 }}>
             <TouchableOpacity onPress={changeDate}>
-              <RightText>{userSettings.defaultDate}</RightText>
+              <RightText>{defaultDate}</RightText>
             </TouchableOpacity>
           </View>
         </Item>
-        <Item style={{justifyContent: 'center'}}>
+        <Item style={{ justifyContent: 'center' }}>
           <TouchableOpacity onPress={() => logOut()}>
             <Text
               style={{
                 fontFamily: 'Poppins-Medium',
                 fontSize: 18,
                 color: colors.red,
-              }}>
+              }}
+            >
               Logout
             </Text>
           </TouchableOpacity>
@@ -95,7 +92,7 @@ export default Settings;
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${(props) => props.theme.PRIMARY_BG} /* Change Theme Here */;
+  background-color: ${(props) => props.theme.PRIMARY_BG};
 `;
 
 const SettingsContainer = styled.View`
@@ -104,8 +101,7 @@ const SettingsContainer = styled.View`
 `;
 
 const Item = styled.View`
-  background-color: ${(props) =>
-    props.theme.PRIMARY_BG_CARD}; /* Change Theme Here */
+  background-color: ${(props) => props.theme.PRIMARY_BG_CARD};
   margin-bottom: 30px;
   height: 60px;
   padding: 15px;
