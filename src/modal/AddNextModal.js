@@ -58,7 +58,7 @@ const AddNextModal = ({
           <NormalText>{title}</NormalText>
           <Confirm
             onPress={() => {
-              addMovie(webSeries).then(() => {
+              addMovie(webSeries, uid).then(() => {
                 Vibration.vibrate(100);
                 hideModal();
                 watchAction();

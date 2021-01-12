@@ -42,7 +42,7 @@ const AutoAddNextModal = ({
         <Container>
           <Button
             onPress={() => {
-              addMovie(webSeries).then(() => {
+              addMovie(webSeries, uid).then(() => {
                 hideModal();
                 Vibration.vibrate(100);
               });

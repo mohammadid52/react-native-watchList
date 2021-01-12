@@ -17,13 +17,12 @@ const Card = ({list}) => {
   const [autoAddNextModal, setAutoAddNextModal] = useState(false);
 
   const isWebSeries = has(list, 'webSeries');
+  const {user} = useAuth();
 
   const handleWatchAction =
     isWebSeries && !list.isWatched
       ? () => setAddNextModal(true)
-      : () => watchAction(list.movieId, list.isWatched);
-
-  const {user} = useAuth();
+      : () => watchAction(list.movieId, list.isWatched, user.uid);
 
   return (
     <>
@@ -35,7 +34,7 @@ const Card = ({list}) => {
       <AddNextModal
         title={list.title}
         visible={addNextModal}
-        watchAction={() => watchAction(list.movieId, list.isWatched)}
+        watchAction={() => watchAction(list.movieId, list.isWatched, user.uid)}
         hideModal={() => setAddNextModal(false)}
         data={isWebSeries ? list.webSeries : {}}
         uid={user.uid}

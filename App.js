@@ -14,30 +14,27 @@ import {auth} from './src/firebase';
 import TabBarProvider from './src/context/TabBarProvider';
 import UserContext from './src/context/UserContext';
 
-// theme
-import {readThemePreference} from './src/storage';
-import {darkTheme, lightTheme} from './src/constants/colors';
+//hooks
+import useTheme from './src/hooks/useTheme';
+
+// other
 import {isEmpty} from 'lodash';
+import useSettings from './src/hooks/useSettings';
+import {darkTheme, lightTheme} from './src/constants/colors';
 
 LogBox.ignoreAllLogs();
 const App = () => {
-  const [theme, setTheme] = useState({});
+  const uid = auth().currentUser.uid || '';
+  const {settings} = useSettings(uid);
 
-  useEffect(() => {
-    const unsub = async () => {
-      await readThemePreference().then((theme) => {
-        if (theme === 'dark') {
-          setTheme(darkTheme);
-        } else {
-          setTheme(lightTheme);
-        }
-        return setTheme(darkTheme);
-      });
-    };
-    return () => unsub();
-  }, [theme]);
+  const defaultSetting = {
+    defaultDate: 'Tonight (9PM)',
+    theme: 'dark',
+  };
 
-  const renderTheme = isEmpty(theme) ? darkTheme : theme;
+  const userSettings = !settings.length ? defaultSetting : settings[0];
+  const renderTheme = userSettings.theme === 'dark' ? darkTheme : lightTheme;
+
   return (
     <ThemeProvider theme={renderTheme}>
       <UserContext>

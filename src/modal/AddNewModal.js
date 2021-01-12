@@ -106,7 +106,7 @@ const AddNewModal = ({navigation}) => {
     };
     const data = isWebseries ? webSeries : movie;
 
-    addMovie(data)
+    addMovie(data, user.uid)
       .then(() => {
         setLoading(false);
         hideModal();

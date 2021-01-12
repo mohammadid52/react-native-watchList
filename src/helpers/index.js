@@ -1,9 +1,12 @@
 import moment from 'moment';
-import { auth, firestore } from '../firebase';
+import {auth, firestore} from '../firebase';
 
-export const watchAction = async (movieId, currentValue) => {
+const getCollection = (uid, collectionName) =>
+  firestore().collection(collectionName).doc(uid);
+
+export const watchAction = async (docId, currentValue, uid) => {
   try {
-    await firestore().collection('movies').doc(movieId).update({
+    await getCollection(uid, 'users').collection('data').doc(docId).update({
       isWatched: !currentValue,
     });
   } catch (error) {
@@ -11,9 +14,9 @@ export const watchAction = async (movieId, currentValue) => {
   }
 };
 
-export const addMovie = async (movie) => {
+export const addMovie = async (movie, uid) => {
   try {
-    await firestore().collection('movies').add(movie);
+    await getCollection(uid, 'users').collection('data').add(movie);
   } catch (error) {
     console.error('error adding movie:', error);
   }
@@ -41,28 +44,28 @@ export function getDate(_date = 'Tonight (9PM)') {
   if (_date === 'After Hour') {
     const toWatchAt = moment().add(1, 'hour').format('ll');
     const watchTime = moment().add(1, 'hour').format('LT');
-    return { toWatchAt, watchTime };
+    return {toWatchAt, watchTime};
   }
   if (_date === 'Tonight (9PM)') {
     const toWatchAt = moment('9:00 PM', 'LT').format('ll');
     const watchTime = moment('9:00 PM', 'LT').format('LT');
 
-    return { toWatchAt, watchTime };
+    return {toWatchAt, watchTime};
   }
   if (_date === 'Tomorrow') {
     const toWatchAt = moment().add(1, 'day').format('ll');
     const watchTime = moment().add(1, 'day').format('LT');
-    return { toWatchAt, watchTime };
+    return {toWatchAt, watchTime};
   }
   if (_date === 'This Saturday(9 PM)') {
     const toWatchAt = moment().day('sat').format('ll');
     const watchTime = moment().day('sat').format('LT');
-    return { toWatchAt, watchTime };
+    return {toWatchAt, watchTime};
   }
   if (_date === 'This Sunday(9 PM)') {
     const toWatchAt = moment().day('sat').add(1, 'day').format('ll');
     const watchTime = moment().day('sat').add(1, 'day').format('LT');
-    return { toWatchAt, watchTime };
+    return {toWatchAt, watchTime};
   }
   return 'undefined date. Please check defaultDate';
 }
@@ -85,9 +88,17 @@ export const signUp = async (credentials = {}, errorCB = () => {}) => {
       credentials.email,
       credentials.password,
     );
+
     await createdProfile.user.updateProfile({
       displayName: credentials.username,
     });
+
+    await getCollection(createdProfile.user.uid, 'users')
+      .collection('settings')
+      .add({
+        theme: 'dark',
+        defaultDate: 'Tonight (9PM)',
+      });
   } catch (error) {
     errorCB(error.message);
     console.error(error);
@@ -99,6 +110,27 @@ export const logOut = async (errorCB = () => {}) => {
     await auth().signOut();
   } catch (error) {
     errorCB(error.message);
+    console.error(error);
+  }
+};
+
+export const updateTheme = async (uid, docId, mode) => {
+  const theme = mode === 'dark' ? 'light' : 'dark';
+  try {
+    await getCollection(uid, 'users').collection('settings').doc(docId).update({
+      theme,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateDefaultDate = async (uid, docId, defaultDate) => {
+  try {
+    await getCollection(uid, 'users').collection('settings').doc(docId).update({
+      defaultDate,
+    });
+  } catch (error) {
     console.error(error);
   }
 };

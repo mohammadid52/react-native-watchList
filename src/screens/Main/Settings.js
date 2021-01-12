@@ -1,18 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 
-import { colors } from '../../constants';
-import { logOut } from '../../helpers';
-import { useAuth } from '../../context/UserContext';
+import {colors} from '../../constants';
+import {logOut, updateDefaultDate, updateTheme} from '../../helpers';
+import useTheme from '../../hooks/useTheme';
+import {useAuth} from '../../context/UserContext';
 import * as storage from '../../storage';
+import useSettings from '../../hooks/useSettings';
 
 const Settings = () => {
-  const [theme, setTheme] = useState('dark');
   const [defaultDate, setDefaultDate] = useState();
 
   const [dateIdx, setDateIdx] = useState(0);
-  const { user } = useAuth();
+  const {user} = useAuth();
+  // const {theme, mode} = useTheme();
+  const {settings} = useSettings(user.uid);
+
+  const defaultSetting = {
+    defaultDate: 'Tonight (9PM)',
+    theme: 'dark',
+  };
+
+  const userSettings = !settings.length ? defaultSetting : settings[0];
 
   const defaultList = [
     'After Hour',
@@ -31,35 +41,15 @@ const Settings = () => {
     }
   };
 
-  useEffect(() => {
-    const unsub = async () => {
-      try {
-        const $theme = await storage.readThemePreference();
-        const date = await storage.readDefaultDate();
-        setTheme($theme);
-        setDefaultDate(date);
-      } catch (error) {
-        console.error('error @useEffect in Settings: ', error);
-      }
-    };
-    return () => unsub();
-  }, [theme, defaultDate]);
-
-  const changeTheme = () => {
-    theme === 'dark'
-      ? storage.writeThemePreference('light')
-      : storage.writeThemePreference('dark');
-  };
   const changeDate = () => {
     handlePress();
-    storage.writeDefaultDate(defaultList[dateIdx]);
+    updateDefaultDate(user.uid, userSettings.docId, defaultList[dateIdx]);
   };
 
   return (
     <Container>
-      {/* <ScreenTitle screenTitle="Settings" /> */}
       <SettingsContainer>
-        <View style={{ marginVertical: 15, marginBottom: 30 }}>
+        <View style={{marginVertical: 15, marginBottom: 30}}>
           <HeaderText>Hey,</HeaderText>
           <HeaderText>{user.displayName}</HeaderText>
         </View>
@@ -68,28 +58,30 @@ const Settings = () => {
             <LeftText>Theme</LeftText>
           </View>
 
-          <TouchableOpacity onPress={changeTheme}>
-            <RightText>{theme}</RightText>
+          <TouchableOpacity
+            onPress={() =>
+              updateTheme(user.uid, userSettings.docId, userSettings.theme)
+            }>
+            <RightText>{userSettings.theme}</RightText>
           </TouchableOpacity>
         </Item>
         <Item>
           <LeftText>Default Date</LeftText>
 
-          <View style={{ zIndex: 1 }}>
+          <View style={{zIndex: 1}}>
             <TouchableOpacity onPress={changeDate}>
-              <RightText>{defaultDate}</RightText>
+              <RightText>{userSettings.defaultDate}</RightText>
             </TouchableOpacity>
           </View>
         </Item>
-        <Item style={{ justifyContent: 'center' }}>
+        <Item style={{justifyContent: 'center'}}>
           <TouchableOpacity onPress={() => logOut()}>
             <Text
               style={{
                 fontFamily: 'Poppins-Medium',
                 fontSize: 18,
                 color: colors.red,
-              }}
-            >
+              }}>
               Logout
             </Text>
           </TouchableOpacity>
@@ -112,7 +104,8 @@ const SettingsContainer = styled.View`
 `;
 
 const Item = styled.View`
-  background-color: ${(props) => props.theme.PRIMARY_BG_CARD}; /* Change Theme Here */
+  background-color: ${(props) =>
+    props.theme.PRIMARY_BG_CARD}; /* Change Theme Here */
   margin-bottom: 30px;
   height: 60px;
   padding: 15px;
