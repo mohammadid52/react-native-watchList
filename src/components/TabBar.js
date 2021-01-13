@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef} from 'react';
-import {Dimensions, Animated} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Dimensions, Animated } from 'react-native';
 import styled from 'styled-components';
 
-import {Tab} from '.';
-import {useTabBar} from '../context/TabBarProvider';
+import { Tab } from '.';
+import { useTabBar } from '../context/TabBarProvider';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
-const TabBar = ({state, navigation}) => {
+const TabBar = ({ state, navigation }) => {
   const {
     showTabBar,
     isModalVisible,
     setModalIsVisible,
     setSelected,
   } = useTabBar();
-  const {routes} = state;
+  const { routes } = state;
 
   const animationValue = useRef(new Animated.Value(0)).current;
 
@@ -56,7 +56,8 @@ const TabBar = ({state, navigation}) => {
   return (
     <Container>
       <InnerContainer
-        style={{elevation: 9, transform: [{translateY: animationValue}]}}>
+        style={{ elevation: 9, transform: [{ translateY: animationValue }] }}
+      >
         {routes.map((route) => (
           <Tab
             tab={route}
@@ -90,8 +91,7 @@ const Container = styled.View`
 
 const InnerContainer = styled(Animated.View)`
   height: 50px;
-  background-color: ${(props) =>
-    props.theme.mode === 'dark' ? props.theme.PRIMARY_BLUE : '#000'};
+  background-color: ${(props) => (props.theme.mode === 'dark' ? props.theme.PRIMARY_BLUE : '#000')};
   width: 300px;
   flex-direction: row;
   align-items: center;

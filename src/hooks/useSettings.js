@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {firestore} from '../firebase';
+import { useState, useEffect } from 'react';
+import { firestore } from '../firebase';
 
 const useSettings = (uid) => {
   const [settings, setSettings] = useState([]);
@@ -20,9 +20,9 @@ const useSettings = (uid) => {
     return () => unsubscribe;
   }, []);
 
-  const defaultSetting = {theme: 'dark', defaultDate: 'Tonight (9PM)'};
+  const defaultSetting = { theme: 'dark', defaultDate: 'Tonight (9PM)' };
 
-  return {settings, defaultSetting};
+  return { settings, defaultSetting };
 };
 
 export default useSettings;

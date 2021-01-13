@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import {
   Dimensions,
@@ -14,16 +13,16 @@ import Modal from 'react-native-modal';
 import moment from 'moment';
 
 import CheckBox from '@react-native-community/checkbox';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import styled from 'styled-components';
 
-import {useTabBar} from '../context/TabBarProvider';
-import {colors} from '../constants';
-import {addMovie, getDate} from '../helpers';
-import {useAuth} from '../context/UserContext';
+import { useTabBar } from '../context/TabBarProvider';
+import { colors } from '../constants';
+import { addMovie, getDate } from '../helpers';
+import { useAuth } from '../context/UserContext';
 import useSettings from '../hooks/useSettings';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 const topGutter = 70;
 
 const inputWidth = width - topGutter - 20;
@@ -45,11 +44,11 @@ const AddNewModal = () => {
     time: '',
   });
 
-  const {setModalIsVisible, isModalVisible} = useTabBar();
+  const { setModalIsVisible, isModalVisible } = useTabBar();
 
-  const {user} = useAuth();
-  const {settings, defaultSetting} = useSettings(user.uid);
-  const {defaultDate} = !settings.length ? defaultSetting : settings[0];
+  const { user } = useAuth();
+  const { settings, defaultSetting } = useSettings(user.uid);
+  const { defaultDate } = !settings.length ? defaultSetting : settings[0];
 
   const hideModal = () => {
     setModalIsVisible(false);
@@ -118,7 +117,8 @@ const AddNewModal = () => {
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
       backdropOpacity={1}
-      onBackdropPress={hideModal}>
+      onBackdropPress={hideModal}
+    >
       <StatusBar backgroundColor={colors.textColor} />
 
       <Styledkeyboard>
@@ -134,7 +134,7 @@ const AddNewModal = () => {
               <CheckBoxContainer>
                 <CheckBox
                   tintColor={colors.red}
-                  tintColors={{true: colors.green, false: colors.darkBlue}}
+                  tintColors={{ true: colors.green, false: colors.darkBlue }}
                   value={isWebseries}
                   onValueChange={() => setIsWebseries(!isWebseries)}
                 />
@@ -183,8 +183,8 @@ const AddNewModal = () => {
                   {loading
                     ? 'Adding...'
                     : isWebseries
-                    ? 'Add Web Series'
-                    : 'Add Movie'}
+                      ? 'Add Web Series'
+                      : 'Add Movie'}
                 </AddText>
               </AddButton>
             </InputContainer>

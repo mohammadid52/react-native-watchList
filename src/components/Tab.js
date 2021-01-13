@@ -8,12 +8,10 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import styled from 'styled-components';
 
-import {useTabBar} from '../context/TabBarProvider';
-import {colors} from '../constants';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { useTabBar } from '../context/TabBarProvider';
 
-const Tab = ({onPress, tab}) => {
-  const {selected} = useTabBar();
+const Tab = ({ onPress, tab }) => {
+  const { selected } = useTabBar();
 
   const getIconSizeColor = (name) => {
     switch (name) {
@@ -32,7 +30,7 @@ const Tab = ({onPress, tab}) => {
     <Container onPress={onPress} activeOpacity={0.3}>
       {getIconSizeColor(tab.name)}
       {tab.name === selected && (
-        <Decorator start={{x: 0, y: 0}} end={{x: 1, y: 1}} />
+        <Decorator start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} />
       )}
     </Container>
   );
@@ -59,8 +57,7 @@ const FeatherIcon = styled(Feather).attrs((props) => ({
 const FontAwesome5Icon = styled(FontAwesome5).attrs((props) => ({
   color: props.theme.mode === 'dark' ? props.theme.PRIMARY_BLUE : '#ff0000',
 }))`
-  background-color: ${(props) =>
-    props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#fff'};
+  background-color: ${(props) => (props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#fff')};
   padding: 9px;
   padding-top: 7px;
   padding-bottom: 7px;

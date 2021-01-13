@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
-import {StatusBar, ActivityIndicator, Dimensions} from 'react-native';
-import {orderBy} from 'lodash';
+import React from 'react';
+import { StatusBar, Dimensions } from 'react-native';
+import { orderBy } from 'lodash';
 import styled from 'styled-components';
 
 import {
@@ -10,15 +10,13 @@ import {
   Empty,
   HeaderHome,
 } from '../../components';
-import {colors} from '../../constants';
 
 import useMovies from '../../hooks/useMovies';
-import {useTabBar} from '../../context/TabBarProvider';
-import {AddNewModal} from '../../modal';
+import { AddNewModal } from '../../modal';
 
-const {height} = Dimensions.get('screen');
-const Home = ({navigation}) => {
-  const {loading, movies} = useMovies('all');
+const { height } = Dimensions.get('screen');
+const Home = ({ navigation }) => {
+  const { loading, movies } = useMovies('all');
 
   return (
     <AnimatedScrollView>

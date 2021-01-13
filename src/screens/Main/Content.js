@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
-import {ActivityIndicator, Dimensions} from 'react-native';
+import React from 'react';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components';
 
-import {Empty, RenderList} from '../../components';
-import {useTabBar} from '../../context/TabBarProvider';
+import { Empty, RenderList } from '../../components';
 import useMovies from '../../hooks/useMovies';
 
-const {height} = Dimensions.get('screen');
+const { height } = Dimensions.get('screen');
 
-const Content = ({route}) => {
+const Content = ({ route }) => {
   const getDataKey = (name) => {
     switch (name) {
       case 'All':
@@ -28,7 +27,7 @@ const Content = ({route}) => {
     }
   };
 
-  const {loading, movies} = useMovies(getDataKey(route.name));
+  const { loading, movies } = useMovies(getDataKey(route.name));
 
   const noData = !movies.length;
   return (
@@ -44,7 +43,7 @@ const Content = ({route}) => {
           text={
             route.name === 'Watched'
               ? 'You Have Not Watched Any Movies yet'
-              : `No Movies To Watch`
+              : 'No Movies To Watch'
           }
           subText={
             route.name === 'Watched'

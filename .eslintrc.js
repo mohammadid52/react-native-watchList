@@ -26,5 +26,6 @@ module.exports = {
     'import/no-unresolved': 0,
     'no-bitwise': 0,
     'import/no-cycle': 0,
+    'react/require-default-prop': 0,
   },
 };
