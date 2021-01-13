@@ -70,9 +70,9 @@ const Settings = () => {
           <TouchableOpacity onPress={() => logOut()}>
             <Text
               style={{
-                fontFamily: 'Poppins-Medium',
+                fontFamily: 'Poppins-SemiBold',
                 fontSize: 18,
-                color: colors.red,
+                color: '#f0134d',
               }}>
               Logout
             </Text>

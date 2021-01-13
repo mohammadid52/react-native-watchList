@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar, ActivityIndicator, Dimensions} from 'react-native';
 import {orderBy} from 'lodash';
 import styled from 'styled-components';
@@ -19,10 +19,6 @@ import {AddNewModal} from '../../modal';
 const {height} = Dimensions.get('screen');
 const Home = ({navigation}) => {
   const {loading, movies} = useMovies('all');
-
-  const {setShowTabBar} = useTabBar();
-
-  if (!loading) setShowTabBar(true);
 
   return (
     <AnimatedScrollView>

@@ -10,22 +10,21 @@ import styled from 'styled-components';
 
 import {useTabBar} from '../context/TabBarProvider';
 import {colors} from '../constants';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Tab = ({onPress, tab}) => {
   const {selected} = useTabBar();
 
   const getIconSizeColor = (name) => {
-    const renderSize = (currentTab) => (currentTab === selected ? 21 : 17);
-
     switch (name) {
       case 'Home':
-        return <FeatherIcon name="home" size={renderSize(name)} />;
+        return <FeatherIcon name="home" size={18} />;
       case 'Settings':
-        return <FeatherIcon name="settings" size={renderSize(name)} />;
+        return <FeatherIcon name="settings" size={18} />;
       case 'Add':
-        return <FontAwesome5Icon name="plus" size={renderSize(name)} />;
+        return <FontAwesome5Icon name="plus" size={18} />;
       default:
-        return <FeatherIcon name="home" size={renderSize(name)} />;
+        return <FeatherIcon name="home" size={18} />;
     }
   };
 
@@ -48,6 +47,12 @@ Tab.propTypes = {
 
 export default Tab;
 
+const Container = styled.TouchableOpacity`
+  flex: 1;
+  align-items: center;
+  position: relative;
+`;
+
 const FeatherIcon = styled(Feather).attrs((props) => ({
   color: props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#fc7e2f',
 }))``;
@@ -60,12 +65,6 @@ const FontAwesome5Icon = styled(FontAwesome5).attrs((props) => ({
   padding-top: 7px;
   padding-bottom: 7px;
   border-radius: 100px;
-`;
-
-const Container = styled.TouchableOpacity`
-  flex: 1;
-  align-items: center;
-  position: relative;
 `;
 
 const Decorator = styled(LinearGradient).attrs((props) => ({

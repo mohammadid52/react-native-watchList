@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ActivityIndicator, Dimensions} from 'react-native';
 import styled from 'styled-components';
 
@@ -27,16 +27,17 @@ const Content = ({route}) => {
         return 'all';
     }
   };
-  const {setShowTabBar} = useTabBar();
+
   const {loading, movies} = useMovies(getDataKey(route.name));
-  if (loading) setShowTabBar(false);
+
+  const noData = !movies.length;
   return (
     <Container>
       {loading ? (
         <Loader>
           <Loading color="white" size={40} />
         </Loader>
-      ) : movies.length > 0 ? (
+      ) : !noData ? (
         <RenderList route={route.name} data={movies} />
       ) : (
         <Empty
