@@ -22,7 +22,7 @@ export const darkTheme = {
   PRIMARY_TEXT_COLOR: '#fff',
   PRIMARY_BLUE: '#0278ae',
   SECONDARY_BLUE: '#bedcfa',
-  HEADER_CARD: ['#053f5e', '#053f5e'],
+  HEADER_CARD: '#053f5e',
   PRIMARY_RED: '#f0134d',
   SECONDARY_RED: '#ffafb0',
   PRIMARY_GRAY: '#e6e6e6',
@@ -40,6 +40,6 @@ export const lightTheme = {
   PRIMARY_RED: '#E96D8B',
   SECONDARY_RED: '#F7C8D5',
   PRIMARY_GRAY: '#bbb',
-  HEADER_CARD: ['#fc7e2f', '#f40552'],
+  HEADER_CARD: '#ff4b5c',
   mode: 'light',
 };

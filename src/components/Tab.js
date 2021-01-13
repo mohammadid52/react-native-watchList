@@ -8,49 +8,24 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import styled from 'styled-components';
 
-import { useTabBar } from '../context/TabBarProvider';
-import { colors } from '../constants';
+import {useTabBar} from '../context/TabBarProvider';
+import {colors} from '../constants';
 
-const Tab = ({ onPress, tab }) => {
-  const { selected } = useTabBar();
+const Tab = ({onPress, tab}) => {
+  const {selected} = useTabBar();
 
   const getIconSizeColor = (name) => {
-    const renderColor = (currentTab) => (currentTab === selected ? colors.sharpRed : colors.white1);
     const renderSize = (currentTab) => (currentTab === selected ? 21 : 17);
 
     switch (name) {
       case 'Home':
-        return (
-          <FeatherIcon
-            name="home"
-            size={renderSize(name)}
-            color={renderColor(name)}
-          />
-        );
+        return <FeatherIcon name="home" size={renderSize(name)} />;
       case 'Settings':
-        return (
-          <FeatherIcon
-            name="settings"
-            size={renderSize(name)}
-            color={renderColor(name)}
-          />
-        );
+        return <FeatherIcon name="settings" size={renderSize(name)} />;
       case 'Add':
-        return (
-          <FontAwesome5Icon
-            name="plus"
-            size={renderSize(name)}
-            color={renderColor(name)}
-          />
-        );
+        return <FontAwesome5Icon name="plus" size={renderSize(name)} />;
       default:
-        return (
-          <FeatherIcon
-            name="home"
-            size={renderSize(name)}
-            color={renderColor(name)}
-          />
-        );
+        return <FeatherIcon name="home" size={renderSize(name)} />;
     }
   };
 
@@ -58,7 +33,7 @@ const Tab = ({ onPress, tab }) => {
     <Container onPress={onPress} activeOpacity={0.3}>
       {getIconSizeColor(tab.name)}
       {tab.name === selected && (
-        <Decorator start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} />
+        <Decorator start={{x: 0, y: 0}} end={{x: 1, y: 1}} />
       )}
     </Container>
   );
@@ -74,11 +49,18 @@ Tab.propTypes = {
 export default Tab;
 
 const FeatherIcon = styled(Feather).attrs((props) => ({
-  color: props.theme.SECONDARY_BLUE,
+  color: props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#fc7e2f',
 }))``;
 const FontAwesome5Icon = styled(FontAwesome5).attrs((props) => ({
-  color: props.theme.SECONDARY_BLUE,
-}))``;
+  color: props.theme.mode === 'dark' ? props.theme.PRIMARY_BLUE : '#ff0000',
+}))`
+  background-color: ${(props) =>
+    props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#fff'};
+  padding: 9px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 100px;
+`;
 
 const Container = styled.TouchableOpacity`
   flex: 1;

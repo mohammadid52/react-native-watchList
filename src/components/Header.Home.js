@@ -68,11 +68,12 @@ const Header = ({navigation}) => {
   const {theme} = !settings.length ? defaultSetting : settings[0];
 
   return (
-    <HeaderCard start={{x: 0, y: 0}} end={{x: 1, y: 1}}>
+    <HeaderCard style={{elevation: 1}}>
       {cardArray.map((mainCard) => (
         <Row>
           {mainCard.map((card) => (
             <Card
+              style={{elevation: 1}}
               activeOpacity={0.8}
               key={card.iconColor}
               onPress={() => {
@@ -81,7 +82,7 @@ const Header = ({navigation}) => {
               }}>
               <InnerCard>
                 <card.iconPro
-                  color={theme === 'dark' ? '#bedcfa' : '#f0134d'}
+                  color={theme === 'dark' ? '#bedcfa' : '#ff4b5c'}
                   name={card.iconName}
                   size={card.routeName === 'Settings' ? 30 : 25}
                 />
@@ -103,9 +104,8 @@ Header.propTypes = {
 
 export default Header;
 
-const HeaderCard = styled(LinearGradient).attrs((props) => ({
-  colors: props.theme.HEADER_CARD,
-}))`
+const HeaderCard = styled.View`
+  background-color: ${(props) => props.theme.HEADER_CARD};
   flex-direction: column;
   align-items: center;
   padding: 12px;
@@ -143,5 +143,5 @@ const StyledText = styled.Text`
   font-family: 'Poppins-Medium';
   margin-top: 3px;
   color: ${(props) =>
-    props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#f0134d'};
+    props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#ff4b5c'};
 `;

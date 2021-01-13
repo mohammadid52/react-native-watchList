@@ -90,7 +90,8 @@ const Container = styled.View`
 
 const InnerContainer = styled(Animated.View)`
   height: 50px;
-  background-color: ${(props) => props.theme.PRIMARY_BLUE};
+  background-color: ${(props) =>
+    props.theme.mode === 'dark' ? props.theme.PRIMARY_BLUE : '#000'};
   width: 300px;
   flex-direction: row;
   align-items: center;

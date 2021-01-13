@@ -117,6 +117,7 @@ const AddNewModal = () => {
       useNativeDriver
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
+      backdropOpacity={1}
       onBackdropPress={hideModal}>
       <StatusBar backgroundColor={colors.textColor} />
 
@@ -198,7 +199,6 @@ export default AddNewModal;
 
 const ContentView = styled(Modal).attrs((props) => ({
   backdropColor: props.theme.PRIMARY_BG,
-  backdropOpacity: props.theme.mode === 'dark' ? 0.8 : 0.5,
 }))``;
 const Styledkeyboard = styled(KeyboardAwareScrollView)`
   background-color: ${(props) => props.theme.PRIMARY_BG_CARD};
@@ -236,7 +236,7 @@ const Input = styled.TextInput.attrs((props) => ({
   padding-left: 10px;
   padding-right: 10px;
   border-width: ${StyleSheet.hairlineWidth}px;
-  border-color: ${colors.darkBlue} /* Change Theme Here */;
+  border-color: ${colors.darkBlue};
   margin-bottom: 16px;
 `;
 
