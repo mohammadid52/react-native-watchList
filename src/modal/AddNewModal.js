@@ -28,7 +28,7 @@ const topGutter = 70;
 
 const inputWidth = width - topGutter - 20;
 
-const AddNewModal = ({navigation}) => {
+const AddNewModal = () => {
   // text state holder
   const [title, setTitle] = useState('');
   const [seasonNum, setSeasonNum] = useState();
@@ -45,7 +45,7 @@ const AddNewModal = ({navigation}) => {
     time: '',
   });
 
-  const {setModalIsVisible, isModalVisible, setSelected} = useTabBar();
+  const {setModalIsVisible, isModalVisible} = useTabBar();
 
   const {user} = useAuth();
   const {settings} = useSettings(user.uid);
@@ -56,8 +56,6 @@ const AddNewModal = ({navigation}) => {
   const {defaultDate} = userSettings;
 
   const hideModal = () => {
-    setSelected('HomeStack');
-    navigation.navigate('HomeStack');
     setModalIsVisible(false);
     setTitle('');
     setIsWebseries(false);
@@ -198,12 +196,6 @@ const AddNewModal = ({navigation}) => {
       </Styledkeyboard>
     </ContentView>
   );
-};
-
-AddNewModal.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 export default AddNewModal;

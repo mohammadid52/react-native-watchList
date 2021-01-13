@@ -14,6 +14,7 @@ import {colors} from '../../constants';
 
 import useMovies from '../../hooks/useMovies';
 import {useTabBar} from '../../context/TabBarProvider';
+import {AddNewModal} from '../../modal';
 
 const {height} = Dimensions.get('screen');
 const Home = ({navigation}) => {
@@ -21,12 +22,14 @@ const Home = ({navigation}) => {
 
   const {setShowTabBar} = useTabBar();
 
-  if (loading) setShowTabBar(false);
+  if (!loading) setShowTabBar(true);
 
   return (
     <AnimatedScrollView>
       <StatusBar hidden />
       {!loading && <HeaderHome navigation={navigation} />}
+      {/*  Modal  */}
+      <AddNewModal />
 
       {loading ? (
         <LoadingContainer>

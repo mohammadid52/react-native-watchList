@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef } from 'react';
-import { Dimensions, Animated } from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {Dimensions, Animated} from 'react-native';
 import styled from 'styled-components';
 
-import { Tab } from '.';
-import { useTabBar } from '../context/TabBarProvider';
+import {Tab} from '.';
+import {useTabBar} from '../context/TabBarProvider';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 
-const TabBar = ({ state, navigation }) => {
+const TabBar = ({state, navigation}) => {
   const {
     showTabBar,
     isModalVisible,
     setModalIsVisible,
     setSelected,
   } = useTabBar();
-  const { routes } = state;
+  const {routes} = state;
 
   const animationValue = useRef(new Animated.Value(0)).current;
 
@@ -27,9 +27,10 @@ const TabBar = ({ state, navigation }) => {
       setSelected(routeName);
       navigation.navigate('Home');
     }
-
-    setSelected(routeName);
-    navigation.navigate(routeName);
+    if (routeName !== 'Add') {
+      setSelected(routeName);
+      navigation.navigate(routeName);
+    }
   };
 
   const toggleAnimatedTabBar = () => {
@@ -55,8 +56,7 @@ const TabBar = ({ state, navigation }) => {
   return (
     <Container>
       <InnerContainer
-        style={{ elevation: 9, transform: [{ translateY: animationValue }] }}
-      >
+        style={{elevation: 9, transform: [{translateY: animationValue}]}}>
         {routes.map((route) => (
           <Tab
             tab={route}
