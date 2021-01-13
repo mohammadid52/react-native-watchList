@@ -40,5 +40,6 @@ export const lightTheme = {
   PRIMARY_RED: '#E96D8B',
   SECONDARY_RED: '#F7C8D5',
   PRIMARY_GRAY: '#bbb',
+  HEADER_CARD: ['#fc7e2f', '#f40552'],
   mode: 'light',
 };

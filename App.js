@@ -22,15 +22,10 @@ import {darkTheme, lightTheme} from './src/constants/colors';
 LogBox.ignoreAllLogs();
 const App = () => {
   const uid = auth().currentUser.uid || '';
-  const {settings} = useSettings(uid);
+  const {settings, defaultSetting} = useSettings(uid);
 
-  const defaultSetting = {
-    defaultDate: 'Tonight (9PM)',
-    theme: 'dark',
-  };
-
-  const userSettings = !settings.length ? defaultSetting : settings[0];
-  const renderTheme = userSettings.theme === 'dark' ? darkTheme : lightTheme;
+  const {theme} = !settings.length ? defaultSetting : settings[0];
+  const renderTheme = theme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <ThemeProvider theme={renderTheme}>

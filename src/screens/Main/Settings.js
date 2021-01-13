@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 
-import { colors } from '../../constants';
-import { logOut, updateDefaultDate, updateTheme } from '../../helpers';
+import {colors} from '../../constants';
+import {logOut, updateDefaultDate, updateTheme} from '../../helpers';
 
-import { useAuth } from '../../context/UserContext';
+import {useAuth} from '../../context/UserContext';
 import useSettings from '../../hooks/useSettings';
 
 const Settings = () => {
   const [dateIdx, setDateIdx] = useState(0);
-  const { user } = useAuth();
-  const { settings } = useSettings(user.uid);
+  const {user} = useAuth();
+  const {settings, defaultSetting} = useSettings(user.uid);
 
-  const defaultSetting = {
-    defaultDate: 'Tonight (9PM)',
-    theme: 'dark',
-  };
+  const {defaultDate, theme, docId} = !settings.length
+    ? defaultSetting
+    : settings[0];
 
-  const userSettings = !settings.length ? defaultSetting : settings[0];
-
-  const { defaultDate, theme, docId } = userSettings;
-  const { uid } = user;
+  const {uid} = user;
 
   const dateList = [
     'After Hour',
@@ -48,7 +44,7 @@ const Settings = () => {
   return (
     <Container>
       <SettingsContainer>
-        <View style={{ marginVertical: 15, marginBottom: 30 }}>
+        <View style={{marginVertical: 15, marginBottom: 30}}>
           <HeaderText>Hey,</HeaderText>
           <HeaderText>{user.displayName}</HeaderText>
         </View>
@@ -64,21 +60,20 @@ const Settings = () => {
         <Item>
           <LeftText>Default Date</LeftText>
 
-          <View style={{ zIndex: 1 }}>
+          <View style={{zIndex: 1}}>
             <TouchableOpacity onPress={changeDate}>
               <RightText>{defaultDate}</RightText>
             </TouchableOpacity>
           </View>
         </Item>
-        <Item style={{ justifyContent: 'center' }}>
+        <Item style={{justifyContent: 'center'}}>
           <TouchableOpacity onPress={() => logOut()}>
             <Text
               style={{
                 fontFamily: 'Poppins-Medium',
                 fontSize: 18,
                 color: colors.red,
-              }}
-            >
+              }}>
               Logout
             </Text>
           </TouchableOpacity>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components';
 
@@ -10,11 +10,13 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import { useTabBar } from '../context/TabBarProvider';
+import {useTabBar} from '../context/TabBarProvider';
+import useSettings from '../hooks/useSettings';
+import {useAuth} from '../context/UserContext';
 
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
 
-const Header = ({ navigation }) => {
+const Header = ({navigation}) => {
   const row1 = [
     {
       iconPro: MaterialIcons,
@@ -58,10 +60,15 @@ const Header = ({ navigation }) => {
 
   const cardArray = [row1, row2];
 
-  const { setSelected } = useTabBar();
+  const {setSelected} = useTabBar();
+
+  const {user} = useAuth();
+  const {settings, defaultSetting} = useSettings(user.uid);
+
+  const {theme} = !settings.length ? defaultSetting : settings[0];
 
   return (
-    <HeaderCard start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+    <HeaderCard start={{x: 0, y: 0}} end={{x: 1, y: 1}}>
       {cardArray.map((mainCard) => (
         <Row>
           {mainCard.map((card) => (
@@ -71,11 +78,10 @@ const Header = ({ navigation }) => {
               onPress={() => {
                 navigation.navigate(card.routeName);
                 card.routeName === 'Settings' && setSelected('Settings');
-              }}
-            >
+              }}>
               <InnerCard>
                 <card.iconPro
-                  color="#0278ae"
+                  color={theme === 'dark' ? '#bedcfa' : '#f0134d'}
                   name={card.iconName}
                   size={card.routeName === 'Settings' ? 30 : 25}
                 />
@@ -98,10 +104,7 @@ Header.propTypes = {
 export default Header;
 
 const HeaderCard = styled(LinearGradient).attrs((props) => ({
-  colors:
-    props.theme.mode === 'dark'
-      ? props.theme.HEADER_CARD
-      : ['#fc7e2f', '#f40552'],
+  colors: props.theme.HEADER_CARD,
 }))`
   flex-direction: column;
   align-items: center;
@@ -120,7 +123,8 @@ const Row = styled.View`
 const Card = styled.TouchableOpacity`
   height: 70px;
   width: 70px;
-  background-color: ${(props) => props.theme.SECONDARY_BLUE};
+  background-color: ${(props) =>
+    props.theme.mode === 'dark' ? props.theme.PRIMARY_BLUE : '#fff'};
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 12px;
@@ -138,5 +142,6 @@ const StyledText = styled.Text`
   font-size: 10px;
   font-family: 'Poppins-Medium';
   margin-top: 3px;
-  color: ${(props) => props.theme.PRIMARY_BLUE};
+  color: ${(props) =>
+    props.theme.mode === 'dark' ? props.theme.SECONDARY_BLUE : '#f0134d'};
 `;

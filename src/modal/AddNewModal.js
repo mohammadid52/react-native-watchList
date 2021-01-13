@@ -48,12 +48,8 @@ const AddNewModal = () => {
   const {setModalIsVisible, isModalVisible} = useTabBar();
 
   const {user} = useAuth();
-  const {settings} = useSettings(user.uid);
-  const userSettings = !settings.length
-    ? {defaultDate: 'Tonight (9PM)'}
-    : settings[0];
-
-  const {defaultDate} = userSettings;
+  const {settings, defaultSetting} = useSettings(user.uid);
+  const {defaultDate} = !settings.length ? defaultSetting : settings[0];
 
   const hideModal = () => {
     setModalIsVisible(false);
