@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, Switch, Vibration } from 'react-native';
+import { View, Vibration } from 'react-native';
 import moment from 'moment';
 import styled from 'styled-components';
 import Modal from 'react-native-modal';
@@ -10,9 +10,7 @@ import { colors } from '../constants';
 import { reminderAction, deleteMovie } from '../helpers';
 
 const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
-  const {
-    toWatchAt, isReminderOn, movieId, isWatched, title,
-  } = data;
+  const { toWatchAt, isReminderOn, movieId, isWatched, title } = data;
   const hideModal = () => setModalIsVisible(false);
 
   const handleDelete = (_movieId) => {
@@ -32,8 +30,7 @@ const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
       useNativeDriverForBackdrop
       onBackButtonPress={hideModal}
       onSwipeComplete={hideModal}
-      onBackdropPress={hideModal}
-    >
+      onBackdropPress={hideModal}>
       <Content>
         <Container>
           <MovieNameText>{title}</MovieNameText>
@@ -45,24 +42,15 @@ const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
                 paddingVertical: 2,
                 borderRadius: 4,
                 marginBottom: 10,
-              }}
-            >
+              }}>
               <OtherText>
-                season
-                {' '}
-                {data.webSeries.seasonNum}
-                {' '}
-                episode
-                {' '}
+                season {data.webSeries.seasonNum} episode{' '}
                 {data.webSeries.episodeNum}
               </OtherText>
             </View>
           )}
           <TextContainer>
-            <WatchAtText>
-              Time :
-              {moment(toWatchAt).format('lll')}
-            </WatchAtText>
+            <WatchAtText>Time :{moment(toWatchAt).format('lll')}</WatchAtText>
           </TextContainer>
 
           <Watched isWatched={isWatched}>
@@ -74,12 +62,6 @@ const MovieModal = ({ isModalVisible, setModalIsVisible, data }) => {
           {!isWatched && (
             <Reminder>
               <ReminderText>Set Reminder : </ReminderText>
-              <Switch
-                trackColor={{ false: colors.lightRed, true: colors.lightBlue2 }}
-                thumbColor={isReminderOn ? colors.darkBlue : colors.red}
-                onValueChange={() => reminderAction(movieId, isReminderOn)}
-                value={isReminderOn}
-              />
             </Reminder>
           )}
 
@@ -160,11 +142,13 @@ const Watched = styled.View`
   border-radius: 6px;
   margin-top: 12px;
   margin-bottom: 12px;
-  background-color: ${(props) => (props.isWatched ? props.theme.SECONDARY_RED : props.theme.SECONDARY_BLUE)};
+  background-color: ${(props) =>
+    props.isWatched ? props.theme.SECONDARY_RED : props.theme.SECONDARY_BLUE};
 `;
 
 const WatchedText = styled.Text`
-  color: ${(props) => (props.isWatched ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE)};
+  color: ${(props) =>
+    props.isWatched ? props.theme.PRIMARY_RED : props.theme.PRIMARY_BLUE};
   font-family: 'Poppins-SemiBold';
 `;
 

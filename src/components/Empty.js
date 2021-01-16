@@ -11,10 +11,7 @@ const Empty = ({ text = 'No Data', subText = '', home = false }) => (
       source={require('../assets/images/empty3.png')}
     />
     <MainText>{text}</MainText>
-    <Tip>
-      Tip:
-      {subText}
-    </Tip>
+    <Tip>Tip: {subText}</Tip>
   </Container>
 );
 
